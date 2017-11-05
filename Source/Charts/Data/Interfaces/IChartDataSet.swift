@@ -203,6 +203,9 @@ public protocol IChartDataSet
     /// the font for the value-text labels
     var valueFont: NSUIFont { get set }
     
+    /// the shadow for the value-text labels
+    var valueShadow: NSShadow { get set }
+    
     /// The form to draw for this dataset in the legend.
     ///
     /// Return `.Default` to use the default legend form.

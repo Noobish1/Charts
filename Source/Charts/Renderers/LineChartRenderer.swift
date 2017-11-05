@@ -569,6 +569,8 @@ open class LineChartRenderer: LineRadarRenderer
                     }
                     
                     if dataSet.isDrawValuesEnabled {
+                        let valueShadow = dataSet.valueShadow
+                        
                         ChartUtils.drawText(
                             context: context,
                             text: formatter.stringForValue(
@@ -580,7 +582,9 @@ open class LineChartRenderer: LineRadarRenderer
                                 x: pt.x,
                                 y: pt.y - CGFloat(valOffset) - valueFont.lineHeight),
                             align: .center,
-                            attributes: [NSAttributedStringKey.font: valueFont, NSAttributedStringKey.foregroundColor: dataSet.valueTextColorAt(j)])
+                            attributes: [NSAttributedStringKey.font: valueFont,
+                                         NSAttributedStringKey.foregroundColor: dataSet.valueTextColorAt(j),
+                                         NSAttributedStringKey.shadow: valueShadow])
                     }
                     
                     if let icon = e.icon, dataSet.isDrawIconsEnabled
