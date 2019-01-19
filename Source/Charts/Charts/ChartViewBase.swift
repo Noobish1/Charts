@@ -22,8 +22,7 @@ public protocol ChartViewDelegate
 {
     /// Called when a value has been selected inside the chart.
     /// - parameter entry: The selected Entry.
-    /// - parameter highlight: The corresponding highlight object that contains information about the highlighted position such as dataSetIndex etc.
-    @objc optional func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight)
+    @objc optional func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry)
     
     // Called when nothing has been selected or an "un-select" has been made.
     @objc optional func chartValueNothingSelected(_ chartView: ChartViewBase)
@@ -52,9 +51,6 @@ open class ChartViewBase: NSUIView, ChartDataProvider, AnimatorDelegate
     
     /// object that holds all data that was originally set for the chart, before it was modified or any filtering algorithms had been applied
     internal var _data: ChartData?
-    
-    /// Flag that indicates if highlighting per tap (touch) is enabled
-    private var _highlightPerTapEnabled = true
     
     /// If set to true, chart continues to scroll after touch up
     @objc open var dragDecelerationEnabled = true
@@ -96,8 +92,6 @@ open class ChartViewBase: NSUIView, ChartDataProvider, AnimatorDelegate
     /// object responsible for rendering the data
     @objc open var renderer: DataRenderer?
     
-    @objc open var highlighter: IHighlighter?
-    
     /// object that manages the bounds and drawing constraints of the chart
     internal var _viewPortHandler: ViewPortHandler!
     
@@ -107,9 +101,6 @@ open class ChartViewBase: NSUIView, ChartDataProvider, AnimatorDelegate
     /// flag that indicates if offsets calculation has already been done or not
     private var _offsetsCalculated = false
     
-    /// array of Highlight objects that reference the highlighted slices in the chart
-    internal var _indicesToHighlight = [Highlight]()
-    
     /// `true` if drawing the marker is enabled when tapping on values
     /// (use the `marker` property to specify a marker)
     @objc open var drawMarkers = true
@@ -117,9 +108,6 @@ open class ChartViewBase: NSUIView, ChartDataProvider, AnimatorDelegate
     /// - returns: `true` if drawing the marker is enabled when tapping on values
     /// (use the `marker` property to specify a marker)
     @objc open var isDrawMarkersEnabled: Bool { return drawMarkers }
-    
-    /// The marker that is displayed when a value is clicked on the chart
-    @objc open var marker: IMarker?
     
     private var _interceptTouchEvents = false
     
@@ -226,8 +214,6 @@ open class ChartViewBase: NSUIView, ChartDataProvider, AnimatorDelegate
     {
         _data = nil
         _offsetsCalculated = false
-        _indicesToHighlight.removeAll()
-        lastHighlighted = nil
     
         setNeedsDisplay()
     }
@@ -365,234 +351,6 @@ open class ChartViewBase: NSUIView, ChartDataProvider, AnimatorDelegate
             point: position,
             align: description.textAlign,
             attributes: attrs)
-    }
-    
-    // MARK: - Highlighting
-    
-    /// - returns: The array of currently highlighted values. This might an empty if nothing is highlighted.
-    @objc open var highlighted: [Highlight]
-    {
-        return _indicesToHighlight
-    }
-    
-    /// Set this to false to prevent values from being highlighted by tap gesture.
-    /// Values can still be highlighted via drag or programmatically.
-    /// **default**: true
-    @objc open var highlightPerTapEnabled: Bool
-    {
-        get { return _highlightPerTapEnabled }
-        set { _highlightPerTapEnabled = newValue }
-    }
-    
-    /// - returns: `true` if values can be highlighted via tap gesture, `false` ifnot.
-    @objc open var isHighLightPerTapEnabled: Bool
-    {
-        return highlightPerTapEnabled
-    }
-    
-    /// Checks if the highlight array is null, has a length of zero or if the first object is null.
-    /// - returns: `true` if there are values to highlight, `false` ifthere are no values to highlight.
-    @objc open func valuesToHighlight() -> Bool
-    {
-        return _indicesToHighlight.count > 0
-    }
-
-    /// Highlights the values at the given indices in the given DataSets. Provide
-    /// null or an empty array to undo all highlighting. 
-    /// This should be used to programmatically highlight values.
-    /// This method *will not* call the delegate.
-    @objc open func highlightValues(_ highs: [Highlight]?)
-    {
-        // set the indices to highlight
-        _indicesToHighlight = highs ?? [Highlight]()
-        
-        if _indicesToHighlight.isEmpty
-        {
-            self.lastHighlighted = nil
-        }
-        else
-        {
-            self.lastHighlighted = _indicesToHighlight[0]
-        }
-
-        // redraw the chart
-        setNeedsDisplay()
-    }
-    
-    /// Highlights any y-value at the given x-value in the given DataSet.
-    /// Provide -1 as the dataSetIndex to undo all highlighting.
-    /// This method will call the delegate.
-    /// - parameter x: The x-value to highlight
-    /// - parameter dataSetIndex: The dataset index to search in
-    /// - parameter dataIndex: The data index to search in (only used in CombinedChartView currently)
-    @objc open func highlightValue(x: Double, dataSetIndex: Int, dataIndex: Int = -1)
-    {
-        highlightValue(x: x, dataSetIndex: dataSetIndex, dataIndex: dataIndex, callDelegate: true)
-    }
-    
-    /// Highlights the value at the given x-value and y-value in the given DataSet.
-    /// Provide -1 as the dataSetIndex to undo all highlighting.
-    /// This method will call the delegate.
-    /// - parameter x: The x-value to highlight
-    /// - parameter y: The y-value to highlight. Supply `NaN` for "any"
-    /// - parameter dataSetIndex: The dataset index to search in
-    /// - parameter dataIndex: The data index to search in (only used in CombinedChartView currently)
-    @objc open func highlightValue(x: Double, y: Double, dataSetIndex: Int, dataIndex: Int = -1)
-    {
-        highlightValue(x: x, y: y, dataSetIndex: dataSetIndex, dataIndex: dataIndex, callDelegate: true)
-    }
-    
-    /// Highlights any y-value at the given x-value in the given DataSet.
-    /// Provide -1 as the dataSetIndex to undo all highlighting.
-    /// - parameter x: The x-value to highlight
-    /// - parameter dataSetIndex: The dataset index to search in
-    /// - parameter dataIndex: The data index to search in (only used in CombinedChartView currently)
-    /// - parameter callDelegate: Should the delegate be called for this change
-    @objc open func highlightValue(x: Double, dataSetIndex: Int, dataIndex: Int = -1, callDelegate: Bool)
-    {
-        highlightValue(x: x, y: .nan, dataSetIndex: dataSetIndex, dataIndex: dataIndex, callDelegate: callDelegate)
-    }
-    
-    /// Highlights the value at the given x-value and y-value in the given DataSet.
-    /// Provide -1 as the dataSetIndex to undo all highlighting.
-    /// - parameter x: The x-value to highlight
-    /// - parameter y: The y-value to highlight. Supply `NaN` for "any"
-    /// - parameter dataSetIndex: The dataset index to search in
-    /// - parameter dataIndex: The data index to search in (only used in CombinedChartView currently)
-    /// - parameter callDelegate: Should the delegate be called for this change
-    @objc open func highlightValue(x: Double, y: Double, dataSetIndex: Int, dataIndex: Int = -1, callDelegate: Bool)
-    {
-        guard let data = _data else
-        {
-            Swift.print("Value not highlighted because data is nil")
-            return
-        }
-        
-        if dataSetIndex < 0 || dataSetIndex >= data.dataSetCount
-        {
-            highlightValue(nil, callDelegate: callDelegate)
-        }
-        else
-        {
-            highlightValue(Highlight(x: x, y: y, dataSetIndex: dataSetIndex, dataIndex: dataIndex), callDelegate: callDelegate)
-        }
-    }
-    
-    /// Highlights the values represented by the provided Highlight object
-    /// This method *will not* call the delegate.
-    /// - parameter highlight: contains information about which entry should be highlighted
-    @objc open func highlightValue(_ highlight: Highlight?)
-    {
-        highlightValue(highlight, callDelegate: false)
-    }
-
-    /// Highlights the value selected by touch gesture.
-    @objc open func highlightValue(_ highlight: Highlight?, callDelegate: Bool)
-    {
-        var entry: ChartDataEntry?
-        var h = highlight
-        
-        if h == nil
-        {
-            self.lastHighlighted = nil
-            _indicesToHighlight.removeAll(keepingCapacity: false)
-        }
-        else
-        {
-            // set the indices to highlight
-            entry = _data?.entryForHighlight(h!)
-            if entry == nil
-            {
-                h = nil
-                _indicesToHighlight.removeAll(keepingCapacity: false)
-            }
-            else
-            {
-                _indicesToHighlight = [h!]
-            }
-        }
-        
-        if callDelegate, let delegate = delegate
-        {
-            if let h = h
-            {
-                // notify the listener
-                delegate.chartValueSelected?(self, entry: entry!, highlight: h)
-            }
-            else
-            {
-                delegate.chartValueNothingSelected?(self)
-            }
-        }
-        
-        // redraw the chart
-        setNeedsDisplay()
-    }
-    
-    /// - returns: The Highlight object (contains x-index and DataSet index) of the
-    /// selected value at the given touch point inside the Line-, Scatter-, or
-    /// CandleStick-Chart.
-    @objc open func getHighlightByTouchPoint(_ pt: CGPoint) -> Highlight?
-    {
-        if _data === nil
-        {
-            Swift.print("Can't select by touch. No data set.")
-            return nil
-        }
-        
-        return self.highlighter?.getHighlight(x: pt.x, y: pt.y)
-    }
-
-    /// The last value that was highlighted via touch.
-    @objc open var lastHighlighted: Highlight?
-  
-    // MARK: - Markers
-
-    /// draws all MarkerViews on the highlighted positions
-    internal func drawMarkers(context: CGContext)
-    {
-        // if there is no marker view or drawing marker is disabled
-        guard
-            let marker = marker
-            , isDrawMarkersEnabled &&
-                valuesToHighlight()
-            else { return }
-        
-        for i in 0 ..< _indicesToHighlight.count
-        {
-            let highlight = _indicesToHighlight[i]
-            
-            guard let
-                set = data?.getDataSetByIndex(highlight.dataSetIndex),
-                let e = _data?.entryForHighlight(highlight)
-                else { continue }
-            
-            let entryIndex = set.entryIndex(entry: e)
-            if entryIndex > Int(Double(set.entryCount) * _animator.phaseX)
-            {
-                continue
-            }
-
-            let pos = getMarkerPosition(highlight: highlight)
-
-            // check bounds
-            if !_viewPortHandler.isInBounds(x: pos.x, y: pos.y)
-            {
-                continue
-            }
-
-            // callbacks to update the content
-            marker.refreshContent(entry: e, highlight: highlight)
-            
-            // draw the marker
-            marker.draw(context: context, point: pos)
-        }
-    }
-    
-    /// - returns: The actual position in pixels of the MarkerView for the given Entry in the given DataSet.
-    @objc open func getMarkerPosition(highlight: Highlight) -> CGPoint
-    {
-        return CGPoint(x: highlight.drawX, y: highlight.drawY)
     }
     
     // MARK: - Animation
@@ -933,10 +691,6 @@ open class ChartViewBase: NSUIView, ChartDataProvider, AnimatorDelegate
             _dragDecelerationFrictionCoef = val
         }
     }
-    
-    /// The maximum distance in screen pixels away from an entry causing it to highlight.
-    /// **default**: 500.0
-    open var maxHighlightDistance: CGFloat = 500.0
     
     /// the number of maximum visible drawn values on the chart only active when `drawValuesEnabled` is enabled
     open var maxVisibleCount: Int

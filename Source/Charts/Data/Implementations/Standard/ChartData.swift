@@ -398,22 +398,6 @@ open class ChartData: NSObject
         return types
     }
     
-    /// Get the Entry for a corresponding highlight object
-    ///
-    /// - parameter highlight:
-    /// - returns: The entry that is highlighted
-    @objc open func entryForHighlight(_ highlight: Highlight) -> ChartDataEntry?
-    {
-        if highlight.dataSetIndex >= dataSets.count
-        {
-            return nil
-        }
-        else
-        {
-            return dataSets[highlight.dataSetIndex].entryForXValue(highlight.x, closestToY: highlight.y)
-        }
-    }
-    
     /// **IMPORTANT: This method does calculations at runtime. Use with care in performance critical situations.**
     ///
     /// - parameter label:
@@ -671,34 +655,6 @@ open class ChartData: NSObject
             set.drawValuesEnabled = enabled
         }
     }
-    
-    /// Enables / disables highlighting values for all DataSets this data object contains.
-    /// If set to true, this means that values can be highlighted programmatically or by touch gesture.
-    @objc open var highlightEnabled: Bool
-    {
-        get
-        {
-            for set in dataSets
-            {
-                if !set.highlightEnabled
-                {
-                    return false
-                }
-            }
-            
-            return true
-        }
-        set
-        {
-            for set in dataSets
-            {
-                set.highlightEnabled = newValue
-            }
-        }
-    }
-    
-    /// if true, value highlightning is enabled
-    @objc open var isHighlightEnabled: Bool { return highlightEnabled }
     
     /// Clears this data object from all DataSets and removes all Entries.
     /// Don't forget to invalidate the chart after this.

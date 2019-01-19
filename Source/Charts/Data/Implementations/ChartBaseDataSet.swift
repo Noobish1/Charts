@@ -263,12 +263,6 @@ open class ChartBaseDataSet: NSObject, IChartDataSet
         self.colors = colors
     }
     
-    /// if true, value highlighting is enabled
-    open var highlightEnabled = true
-    
-    /// - returns: `true` if value highlighting is enabled for this dataset
-    open var isHighlightEnabled: Bool { return highlightEnabled }
-    
     /// Custom formatter that is used instead of the auto-formatter if set
     internal var _valueFormatter: IValueFormatter?
     

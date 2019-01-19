@@ -24,7 +24,7 @@ open class CombinedChartRenderer: DataRenderer
     
     internal var _renderers = [DataRenderer]()
     
-    internal var _drawOrder: [CombinedChartView.DrawOrder] = [.bar, .bubble, .line, .candle, .scatter]
+    internal var _drawOrder: [CombinedChartView.DrawOrder] = [.line, .scatter]
     
     @objc public init(chart: CombinedChartView, animator: Animator, viewPortHandler: ViewPortHandler)
     {
@@ -46,38 +46,16 @@ open class CombinedChartRenderer: DataRenderer
         {
             switch (order)
             {
-            case .bar:
-                if chart.barData !== nil
-                {
-                    _renderers.append(BarChartRenderer(dataProvider: chart, animator: animator, viewPortHandler: viewPortHandler))
-                }
-                break
-                
             case .line:
                 if chart.lineData !== nil
                 {
                     _renderers.append(LineChartRenderer(dataProvider: chart, animator: animator, viewPortHandler: viewPortHandler))
                 }
                 break
-                
-            case .candle:
-                if chart.candleData !== nil
-                {
-                    _renderers.append(CandleStickChartRenderer(dataProvider: chart, animator: animator, viewPortHandler: viewPortHandler))
-                }
-                break
-                
             case .scatter:
                 if chart.scatterData !== nil
                 {
                     _renderers.append(ScatterChartRenderer(dataProvider: chart, animator: animator, viewPortHandler: viewPortHandler))
-                }
-                break
-                
-            case .bubble:
-                if chart.bubbleData !== nil
-                {
-                    _renderers.append(BubbleChartRenderer(dataProvider: chart, animator: animator, viewPortHandler: viewPortHandler))
                 }
                 break
             }
@@ -114,41 +92,6 @@ open class CombinedChartRenderer: DataRenderer
         for renderer in _renderers
         {
             renderer.drawExtras(context: context)
-        }
-    }
-    
-    open override func drawHighlighted(context: CGContext, indices: [Highlight])
-    {
-        for renderer in _renderers
-        {
-            var data: ChartData?
-            
-            if renderer is BarChartRenderer
-            {
-                data = (renderer as! BarChartRenderer).dataProvider?.barData
-            }
-            else if renderer is LineChartRenderer
-            {
-                data = (renderer as! LineChartRenderer).dataProvider?.lineData
-            }
-            else if renderer is CandleStickChartRenderer
-            {
-                data = (renderer as! CandleStickChartRenderer).dataProvider?.candleData
-            }
-            else if renderer is ScatterChartRenderer
-            {
-                data = (renderer as! ScatterChartRenderer).dataProvider?.scatterData
-            }
-            else if renderer is BubbleChartRenderer
-            {
-                data = (renderer as! BubbleChartRenderer).dataProvider?.bubbleData
-            }
-            
-            let dataIndex = data == nil ? nil : (chart?.data as? CombinedChartData)?.allData.index(of: data!)
-            
-            let dataIndices = indices.filter{ $0.dataIndex == dataIndex || $0.dataIndex == -1 }
-            
-            renderer.drawHighlighted(context: context, indices: dataIndices)
         }
     }
 

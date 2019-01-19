@@ -45,140 +45,32 @@ open class LegendRenderer: Renderer
                 
                 var clrs: [NSUIColor] = dataSet.colors
                 let entryCount = dataSet.entryCount
-                
-                // if we have a barchart with stacked bars
-                if dataSet is IBarChartDataSet &&
-                    (dataSet as! IBarChartDataSet).isStacked
+                    
+                for j in 0..<min(clrs.count, entryCount)
                 {
-                    let bds = dataSet as! IBarChartDataSet
-                    var sLabels = bds.stackLabels
+                    let label: String?
                     
-                    for j in 0..<min(clrs.count, bds.stackSize)
+                    // if multiple colors are set for a DataSet, group them
+                    if j < clrs.count - 1 && j < entryCount - 1
                     {
-                        entries.append(
-                            LegendEntry(
-                                label: sLabels[j % sLabels.count],
-                                form: dataSet.form,
-                                formSize: dataSet.formSize,
-                                formLineWidth: dataSet.formLineWidth,
-                                formLineDashPhase: dataSet.formLineDashPhase,
-                                formLineDashLengths: dataSet.formLineDashLengths,
-                                formColor: clrs[j]
-                            )
-                        )
+                        label = nil
                     }
-                    
-                    if dataSet.label != nil
-                    {
-                        // add the legend description label
-                        
-                        entries.append(
-                            LegendEntry(
-                                label: dataSet.label,
-                                form: .none,
-                                formSize: CGFloat.nan,
-                                formLineWidth: CGFloat.nan,
-                                formLineDashPhase: 0.0,
-                                formLineDashLengths: nil,
-                                formColor: nil
-                            )
-                        )
+                    else
+                    { // add label to the last entry
+                        label = dataSet.label
                     }
-                }
-                else if dataSet is IPieChartDataSet
-                {
-                    let pds = dataSet as! IPieChartDataSet
-                    
-                    for j in 0..<min(clrs.count, entryCount)
-                    {
-                        entries.append(
-                            LegendEntry(
-                                label: (pds.entryForIndex(j) as? PieChartDataEntry)?.label,
-                                form: dataSet.form,
-                                formSize: dataSet.formSize,
-                                formLineWidth: dataSet.formLineWidth,
-                                formLineDashPhase: dataSet.formLineDashPhase,
-                                formLineDashLengths: dataSet.formLineDashLengths,
-                                formColor: clrs[j]
-                            )
-                        )
-                    }
-                    
-                    if dataSet.label != nil
-                    {
-                        // add the legend description label
-                        
-                        entries.append(
-                            LegendEntry(
-                                label: dataSet.label,
-                                form: .none,
-                                formSize: CGFloat.nan,
-                                formLineWidth: CGFloat.nan,
-                                formLineDashPhase: 0.0,
-                                formLineDashLengths: nil,
-                                formColor: nil
-                            )
-                        )
-                    }
-                }
-                else if dataSet is ICandleChartDataSet &&
-                    (dataSet as! ICandleChartDataSet).decreasingColor != nil
-                {
-                    let candleDataSet = dataSet as! ICandleChartDataSet
                     
                     entries.append(
                         LegendEntry(
-                            label: nil,
+                            label: label,
                             form: dataSet.form,
                             formSize: dataSet.formSize,
                             formLineWidth: dataSet.formLineWidth,
                             formLineDashPhase: dataSet.formLineDashPhase,
                             formLineDashLengths: dataSet.formLineDashLengths,
-                            formColor: candleDataSet.decreasingColor
+                            formColor: clrs[j]
                         )
                     )
-                    
-                    entries.append(
-                        LegendEntry(
-                            label: dataSet.label,
-                            form: dataSet.form,
-                            formSize: dataSet.formSize,
-                            formLineWidth: dataSet.formLineWidth,
-                            formLineDashPhase: dataSet.formLineDashPhase,
-                            formLineDashLengths: dataSet.formLineDashLengths,
-                            formColor: candleDataSet.increasingColor
-                        )
-                    )
-                }
-                else
-                { // all others
-                    
-                    for j in 0..<min(clrs.count, entryCount)
-                    {
-                        let label: String?
-                        
-                        // if multiple colors are set for a DataSet, group them
-                        if j < clrs.count - 1 && j < entryCount - 1
-                        {
-                            label = nil
-                        }
-                        else
-                        { // add label to the last entry
-                            label = dataSet.label
-                        }
-                        
-                        entries.append(
-                            LegendEntry(
-                                label: label,
-                                form: dataSet.form,
-                                formSize: dataSet.formSize,
-                                formLineWidth: dataSet.formLineWidth,
-                                formLineDashPhase: dataSet.formLineDashPhase,
-                                formLineDashLengths: dataSet.formLineDashLengths,
-                                formColor: clrs[j]
-                            )
-                        )
-                    }
                 }
             }
             
