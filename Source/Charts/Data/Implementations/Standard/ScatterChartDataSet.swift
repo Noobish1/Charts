@@ -12,7 +12,7 @@
 import Foundation
 import CoreGraphics
 
-open class ScatterChartDataSet: BarLineScatterCandleBubbleChartDataSet, IScatterChartDataSet
+open class ScatterChartDataSet: ChartDataSet, IScatterChartDataSet
 {
     
     @objc(ScatterShape)

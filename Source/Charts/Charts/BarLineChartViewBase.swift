@@ -50,7 +50,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
     /// When enabled, the values will be clipped to contentRect, otherwise they can bleed outside the content rect.
     @objc open var clipValuesToContentEnabled: Bool = false
 
-    /// When disabled, the data and/or highlights will not be clipped to contentRect. Disabling this option can
+    /// When disabled, the data will not be clipped to contentRect. Disabling this option can
     /// be useful, when the data lies fully within the content rect, but is drawn in such a way (such as thick lines)
     /// that there is unwanted clipping.
     @objc open var clipDataToContentEnabled: Bool = true
@@ -646,7 +646,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
             
             if _data === nil || !self.isDragEnabled
                 
-            { // If we have no data, we have nothing to pan and no data to highlight
+            { // If we have no data, we have nothing to pan
                 return
             }
             
