@@ -17,7 +17,7 @@ import CoreGraphics
 #endif
 
 
-open class ScatterChartRenderer: LineScatterCandleRadarRenderer
+open class ScatterChartRenderer: BarLineScatterCandleBubbleRenderer
 {
     @objc open weak var dataProvider: ScatterChartDataProvider?
     

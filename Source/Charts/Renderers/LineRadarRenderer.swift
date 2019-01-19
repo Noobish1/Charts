@@ -13,7 +13,7 @@ import Foundation
 import CoreGraphics
 
 @objc(LineRadarChartRenderer)
-open class LineRadarRenderer: LineScatterCandleRadarRenderer
+open class LineRadarRenderer: BarLineScatterCandleBubbleRenderer
 {
     public override init(animator: Animator, viewPortHandler: ViewPortHandler)
     {

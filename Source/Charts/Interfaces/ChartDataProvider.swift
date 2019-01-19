@@ -27,8 +27,6 @@ public protocol ChartDataProvider
     /// - returns: The maximum y-value of the chart, regardless of zoom or translation.
     var chartYMax: Double { get }
     
-    var maxHighlightDistance: CGFloat { get }
-    
     var xRange: Double { get }
     
     var centerOffsets: CGPoint { get }

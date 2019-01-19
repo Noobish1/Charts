@@ -13,7 +13,7 @@ import Foundation
 import CoreGraphics
 
 @objc
-public protocol IScatterChartDataSet: ILineScatterCandleRadarChartDataSet
+public protocol IScatterChartDataSet: IBarLineScatterCandleBubbleChartDataSet
 {
     // MARK: - Data functions and accessors
     
