@@ -101,14 +101,6 @@ open class ChartViewBase: NSUIView, ChartDataProvider, AnimatorDelegate
     /// flag that indicates if offsets calculation has already been done or not
     private var _offsetsCalculated = false
     
-    /// `true` if drawing the marker is enabled when tapping on values
-    /// (use the `marker` property to specify a marker)
-    @objc open var drawMarkers = true
-    
-    /// - returns: `true` if drawing the marker is enabled when tapping on values
-    /// (use the `marker` property to specify a marker)
-    @objc open var isDrawMarkersEnabled: Bool { return drawMarkers }
-    
     private var _interceptTouchEvents = false
     
     /// An extra offset to be appended to the viewport's top
