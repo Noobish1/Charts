@@ -4,10 +4,4 @@
    <FileRef
       location = "container:Charts.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:ChartsDemo-iOS/ChartsDemo-iOS.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:ChartsDemo-macOS/ChartsDemo-macOS.xcodeproj">
-   </FileRef>
 </Workspace>
