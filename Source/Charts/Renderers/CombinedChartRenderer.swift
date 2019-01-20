@@ -26,9 +26,9 @@ open class CombinedChartRenderer: DataRenderer
     
     internal var _drawOrder: [CombinedChartView.DrawOrder] = [.line, .scatter]
     
-    @objc public init(chart: CombinedChartView, animator: Animator, viewPortHandler: ViewPortHandler)
+    @objc public init(chart: CombinedChartView, viewPortHandler: ViewPortHandler)
     {
-        super.init(animator: animator, viewPortHandler: viewPortHandler)
+        super.init(viewPortHandler: viewPortHandler)
         
         self.chart = chart
         
@@ -49,13 +49,13 @@ open class CombinedChartRenderer: DataRenderer
             case .line:
                 if chart.lineData !== nil
                 {
-                    _renderers.append(LineChartRenderer(dataProvider: chart, animator: animator, viewPortHandler: viewPortHandler))
+                    _renderers.append(LineChartRenderer(dataProvider: chart, viewPortHandler: viewPortHandler))
                 }
                 break
             case .scatter:
                 if chart.scatterData !== nil
                 {
-                    _renderers.append(ScatterChartRenderer(dataProvider: chart, animator: animator, viewPortHandler: viewPortHandler))
+                    _renderers.append(ScatterChartRenderer(dataProvider: chart, viewPortHandler: viewPortHandler))
                 }
                 break
             }

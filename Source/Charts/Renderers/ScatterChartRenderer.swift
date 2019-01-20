@@ -21,9 +21,9 @@ open class ScatterChartRenderer: BarLineScatterCandleBubbleRenderer
 {
     @objc open weak var dataProvider: ScatterChartDataProvider?
     
-    @objc public init(dataProvider: ScatterChartDataProvider, animator: Animator, viewPortHandler: ViewPortHandler)
+    @objc public init(dataProvider: ScatterChartDataProvider, viewPortHandler: ViewPortHandler)
     {
-        super.init(animator: animator, viewPortHandler: viewPortHandler)
+        super.init(viewPortHandler: viewPortHandler)
         
         self.dataProvider = dataProvider
     }
@@ -56,8 +56,6 @@ open class ScatterChartRenderer: BarLineScatterCandleBubbleRenderer
         
         let trans = dataProvider.getTransformer(forAxis: dataSet.axisDependency)
         
-        let phaseY = animator.phaseY
-        
         let entryCount = dataSet.entryCount
         
         var point = CGPoint()
@@ -68,12 +66,12 @@ open class ScatterChartRenderer: BarLineScatterCandleBubbleRenderer
         {
             context.saveGState()
             
-            for j in 0 ..< Int(min(ceil(Double(entryCount) * animator.phaseX), Double(entryCount)))
+            for j in 0 ..< Int(min(ceil(Double(entryCount)), Double(entryCount)))
             {
                 guard let e = dataSet.entryForIndex(j) else { continue }
                 
                 point.x = CGFloat(e.x)
-                point.y = CGFloat(e.y * phaseY)
+                point.y = CGFloat(e.y)
                 point = point.applying(valueToPixelMatrix)
                 
                 if !viewPortHandler.isInBoundsRight(point.x)
@@ -110,8 +108,6 @@ open class ScatterChartRenderer: BarLineScatterCandleBubbleRenderer
         {
             guard let dataSets = scatterData.dataSets as? [IScatterChartDataSet] else { return }
             
-            let phaseY = animator.phaseY
-            
             var pt = CGPoint()
             
             for i in 0 ..< scatterData.dataSetCount
@@ -135,14 +131,14 @@ open class ScatterChartRenderer: BarLineScatterCandleBubbleRenderer
                 let shapeSize = dataSet.scatterShapeSize
                 let lineHeight = valueFont.lineHeight
                 
-                _xBounds.set(chart: dataProvider, dataSet: dataSet, animator: animator)
+                _xBounds.set(chart: dataProvider, dataSet: dataSet)
                 
                 for j in stride(from: _xBounds.min, through: _xBounds.range + _xBounds.min, by: 1)
                 {
                     guard let e = dataSet.entryForIndex(j) else { break }
                     
                     pt.x = CGFloat(e.x)
-                    pt.y = CGFloat(e.y * phaseY)
+                    pt.y = CGFloat(e.y)
                     pt = pt.applying(valueToPixelMatrix)
                     
                     if (!viewPortHandler.isInBoundsRight(pt.x))

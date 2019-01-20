@@ -15,12 +15,8 @@ import CoreGraphics
 @objc(ChartDataRendererBase)
 open class DataRenderer: Renderer
 {
-    @objc public let animator: Animator
-    
-    @objc public init(animator: Animator, viewPortHandler: ViewPortHandler)
+    @objc public override init(viewPortHandler: ViewPortHandler)
     {
-        self.animator = animator
-
         super.init(viewPortHandler: viewPortHandler)
     }
 

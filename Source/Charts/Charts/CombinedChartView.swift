@@ -32,7 +32,7 @@ open class CombinedChartView: BarLineChartViewBase, CombinedChartDataProvider
         
         _fillFormatter = DefaultFillFormatter()
         
-        renderer = CombinedChartRenderer(chart: self, animator: _animator, viewPortHandler: _viewPortHandler)
+        renderer = CombinedChartRenderer(chart: self, viewPortHandler: _viewPortHandler)
     }
     
     open override var data: ChartData?

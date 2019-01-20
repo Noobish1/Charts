@@ -15,9 +15,9 @@ import CoreGraphics
 @objc(LineRadarChartRenderer)
 open class LineRadarRenderer: BarLineScatterCandleBubbleRenderer
 {
-    public override init(animator: Animator, viewPortHandler: ViewPortHandler)
+    public override init(viewPortHandler: ViewPortHandler)
     {
-        super.init(animator: animator, viewPortHandler: viewPortHandler)
+        super.init(viewPortHandler: viewPortHandler)
     }
     
     /// Draws the provided path in filled mode with the provided drawable.
