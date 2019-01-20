@@ -263,9 +263,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
         drawDescription(context: context)
     }
     
-    private var _autoScaleLastLowestVisibleX: Double?
-    private var _autoScaleLastHighestVisibleX: Double?
-    
     /// Performs auto scaling of the axis by recalculating the minimum and maximum y-values based on the entries currently in view.
     internal func autoScale()
     {
@@ -498,7 +495,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
     private var _isDragging = false
     private var _isScaling = false
     private var _gestureScaleAxis = GestureScaleAxis.both
-    private var _panGestureReachedEdge: Bool = false
     private weak var _outerScrollView: UIScrollView?
     
     private var _lastPanPoint = CGPoint() /// This is to prevent using setTranslation which resets velocity
