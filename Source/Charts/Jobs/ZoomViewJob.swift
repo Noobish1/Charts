@@ -16,14 +16,13 @@ import CoreGraphics
     import UIKit
 #endif
 
-@objc(ZoomChartViewJob)
 open class ZoomViewJob: ViewPortJob
 {
     internal var scaleX: CGFloat = 0.0
     internal var scaleY: CGFloat = 0.0
     internal var axisDependency: YAxis.AxisDependency = .left
     
-    @objc public init(
+     public init(
         viewPortHandler: ViewPortHandler,
         scaleX: CGFloat,
         scaleY: CGFloat,

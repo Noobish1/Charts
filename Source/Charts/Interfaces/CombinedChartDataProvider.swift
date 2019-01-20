@@ -12,7 +12,6 @@
 import Foundation
 import CoreGraphics
 
-@objc
 public protocol CombinedChartDataProvider: LineChartDataProvider, ScatterChartDataProvider
 {
     var combinedData: CombinedChartData? { get }

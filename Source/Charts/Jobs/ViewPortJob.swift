@@ -13,7 +13,6 @@ import Foundation
 import CoreGraphics
 
 // This defines a viewport modification job, used for delaying viewport changes
-@objc(ChartViewPortJob)
 open class ViewPortJob: NSObject
 {
     internal var point: CGPoint = CGPoint()
@@ -23,7 +22,7 @@ open class ViewPortJob: NSObject
     internal weak var transformer: Transformer?
     internal weak var view: ChartViewBase?
     
-    @objc public init(
+     public init(
         viewPortHandler: ViewPortHandler,
         xValue: Double,
         yValue: Double,
@@ -39,7 +38,7 @@ open class ViewPortJob: NSObject
         self.view = view
     }
     
-    @objc open func doJob()
+     open func doJob()
     {
         fatalError("`doJob()` must be overridden by subclasses")
     }
