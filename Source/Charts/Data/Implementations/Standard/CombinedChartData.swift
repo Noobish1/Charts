@@ -26,7 +26,7 @@ open class CombinedChartData: BarLineScatterCandleBubbleChartData
         super.init(dataSets: dataSets)
     }
     
-    @objc open var lineData: LineChartData!
+     open var lineData: LineChartData!
     {
         get
         {
@@ -39,7 +39,7 @@ open class CombinedChartData: BarLineScatterCandleBubbleChartData
         }
     }
     
-    @objc open var scatterData: ScatterChartData!
+     open var scatterData: ScatterChartData!
     {
         get
         {
@@ -124,7 +124,7 @@ open class CombinedChartData: BarLineScatterCandleBubbleChartData
     }
     
     /// - returns: All data objects in row: line-bar-scatter-candle-bubble if not null.
-    @objc open var allData: [ChartData]
+     open var allData: [ChartData]
     {
         var data = [ChartData]()
         
@@ -140,7 +140,7 @@ open class CombinedChartData: BarLineScatterCandleBubbleChartData
         return data
     }
     
-    @objc open func dataByIndex(_ index: Int) -> ChartData
+     open func dataByIndex(_ index: Int) -> ChartData
     {
         return allData[index]
     }

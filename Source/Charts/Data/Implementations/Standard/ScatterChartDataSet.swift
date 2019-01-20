@@ -15,7 +15,6 @@ import CoreGraphics
 open class ScatterChartDataSet: ChartDataSet, IScatterChartDataSet
 {
     
-    @objc(ScatterShape)
     public enum Shape: Int
     {
         case square
@@ -40,7 +39,7 @@ open class ScatterChartDataSet: ChartDataSet, IScatterChartDataSet
     
     /// Sets the ScatterShape this DataSet should be drawn with.
     /// This will search for an available IShapeRenderer and set this renderer for the DataSet
-    @objc open func setScatterShape(_ shape: Shape)
+     open func setScatterShape(_ shape: Shape)
     {
         self.shapeRenderer = ScatterChartDataSet.renderer(forShape: shape)
     }
@@ -50,7 +49,7 @@ open class ScatterChartDataSet: ChartDataSet, IScatterChartDataSet
     /// **default**: `SquareShapeRenderer`
     open var shapeRenderer: IShapeRenderer? = SquareShapeRenderer()
     
-    @objc open class func renderer(forShape shape: Shape) -> IShapeRenderer
+     open class func renderer(forShape shape: Shape) -> IShapeRenderer
     {
         switch shape
         {

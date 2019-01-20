@@ -17,21 +17,20 @@ import CoreGraphics
     import UIKit
 #endif
 
-@objc
-public protocol ChartViewDelegate
+public protocol ChartViewDelegate: class
 {
     /// Called when a value has been selected inside the chart.
     /// - parameter entry: The selected Entry.
-    @objc optional func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry)
+     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry)
     
     // Called when nothing has been selected or an "un-select" has been made.
-    @objc optional func chartValueNothingSelected(_ chartView: ChartViewBase)
+     func chartValueNothingSelected(_ chartView: ChartViewBase)
     
     // Callbacks when the chart is scaled / zoomed via pinch zoom gesture.
-    @objc optional func chartScaled(_ chartView: ChartViewBase, scaleX: CGFloat, scaleY: CGFloat)
+     func chartScaled(_ chartView: ChartViewBase, scaleX: CGFloat, scaleY: CGFloat)
     
     // Callbacks when the chart is moved / translated via drag gesture.
-    @objc optional func chartTranslated(_ chartView: ChartViewBase, dX: CGFloat, dY: CGFloat)
+     func chartTranslated(_ chartView: ChartViewBase, dX: CGFloat, dY: CGFloat)
 }
 
 open class ChartViewBase: NSUIView, ChartDataProvider
@@ -41,7 +40,7 @@ open class ChartViewBase: NSUIView, ChartDataProvider
     /// - returns: The object representing all x-labels, this method can be used to
     /// acquire the XAxis object and modify it (e.g. change the position of the
     /// labels)
-    @objc open var xAxis: XAxis
+     open var xAxis: XAxis
     {
         return _xAxis
     }
@@ -53,7 +52,7 @@ open class ChartViewBase: NSUIView, ChartDataProvider
     internal var _data: ChartData?
     
     /// If set to true, chart continues to scroll after touch up
-    @objc open var dragDecelerationEnabled = true
+     open var dragDecelerationEnabled = true
     
     /// Deceleration friction coefficient in [0 ; 1] interval, higher values indicate that speed will decrease slowly, for example if it set to 0, it will stop immediately.
     /// 1 is an invalid value, and will be converted to 0.999 automatically.
@@ -67,22 +66,22 @@ open class ChartViewBase: NSUIView, ChartDataProvider
     
     /// The `Description` object of the chart.
     /// This should have been called just "description", but
-    @objc open var chartDescription: Description?
+     open var chartDescription: Description?
         
     /// The legend object containing all data associated with the legend
     internal var _legend: Legend!
     
     /// delegate to receive chart events
-    @objc open weak var delegate: ChartViewDelegate?
+     open weak var delegate: ChartViewDelegate?
     
     /// text that is displayed when the chart is empty
-    @objc open var noDataText = "No chart data available."
+     open var noDataText = "No chart data available."
     
     /// Font to be used for the no data text.
-    @objc open var noDataFont: NSUIFont! = NSUIFont(name: "HelveticaNeue", size: 12.0)
+     open var noDataFont: NSUIFont! = NSUIFont(name: "HelveticaNeue", size: 12.0)
     
     /// color of the no data text
-    @objc open var noDataTextColor: NSUIColor = NSUIColor.black
+     open var noDataTextColor: NSUIColor = NSUIColor.black
 
     /// alignment of the no data text
     open var noDataTextAlignment: NSTextAlignment = .left
@@ -90,7 +89,7 @@ open class ChartViewBase: NSUIView, ChartDataProvider
     internal var _legendRenderer: LegendRenderer!
     
     /// object responsible for rendering the data
-    @objc open var renderer: DataRenderer?
+     open var renderer: DataRenderer?
     
     /// object that manages the bounds and drawing constraints of the chart
     internal var _viewPortHandler: ViewPortHandler!
@@ -101,18 +100,18 @@ open class ChartViewBase: NSUIView, ChartDataProvider
     private var _interceptTouchEvents = false
     
     /// An extra offset to be appended to the viewport's top
-    @objc open var extraTopOffset: CGFloat = 0.0
+     open var extraTopOffset: CGFloat = 0.0
     
     /// An extra offset to be appended to the viewport's right
-    @objc open var extraRightOffset: CGFloat = 0.0
+     open var extraRightOffset: CGFloat = 0.0
     
     /// An extra offset to be appended to the viewport's bottom
-    @objc open var extraBottomOffset: CGFloat = 0.0
+     open var extraBottomOffset: CGFloat = 0.0
     
     /// An extra offset to be appended to the viewport's left
-    @objc open var extraLeftOffset: CGFloat = 0.0
+     open var extraLeftOffset: CGFloat = 0.0
     
-    @objc open func setExtraOffsets(left: CGFloat, top: CGFloat, right: CGFloat, bottom: CGFloat)
+     open func setExtraOffsets(left: CGFloat, top: CGFloat, right: CGFloat, bottom: CGFloat)
     {
         extraLeftOffset = left
         extraTopOffset = top
@@ -196,7 +195,7 @@ open class ChartViewBase: NSUIView, ChartDataProvider
     }
     
     /// Clears the chart from all data (sets it to null) and refreshes it (by calling setNeedsDisplay()).
-    @objc open func clear()
+     open func clear()
     {
         _data = nil
         _offsetsCalculated = false
@@ -205,14 +204,14 @@ open class ChartViewBase: NSUIView, ChartDataProvider
     }
     
     /// Removes all DataSets (and thereby Entries) from the chart. Does not set the data object to nil. Also refreshes the chart by calling setNeedsDisplay().
-    @objc open func clearValues()
+     open func clearValues()
     {
         _data?.clearValues()
         setNeedsDisplay()
     }
 
     /// - returns: `true` if the chart is empty (meaning it's data object is either null or contains no entries).
-    @objc open func isEmpty() -> Bool
+     open func isEmpty() -> Bool
     {
         guard let data = _data else { return true }
 
@@ -228,7 +227,7 @@ open class ChartViewBase: NSUIView, ChartDataProvider
     
     /// Lets the chart know its underlying data has changed and should perform all necessary recalculations.
     /// It is crucial that this method is called everytime data is changed dynamically. Not calling this method can lead to crashes or unexpected behaviour.
-    @objc open func notifyDataSetChanged()
+     open func notifyDataSetChanged()
     {
         fatalError("notifyDataSetChanged() cannot be called on ChartViewBase")
     }
@@ -371,7 +370,7 @@ open class ChartViewBase: NSUIView, ChartDataProvider
     /// *
     /// - note: (Equivalent of getCenter() in MPAndroidChart, as center is already a standard in iOS that returns the center point relative to superview, and MPAndroidChart returns relative to self)*
     /// - returns: The center point of the chart (the whole View) in pixels.
-    @objc open var midPoint: CGPoint
+     open var midPoint: CGPoint
     {
         let bounds = self.bounds
         return CGPoint(x: bounds.origin.x + bounds.size.width / 2.0, y: bounds.origin.y + bounds.size.height / 2.0)
@@ -384,32 +383,32 @@ open class ChartViewBase: NSUIView, ChartDataProvider
     }
     
     /// - returns: The Legend object of the chart. This method can be used to get an instance of the legend in order to customize the automatically generated Legend.
-    @objc open var legend: Legend
+     open var legend: Legend
     {
         return _legend
     }
     
     /// - returns: The renderer object responsible for rendering / drawing the Legend.
-    @objc open var legendRenderer: LegendRenderer!
+     open var legendRenderer: LegendRenderer!
     {
         return _legendRenderer
     }
     
     /// - returns: The rectangle that defines the borders of the chart-value surface (into which the actual values are drawn).
-    @objc open var contentRect: CGRect
+     open var contentRect: CGRect
     {
         return _viewPortHandler.contentRect
     }
     
     /// - returns: The ViewPortHandler of the chart that is responsible for the
     /// content area of the chart and its offsets and dimensions.
-    @objc open var viewPortHandler: ViewPortHandler!
+     open var viewPortHandler: ViewPortHandler!
     {
         return _viewPortHandler
     }
     
     /// - returns: The bitmap that represents the chart.
-    @objc open func getChartImage(transparent: Bool) -> NSUIImage?
+     open func getChartImage(transparent: Bool) -> NSUIImage?
     {
         NSUIGraphicsBeginImageContextWithOptions(bounds.size, isOpaque || !transparent, NSUIMainScreen()?.nsuiScale ?? 1.0)
         
@@ -509,7 +508,7 @@ open class ChartViewBase: NSUIView, ChartDataProvider
         }
     }
     
-    @objc open func removeViewportJob(_ job: ViewPortJob)
+     open func removeViewportJob(_ job: ViewPortJob)
     {
         if let index = _viewportJobs.index(where: { $0 === job })
         {
@@ -517,12 +516,12 @@ open class ChartViewBase: NSUIView, ChartDataProvider
         }
     }
     
-    @objc open func clearAllViewportJobs()
+     open func clearAllViewportJobs()
     {
         _viewportJobs.removeAll(keepingCapacity: false)
     }
     
-    @objc open func addViewportJob(_ job: ViewPortJob)
+     open func addViewportJob(_ job: ViewPortJob)
     {
         if _viewPortHandler.hasChartDimens
         {
@@ -536,7 +535,7 @@ open class ChartViewBase: NSUIView, ChartDataProvider
     
     /// **default**: true
     /// - returns: `true` if chart continues to scroll after touch up, `false` ifnot.
-    @objc open var isDragDecelerationEnabled: Bool
+     open var isDragDecelerationEnabled: Bool
         {
             return dragDecelerationEnabled
     }
@@ -545,7 +544,7 @@ open class ChartViewBase: NSUIView, ChartDataProvider
     /// 1 is an invalid value, and will be converted to 0.999 automatically.
     /// 
     /// **default**: true
-    @objc open var dragDecelerationFrictionCoef: CGFloat
+     open var dragDecelerationFrictionCoef: CGFloat
     {
         get
         {

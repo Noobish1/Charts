@@ -20,10 +20,8 @@ import CoreGraphics
 /// Class representing the y-axis labels settings and its entries.
 /// Be aware that not all features the YLabels class provides are suitable for the RadarChart.
 /// Customizations that affect the value range of the axis need to be applied before setting data for the chart.
-@objc(ChartYAxis)
 open class YAxis: AxisBase
 {
-    @objc(YAxisLabelPosition)
     public enum LabelPosition: Int
     {
         case outsideChart
@@ -31,7 +29,6 @@ open class YAxis: AxisBase
     }
     
     ///  Enum that specifies the axis a DataSet should be plotted against, either Left or Right.
-    @objc
     public enum AxisDependency: Int
     {
         case left
@@ -39,39 +36,39 @@ open class YAxis: AxisBase
     }
     
     /// indicates if the bottom y-label entry is drawn or not
-    @objc open var drawBottomYLabelEntryEnabled = true
+     open var drawBottomYLabelEntryEnabled = true
     
     /// indicates if the top y-label entry is drawn or not
-    @objc open var drawTopYLabelEntryEnabled = true
+     open var drawTopYLabelEntryEnabled = true
     
     /// flag that indicates if the axis is inverted or not
-    @objc open var inverted = false
+     open var inverted = false
     
     /// flag that indicates if the zero-line should be drawn regardless of other grid lines
-    @objc open var drawZeroLineEnabled = false
+     open var drawZeroLineEnabled = false
     
     /// Color of the zero line
-    @objc open var zeroLineColor: NSUIColor? = NSUIColor.gray
+     open var zeroLineColor: NSUIColor? = NSUIColor.gray
     
     /// Width of the zero line
-    @objc open var zeroLineWidth: CGFloat = 1.0
+     open var zeroLineWidth: CGFloat = 1.0
     
     /// This is how much (in pixels) into the dash pattern are we starting from.
-    @objc open var zeroLineDashPhase = CGFloat(0.0)
+     open var zeroLineDashPhase = CGFloat(0.0)
     
     /// This is the actual dash pattern.
     /// I.e. [2, 3] will paint [--   --   ]
     /// [1, 3, 4, 2] will paint [-   ----  -   ----  ]
-    @objc open var zeroLineDashLengths: [CGFloat]?
+     open var zeroLineDashLengths: [CGFloat]?
 
     /// axis space from the largest value to the top in percent of the total axis range
-    @objc open var spaceTop = CGFloat(0.1)
+     open var spaceTop = CGFloat(0.1)
 
     /// axis space from the smallest value to the bottom in percent of the total axis range
-    @objc open var spaceBottom = CGFloat(0.1)
+     open var spaceBottom = CGFloat(0.1)
     
     /// the position of the y-labels relative to the chart
-    @objc open var labelPosition = LabelPosition.outsideChart
+     open var labelPosition = LabelPosition.outsideChart
     
     /// the side this axis object represents
     private var _axisDependency = AxisDependency.left
@@ -79,13 +76,13 @@ open class YAxis: AxisBase
     /// the minimum width that the axis should take
     /// 
     /// **default**: 0.0
-    @objc open var minWidth = CGFloat(0)
+     open var minWidth = CGFloat(0)
     
     /// the maximum width that the axis can take.
     /// use Infinity for disabling the maximum.
     /// 
     /// **default**: CGFloat.infinity
-    @objc open var maxWidth = CGFloat(CGFloat.infinity)
+     open var maxWidth = CGFloat(CGFloat.infinity)
     
     public override init()
     {
@@ -94,7 +91,7 @@ open class YAxis: AxisBase
         self.yOffset = 0.0
     }
     
-    @objc public init(position: AxisDependency)
+     public init(position: AxisDependency)
     {
         super.init()
         
@@ -103,12 +100,12 @@ open class YAxis: AxisBase
         self.yOffset = 0.0
     }
     
-    @objc open var axisDependency: AxisDependency
+     open var axisDependency: AxisDependency
     {
         return _axisDependency
     }
     
-    @objc open func requiredSize() -> CGSize
+     open func requiredSize() -> CGSize
     {
         let label = getLongestLabel() as NSString
         var size = label.size(withAttributes: [NSAttributedStringKey.font: labelFont])
@@ -118,13 +115,13 @@ open class YAxis: AxisBase
         return size
     }
     
-    @objc open func getRequiredHeightSpace() -> CGFloat
+     open func getRequiredHeightSpace() -> CGFloat
     {
         return requiredSize().height
     }
     
     /// - returns: `true` if this axis needs horizontal offset, `false` ifno offset is needed.
-    @objc open var needsOffset: Bool
+     open var needsOffset: Bool
     {
         if isEnabled && isDrawLabelsEnabled && labelPosition == .outsideChart
         {
@@ -136,7 +133,7 @@ open class YAxis: AxisBase
         }
     }
     
-    @objc open var isInverted: Bool { return inverted }
+     open var isInverted: Bool { return inverted }
     
     open override func calculate(min dataMin: Double, max dataMax: Double)
     {
@@ -172,8 +169,8 @@ open class YAxis: AxisBase
         axisRange = abs(_axisMaximum - _axisMinimum)
     }
     
-    @objc open var isDrawBottomYLabelEntryEnabled: Bool { return drawBottomYLabelEntryEnabled }
+     open var isDrawBottomYLabelEntryEnabled: Bool { return drawBottomYLabelEntryEnabled }
     
-    @objc open var isDrawTopYLabelEntryEnabled: Bool { return drawTopYLabelEntryEnabled }
+     open var isDrawTopYLabelEntryEnabled: Bool { return drawTopYLabelEntryEnabled }
 
 }

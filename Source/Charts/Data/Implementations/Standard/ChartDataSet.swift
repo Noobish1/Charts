@@ -12,7 +12,6 @@
 import Foundation
 
 /// Determines how to round DataSet index values for `ChartDataSet.entryIndex(x, rounding)` when an exact x-value is not found.
-@objc
 public enum ChartDataSetRounding: Int
 {
     case up = 0
@@ -38,7 +37,7 @@ open class ChartDataSet: ChartBaseDataSet
         super.init(label: label)
     }
     
-    @objc public init(values: [ChartDataEntry]?, label: String?)
+     public init(values: [ChartDataEntry]?, label: String?)
     {
         self.values = values ?? []
 
@@ -47,7 +46,7 @@ open class ChartDataSet: ChartBaseDataSet
         self.calcMinMax()
     }
     
-    @objc public convenience init(values: [ChartDataEntry]?)
+     public convenience init(values: [ChartDataEntry]?)
     {
         self.init(values: values, label: "DataSet")
     }
@@ -58,7 +57,7 @@ open class ChartDataSet: ChartBaseDataSet
     /// - note: Calls `notifyDataSetChanged()` after setting a new value.
     /// - returns: The array of y-values that this DataSet represents.
     /// the entries that this dataset represents / holds together
-    @objc open var values: [ChartDataEntry]
+     open var values: [ChartDataEntry]
         {
         didSet
         {
@@ -114,7 +113,7 @@ open class ChartDataSet: ChartBaseDataSet
         }
     }
     
-    @objc open func calcMinMaxX(entry e: ChartDataEntry)
+     open func calcMinMaxX(entry e: ChartDataEntry)
     {
         if e.x < _xMin
         {
@@ -126,7 +125,7 @@ open class ChartDataSet: ChartBaseDataSet
         }
     }
     
-    @objc open func calcMinMaxY(entry e: ChartDataEntry)
+     open func calcMinMaxY(entry e: ChartDataEntry)
     {
         if e.y < _yMin
         {

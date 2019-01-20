@@ -15,7 +15,6 @@ import CoreGraphics
 
 open class LineChartDataSet: LineRadarChartDataSet, ILineChartDataSet
 {
-    @objc(LineChartMode)
     public enum Mode: Int
     {
         case linear
