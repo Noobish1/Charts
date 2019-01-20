@@ -16,10 +16,9 @@ import CoreGraphics
     import UIKit
 #endif
 
-@objc(ChartXAxisRenderer)
 open class XAxisRenderer: AxisRendererBase
 {
-    @objc public init(viewPortHandler: ViewPortHandler, xAxis: XAxis?, transformer: Transformer?)
+     public init(viewPortHandler: ViewPortHandler, xAxis: XAxis?, transformer: Transformer?)
     {
         super.init(viewPortHandler: viewPortHandler, transformer: transformer, axis: xAxis)
     }
@@ -60,7 +59,7 @@ open class XAxisRenderer: AxisRendererBase
         computeSize()
     }
     
-    @objc open func computeSize()
+     open func computeSize()
     {
         guard let
             xAxis = self.axis as? XAxis
@@ -165,7 +164,7 @@ open class XAxisRenderer: AxisRendererBase
     }
     
     /// draws the x-labels on the specified y-position
-    @objc open func drawLabels(context: CGContext, pos: CGFloat, anchor: CGPoint)
+     open func drawLabels(context: CGContext, pos: CGFloat, anchor: CGPoint)
     {
         guard
             let xAxis = self.axis as? XAxis,
@@ -215,7 +214,7 @@ open class XAxisRenderer: AxisRendererBase
             if viewPortHandler.isInBoundsX(position.x)
             {
                 let label = xAxis.valueFormatter?.stringForValue(xAxis.entries[i], axis: xAxis) ?? ""
-                let labelTextColor = xAxis.valueFormatter?.colorForValue?(xAxis.entries[i], axis: xAxis) ?? xAxis.labelTextColor
+                let labelTextColor = xAxis.colorFormatter?.colorForValue(xAxis.entries[i], axis: xAxis) ?? xAxis.labelTextColor
                 
                 labelAttrs[NSAttributedStringKey.foregroundColor] = labelTextColor
                 
@@ -253,7 +252,7 @@ open class XAxisRenderer: AxisRendererBase
         }
     }
     
-    @objc open func drawLabel(
+     open func drawLabel(
         context: CGContext,
         formattedLabel: String,
         x: CGFloat,
@@ -319,7 +318,7 @@ open class XAxisRenderer: AxisRendererBase
         }
     }
     
-    @objc open var gridClippingRect: CGRect
+     open var gridClippingRect: CGRect
     {
         var contentRect = viewPortHandler.contentRect
         let dx = self.axis?.gridLineWidth ?? 0.0
@@ -328,7 +327,7 @@ open class XAxisRenderer: AxisRendererBase
         return contentRect
     }
     
-    @objc open func drawGridLine(context: CGContext, x: CGFloat, y: CGFloat)
+     open func drawGridLine(context: CGContext, x: CGFloat, y: CGFloat)
     {
         if x >= viewPortHandler.offsetLeft
             && x <= viewPortHandler.chartWidth
@@ -384,7 +383,7 @@ open class XAxisRenderer: AxisRendererBase
         }
     }
     
-    @objc open func renderLimitLineLine(context: CGContext, limitLine: ChartLimitLine, position: CGPoint)
+     open func renderLimitLineLine(context: CGContext, limitLine: ChartLimitLine, position: CGPoint)
     {
         
         context.beginPath()
@@ -405,7 +404,7 @@ open class XAxisRenderer: AxisRendererBase
         context.strokePath()
     }
     
-    @objc open func renderLimitLineLabel(context: CGContext, limitLine: ChartLimitLine, position: CGPoint, yOffset: CGFloat)
+     open func renderLimitLineLabel(context: CGContext, limitLine: ChartLimitLine, position: CGPoint, yOffset: CGFloat)
     {
         
         let label = limitLine.label

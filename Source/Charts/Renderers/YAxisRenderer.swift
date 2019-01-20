@@ -16,10 +16,9 @@ import CoreGraphics
     import UIKit
 #endif
 
-@objc(ChartYAxisRenderer)
 open class YAxisRenderer: AxisRendererBase
 {
-    @objc public init(viewPortHandler: ViewPortHandler, yAxis: YAxis?, transformer: Transformer?)
+     public init(viewPortHandler: ViewPortHandler, yAxis: YAxis?, transformer: Transformer?)
     {
         super.init(viewPortHandler: viewPortHandler, transformer: transformer, axis: yAxis)
     }
@@ -199,7 +198,7 @@ open class YAxisRenderer: AxisRendererBase
         }
     }
     
-    @objc open var gridClippingRect: CGRect
+     open var gridClippingRect: CGRect
     {
         var contentRect = viewPortHandler.contentRect
         let dy = self.axis?.gridLineWidth ?? 0.0
@@ -208,7 +207,7 @@ open class YAxisRenderer: AxisRendererBase
         return contentRect
     }
     
-    @objc open func drawGridLine(
+     open func drawGridLine(
         context: CGContext,
         position: CGPoint)
     {
@@ -218,7 +217,7 @@ open class YAxisRenderer: AxisRendererBase
         context.strokePath()
     }
     
-    @objc open func transformedPositions() -> [CGPoint]
+     open func transformedPositions() -> [CGPoint]
     {
         guard
             let yAxis = self.axis as? YAxis,
@@ -241,7 +240,7 @@ open class YAxisRenderer: AxisRendererBase
     }
 
     /// Draws the zero line at the specified position.
-    @objc open func drawZeroLine(context: CGContext)
+     open func drawZeroLine(context: CGContext)
     {
         guard
             let yAxis = self.axis as? YAxis,

@@ -27,12 +27,12 @@ types are aliased to either their UI* implementation (on iOS) or their NS* imple
     
     extension NSUITapGestureRecognizer
     {
-        @objc final func nsuiNumberOfTouches() -> Int
+         final func nsuiNumberOfTouches() -> Int
         {
             return numberOfTouches
         }
         
-        @objc final var nsuiNumberOfTapsRequired: Int
+         final var nsuiNumberOfTapsRequired: Int
         {
             get
             {
@@ -47,12 +47,12 @@ types are aliased to either their UI* implementation (on iOS) or their NS* imple
     
     extension NSUIPanGestureRecognizer
     {
-        @objc final func nsuiNumberOfTouches() -> Int
+         final func nsuiNumberOfTouches() -> Int
         {
             return numberOfTouches
         }
         
-        @objc final func nsuiLocationOfTouch(_ touch: Int, inView: UIView?) -> CGPoint
+         final func nsuiLocationOfTouch(_ touch: Int, inView: UIView?) -> CGPoint
         {
             return super.location(ofTouch: touch, in: inView)
         }
@@ -61,7 +61,7 @@ types are aliased to either their UI* implementation (on iOS) or their NS* imple
 #if !os(tvOS)
     extension NSUIRotationGestureRecognizer
     {
-        @objc final var nsuiRotation: CGFloat
+         final var nsuiRotation: CGFloat
         {
             get { return rotation }
             set { rotation = newValue }
@@ -72,7 +72,7 @@ types are aliased to either their UI* implementation (on iOS) or their NS* imple
 #if !os(tvOS)
     extension NSUIPinchGestureRecognizer
     {
-        @objc final var nsuiScale: CGFloat
+         final var nsuiScale: CGFloat
         {
             get
             {
@@ -84,7 +84,7 @@ types are aliased to either their UI* implementation (on iOS) or their NS* imple
             }
         }
         
-        @objc final func nsuiLocationOfTouch(_ touch: Int, inView: UIView?) -> CGPoint
+         final func nsuiLocationOfTouch(_ touch: Int, inView: UIView?) -> CGPoint
         {
             return super.location(ofTouch: touch, in: inView)
         }
@@ -113,27 +113,27 @@ types are aliased to either their UI* implementation (on iOS) or their NS* imple
 			self.nsuiTouchesCancelled(touches, withEvent: event)
 		}
 
-		@objc open func nsuiTouchesBegan(_ touches: Set<NSUITouch>, withEvent event: NSUIEvent?)
+		 open func nsuiTouchesBegan(_ touches: Set<NSUITouch>, withEvent event: NSUIEvent?)
         {
 			super.touchesBegan(touches, with: event!)
 		}
 
-		@objc open func nsuiTouchesMoved(_ touches: Set<NSUITouch>, withEvent event: NSUIEvent?)
+		 open func nsuiTouchesMoved(_ touches: Set<NSUITouch>, withEvent event: NSUIEvent?)
         {
 			super.touchesMoved(touches, with: event!)
 		}
 
-		@objc open func nsuiTouchesEnded(_ touches: Set<NSUITouch>, withEvent event: NSUIEvent?)
+		 open func nsuiTouchesEnded(_ touches: Set<NSUITouch>, withEvent event: NSUIEvent?)
         {
 			super.touchesEnded(touches, with: event!)
 		}
 
-		@objc open func nsuiTouchesCancelled(_ touches: Set<NSUITouch>?, withEvent event: NSUIEvent?)
+		 open func nsuiTouchesCancelled(_ touches: Set<NSUITouch>?, withEvent event: NSUIEvent?)
         {
 			super.touchesCancelled(touches!, with: event!)
 		}
 
-		@objc var nsuiLayer: CALayer?
+		 var nsuiLayer: CALayer?
         {
 			return self.layer
 		}
@@ -141,7 +141,7 @@ types are aliased to either their UI* implementation (on iOS) or their NS* imple
 
 	extension UIView
     {
-		@objc final var nsuiGestureRecognizers: [NSUIGestureRecognizer]?
+		 final var nsuiGestureRecognizers: [NSUIGestureRecognizer]?
         {
 			return self.gestureRecognizers
 		}
@@ -149,7 +149,7 @@ types are aliased to either their UI* implementation (on iOS) or their NS* imple
     
     extension UIScrollView
     {
-        @objc var nsuiIsScrollEnabled: Bool
+         var nsuiIsScrollEnabled: Bool
         {
             get { return isScrollEnabled }
             set { isScrollEnabled = newValue }
@@ -158,7 +158,7 @@ types are aliased to either their UI* implementation (on iOS) or their NS* imple
     
     extension UIScreen
     {
-        @objc final var nsuiScale: CGFloat
+         final var nsuiScale: CGFloat
         {
             return self.scale
         }

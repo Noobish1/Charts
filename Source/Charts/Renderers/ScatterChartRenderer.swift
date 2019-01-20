@@ -19,9 +19,9 @@ import CoreGraphics
 
 open class ScatterChartRenderer: BarLineScatterCandleBubbleRenderer
 {
-    @objc open weak var dataProvider: ScatterChartDataProvider?
+     open weak var dataProvider: ScatterChartDataProvider?
     
-    @objc public init(dataProvider: ScatterChartDataProvider, viewPortHandler: ViewPortHandler)
+     public init(dataProvider: ScatterChartDataProvider, viewPortHandler: ViewPortHandler)
     {
         super.init(viewPortHandler: viewPortHandler)
         
@@ -50,7 +50,7 @@ open class ScatterChartRenderer: BarLineScatterCandleBubbleRenderer
     
     private var _lineSegments = [CGPoint](repeating: CGPoint(), count: 2)
     
-    @objc open func drawDataSet(context: CGContext, dataSet: IScatterChartDataSet)
+     open func drawDataSet(context: CGContext, dataSet: IScatterChartDataSet)
     {
         guard let dataProvider = dataProvider else { return }
         
