@@ -593,7 +593,7 @@ open class ChartData: NSObject
     }
     
     /// - returns: All colors used across all DataSet objects this object represents.
-     open func getColors() -> [NSUIColor]?
+     open func getColors() -> [UIColor]?
     {
         var clrcnt = 0
         
@@ -602,7 +602,7 @@ open class ChartData: NSObject
             clrcnt += _dataSets[i].colors.count
         }
         
-        var colors = [NSUIColor]()
+        var colors = [UIColor]()
         
         for i in 0 ..< _dataSets.count
         {
@@ -630,7 +630,7 @@ open class ChartData: NSObject
     }
     
     /// Sets the color of the value-text (color in which the value-labels are drawn) for all DataSets this data object contains.
-     open func setValueTextColor(_ color: NSUIColor!)
+     open func setValueTextColor(_ color: UIColor!)
     {
         for set in dataSets
         {
@@ -639,7 +639,7 @@ open class ChartData: NSObject
     }
     
     /// Sets the font for all value-labels for all DataSets this data object contains.
-     open func setValueFont(_ font: NSUIFont!)
+     open func setValueFont(_ font: UIFont!)
     {
         for set in dataSets
         {

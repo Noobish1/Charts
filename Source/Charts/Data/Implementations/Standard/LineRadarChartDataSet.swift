@@ -20,10 +20,10 @@ open class LineRadarChartDataSet: ChartDataSet, ILineRadarChartDataSet
     // MARK: - Styling functions and accessors
     
     /// The color that is used for filling the line surface area.
-    private var _fillColor = NSUIColor(red: 140.0/255.0, green: 234.0/255.0, blue: 255.0/255.0, alpha: 1.0)
+    private var _fillColor = UIColor(red: 140.0/255.0, green: 234.0/255.0, blue: 255.0/255.0, alpha: 1.0)
     
     /// The color that is used for filling the line surface area.
-    open var fillColor: NSUIColor
+    open var fillColor: UIColor
     {
         get { return _fillColor }
         set

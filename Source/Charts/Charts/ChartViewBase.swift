@@ -12,10 +12,7 @@
 
 import Foundation
 import CoreGraphics
-
-#if !os(OSX)
-    import UIKit
-#endif
+import UIKit
 
 public protocol ChartViewDelegate: class
 {
@@ -33,7 +30,7 @@ public protocol ChartViewDelegate: class
      func chartTranslated(_ chartView: ChartViewBase, dX: CGFloat, dY: CGFloat)
 }
 
-open class ChartViewBase: NSUIView, ChartDataProvider
+open class ChartViewBase: UIView, ChartDataProvider
 {
     // MARK: - Properties
     
@@ -78,10 +75,10 @@ open class ChartViewBase: NSUIView, ChartDataProvider
      open var noDataText = "No chart data available."
     
     /// Font to be used for the no data text.
-     open var noDataFont: NSUIFont! = NSUIFont(name: "HelveticaNeue", size: 12.0)
+     open var noDataFont: UIFont! = UIFont(name: "HelveticaNeue", size: 12.0)
     
     /// color of the no data text
-     open var noDataTextColor: NSUIColor = NSUIColor.black
+     open var noDataTextColor: UIColor = UIColor.black
 
     /// alignment of the no data text
     open var noDataTextAlignment: NSTextAlignment = .left
@@ -141,9 +138,7 @@ open class ChartViewBase: NSUIView, ChartDataProvider
     
     internal func initialize()
     {
-        #if os(iOS)
-            self.backgroundColor = NSUIColor.clear
-        #endif
+        self.backgroundColor = UIColor.clear
 
         _viewPortHandler = ViewPortHandler(width: bounds.size.width, height: bounds.size.height)
         
@@ -274,7 +269,7 @@ open class ChartViewBase: NSUIView, ChartDataProvider
     
     open override func draw(_ rect: CGRect)
     {
-        let optionalContext = NSUIGraphicsGetCurrentContext()
+        let optionalContext = UIGraphicsGetCurrentContext()
         guard let context = optionalContext else { return }
         
         let frame = self.bounds
@@ -408,11 +403,11 @@ open class ChartViewBase: NSUIView, ChartDataProvider
     }
     
     /// - returns: The bitmap that represents the chart.
-     open func getChartImage(transparent: Bool) -> NSUIImage?
+     open func getChartImage(transparent: Bool) -> UIImage?
     {
-        NSUIGraphicsBeginImageContextWithOptions(bounds.size, isOpaque || !transparent, NSUIMainScreen()?.nsuiScale ?? 1.0)
+        UIGraphicsBeginImageContextWithOptions(bounds.size, isOpaque || !transparent, UIScreen.main.scale)
         
-        guard let context = NSUIGraphicsGetCurrentContext()
+        guard let context = UIGraphicsGetCurrentContext()
             else { return nil }
         
         let rect = CGRect(origin: CGPoint(x: 0, y: 0), size: bounds.size)
@@ -420,7 +415,7 @@ open class ChartViewBase: NSUIView, ChartDataProvider
         if isOpaque || !transparent
         {
             // Background color may be partially transparent, we must fill with white if we want to output an opaque image
-            context.setFillColor(NSUIColor.white.cgColor)
+            context.setFillColor(UIColor.white.cgColor)
             context.fill(rect)
             
             if let backgroundColor = self.backgroundColor
@@ -430,11 +425,11 @@ open class ChartViewBase: NSUIView, ChartDataProvider
             }
         }
         
-        nsuiLayer?.render(in: context)
+        layer.render(in: context)
         
-        let image = NSUIGraphicsGetImageFromCurrentImageContext()
+        let image = UIGraphicsGetImageFromCurrentImageContext()
         
-        NSUIGraphicsEndImageContext()
+        UIGraphicsEndImageContext()
         
         return image
     }
@@ -462,8 +457,8 @@ open class ChartViewBase: NSUIView, ChartDataProvider
         let imageData: Data?
         switch (format)
         {
-        case .png: imageData = NSUIImagePNGRepresentation(image)
-        case .jpeg: imageData = NSUIImageJPEGRepresentation(image, CGFloat(compressionQuality))
+        case .png: imageData = UIImagePNGRepresentation(image)
+        case .jpeg: imageData = UIImageJPEGRepresentation(image, CGFloat(compressionQuality))
         }
         
         guard let data = imageData else { return false }
@@ -574,35 +569,35 @@ open class ChartViewBase: NSUIView, ChartDataProvider
     
     // MARK: - Touches
     
-    open override func nsuiTouchesBegan(_ touches: Set<NSUITouch>, withEvent event: NSUIEvent?)
+    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
     {
         if !_interceptTouchEvents
         {
-            super.nsuiTouchesBegan(touches, withEvent: event)
+            super.touchesBegan(touches, with: event)
         }
     }
     
-    open override func nsuiTouchesMoved(_ touches: Set<NSUITouch>, withEvent event: NSUIEvent?)
+    open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)
     {
         if !_interceptTouchEvents
         {
-            super.nsuiTouchesMoved(touches, withEvent: event)
+            super.touchesMoved(touches, with: event)
         }
     }
     
-    open override func nsuiTouchesEnded(_ touches: Set<NSUITouch>, withEvent event: NSUIEvent?)
+    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?)
     {
         if !_interceptTouchEvents
         {
-            super.nsuiTouchesEnded(touches, withEvent: event)
+            super.touchesEnded(touches, with: event)
         }
     }
     
-    open override func nsuiTouchesCancelled(_ touches: Set<NSUITouch>?, withEvent event: NSUIEvent?)
+    open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?)
     {
         if !_interceptTouchEvents
         {
-            super.nsuiTouchesCancelled(touches, withEvent: event)
+            super.touchesCancelled(touches, with: event)
         }
     }
 }

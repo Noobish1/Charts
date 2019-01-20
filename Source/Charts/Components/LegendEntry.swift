@@ -11,10 +11,7 @@
 
 import Foundation
 import CoreGraphics
-
-#if !os(OSX)
-    import UIKit
-#endif
+import UIKit
 
 open class LegendEntry: NSObject
 {
@@ -37,7 +34,7 @@ open class LegendEntry: NSObject
                 formLineWidth: CGFloat,
                 formLineDashPhase: CGFloat,
                 formLineDashLengths: [CGFloat]?,
-                formColor: NSUIColor?)
+                formColor: UIColor?)
     {
         self.label = label
         self.form = form
@@ -86,5 +83,5 @@ open class LegendEntry: NSObject
      open var formLineDashLengths: [CGFloat]?
     
     /// The color for drawing the form
-     open var formColor: NSUIColor?
+     open var formColor: UIColor?
 }

@@ -20,7 +20,7 @@ open class ChartDataEntryBase: NSObject
      open var data: AnyObject?
     
     /// optional icon image
-     open var icon: NSUIImage?
+     open var icon: UIImage?
     
     public override required init()
     {
@@ -50,7 +50,7 @@ open class ChartDataEntryBase: NSObject
     /// - parameter y: the y value (the actual value of the entry)
     /// - parameter icon: icon image
     
-     public init(y: Double, icon: NSUIImage?)
+     public init(y: Double, icon: UIImage?)
     {
         super.init()
         
@@ -62,7 +62,7 @@ open class ChartDataEntryBase: NSObject
     /// - parameter icon: icon image
     /// - parameter data: Space for additional data this Entry represents.
     
-     public init(y: Double, icon: NSUIImage?, data: AnyObject?)
+     public init(y: Double, icon: UIImage?, data: AnyObject?)
     {
         super.init()
         

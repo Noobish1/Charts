@@ -11,10 +11,7 @@
 
 import Foundation
 import CoreGraphics
-
-#if !os(OSX)
-    import UIKit
-#endif
+import UIKit
 
 open class Legend: ComponentBase
 {
@@ -95,8 +92,8 @@ open class Legend: ComponentBase
     /// The text direction of the legend
      open var direction: Direction = Direction.leftToRight
 
-     open var font: NSUIFont = NSUIFont.systemFont(ofSize: 10.0)
-     open var textColor = NSUIColor.black
+     open var font: UIFont = UIFont.systemFont(ofSize: 10.0)
+     open var textColor = UIColor.black
 
     /// The form/shape of the legend forms
      open var form = Form.square
@@ -143,7 +140,7 @@ open class Legend: ComponentBase
         self.entries = entries
     }
     
-     open func getMaximumEntrySize(withFont font: NSUIFont) -> CGSize
+     open func getMaximumEntrySize(withFont font: UIFont) -> CGSize
     {
         var maxW = CGFloat(0.0)
         var maxH = CGFloat(0.0)
@@ -201,7 +198,7 @@ open class Legend: ComponentBase
     /// **default**: 0.95 (95%)
      open var maxSizePercent: CGFloat = 0.95
     
-     open func calculateDimensions(labelFont: NSUIFont, viewPortHandler: ViewPortHandler)
+     open func calculateDimensions(labelFont: UIFont, viewPortHandler: ViewPortHandler)
     {
         let maxEntrySize = getMaximumEntrySize(withFont: labelFont)
         let defaultFormSize = self.formSize

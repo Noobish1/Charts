@@ -28,7 +28,7 @@ public protocol IScatterChartDataSet: IChartDataSet
     
     /// - returns: Color for the hole in the shape. Setting to `nil` will behave as transparent.
     /// **default**: nil
-    var scatterShapeHoleColor: NSUIColor? { get }
+    var scatterShapeHoleColor: UIColor? { get }
     
     /// - returns: The IShapeRenderer responsible for rendering this DataSet.
     var shapeRenderer: IShapeRenderer? { get }

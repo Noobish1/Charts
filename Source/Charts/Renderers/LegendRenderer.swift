@@ -11,10 +11,7 @@
 
 import Foundation
 import CoreGraphics
-
-#if !os(OSX)
-    import UIKit
-#endif
+import UIKit
 
 open class LegendRenderer: Renderer
 {
@@ -42,7 +39,7 @@ open class LegendRenderer: Renderer
             {
                 guard let dataSet = data.getDataSetByIndex(i) else { continue }
                 
-                var clrs: [NSUIColor] = dataSet.colors
+                var clrs: [UIColor] = dataSet.colors
                 let entryCount = dataSet.entryCount
                     
                 for j in 0..<min(clrs.count, entryCount)
@@ -391,7 +388,7 @@ open class LegendRenderer: Renderer
     {
         guard
             let formColor = entry.formColor,
-            formColor != NSUIColor.clear
+            formColor != UIColor.clear
             else { return }
         
         var form = entry.form
@@ -454,7 +451,7 @@ open class LegendRenderer: Renderer
     }
 
     /// Draws the provided label at the given position.
-     open func drawLabel(context: CGContext, x: CGFloat, y: CGFloat, label: String, font: NSUIFont, textColor: NSUIColor)
+     open func drawLabel(context: CGContext, x: CGFloat, y: CGFloat, label: String, font: UIFont, textColor: UIColor)
     {
         ChartUtils.drawText(context: context, text: label, point: CGPoint(x: x, y: y), align: .left, attributes: [NSAttributedStringKey.font: font, NSAttributedStringKey.foregroundColor: textColor])
     }

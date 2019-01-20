@@ -11,10 +11,7 @@
 
 import Foundation
 import CoreGraphics
-
-#if !os(OSX)
-    import UIKit
-#endif
+import UIKit
 
 /// Default formatter that calculates the position of the filled line.
 open class DefaultFillFormatter: NSObject, IFillFormatter

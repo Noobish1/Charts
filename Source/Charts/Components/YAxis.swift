@@ -11,11 +11,7 @@
 
 import Foundation
 import CoreGraphics
-
-#if !os(OSX)
-    import UIKit
-#endif
-
+import UIKit
 
 /// Class representing the y-axis labels settings and its entries.
 /// Be aware that not all features the YLabels class provides are suitable for the RadarChart.
@@ -48,7 +44,7 @@ open class YAxis: AxisBase
      open var drawZeroLineEnabled = false
     
     /// Color of the zero line
-     open var zeroLineColor: NSUIColor? = NSUIColor.gray
+     open var zeroLineColor: UIColor? = UIColor.gray
     
     /// Width of the zero line
      open var zeroLineWidth: CGFloat = 1.0

@@ -50,7 +50,7 @@ open class ChartDataEntry: ChartDataEntryBase
     /// - parameter y: the y value (the actual value of the entry)
     /// - parameter icon: icon image
     
-     public init(x: Double, y: Double, icon: NSUIImage?)
+     public init(x: Double, y: Double, icon: UIImage?)
     {
         super.init(y: y, icon: icon)
         
@@ -63,7 +63,7 @@ open class ChartDataEntry: ChartDataEntryBase
     /// - parameter icon: icon image
     /// - parameter data: Space for additional data this Entry represents.
     
-     public init(x: Double, y: Double, icon: NSUIImage?, data: AnyObject?)
+     public init(x: Double, y: Double, icon: UIImage?, data: AnyObject?)
     {
         super.init(y: y, icon: icon, data: data)
         

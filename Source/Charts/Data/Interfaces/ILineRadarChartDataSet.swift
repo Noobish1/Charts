@@ -19,7 +19,7 @@ public protocol ILineRadarChartDataSet: IChartDataSet
     // MARK: - Styling functions and accessors
     
     /// The color that is used for filling the line surface area.
-    var fillColor: NSUIColor { get set }
+    var fillColor: UIColor { get set }
 
     /// - returns: The object that is used for filling the area below the line.
     /// **default**: nil

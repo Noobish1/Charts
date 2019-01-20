@@ -100,7 +100,7 @@ open class Fill: NSObject
         _color = CGColor
     }
     
-     public convenience init(color: NSUIColor)
+     public convenience init(color: UIColor)
     {
         self.init(CGColor: color.cgColor)
     }
@@ -145,7 +145,7 @@ open class Fill: NSObject
         _image = CGImage
     }
     
-     public convenience init(image: NSUIImage, tiled: Bool)
+     public convenience init(image: UIImage, tiled: Bool)
     {
         self.init(CGImage: image.cgImage!, tiled: tiled)
     }
@@ -155,7 +155,7 @@ open class Fill: NSObject
         self.init(CGImage: CGImage, tiled: false)
     }
     
-     public convenience init(image: NSUIImage)
+     public convenience init(image: UIImage)
     {
         self.init(image: image, tiled: false)
     }
@@ -173,7 +173,7 @@ open class Fill: NSObject
         return Fill(CGColor: CGColor)
     }
     
-     open class func fillWithColor(_ color: NSUIColor) -> Fill
+     open class func fillWithColor(_ color: UIColor) -> Fill
     {
         return Fill(color: color)
     }
@@ -212,7 +212,7 @@ open class Fill: NSObject
         return Fill(CGImage: CGImage, tiled: tiled)
     }
     
-     open class func fillWithImage(_ image: NSUIImage, tiled: Bool) -> Fill
+     open class func fillWithImage(_ image: UIImage, tiled: Bool) -> Fill
     {
         return Fill(image: image, tiled: tiled)
     }
@@ -222,7 +222,7 @@ open class Fill: NSObject
         return Fill(CGImage: CGImage)
     }
     
-     open class func fillWithImage(_ image: NSUIImage) -> Fill
+     open class func fillWithImage(_ image: UIImage) -> Fill
     {
         return Fill(image: image)
     }

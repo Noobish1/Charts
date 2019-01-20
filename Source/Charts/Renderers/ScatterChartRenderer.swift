@@ -11,11 +11,7 @@
 
 import Foundation
 import CoreGraphics
-
-#if !os(OSX)
-    import UIKit
-#endif
-
+import UIKit
 
 open class ScatterChartRenderer: BarLineScatterCandleBubbleRenderer
 {

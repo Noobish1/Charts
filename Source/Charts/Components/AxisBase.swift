@@ -24,15 +24,15 @@ open class AxisBase: ComponentBase
     private var _axisValueFormatter: IAxisValueFormatter?
     private var _axisColorFormatter: IAxisColorFormatter?
     
-     open var labelFont = NSUIFont.systemFont(ofSize: 10.0)
-     open var labelTextColor = NSUIColor.black
+     open var labelFont = UIFont.systemFont(ofSize: 10.0)
+     open var labelTextColor = UIColor.black
     
-     open var axisLineColor = NSUIColor.gray
+     open var axisLineColor = UIColor.gray
      open var axisLineWidth = CGFloat(0.5)
      open var axisLineDashPhase = CGFloat(0.0)
      open var axisLineDashLengths: [CGFloat]!
     
-     open var gridColor = NSUIColor.gray.withAlphaComponent(0.9)
+     open var gridColor = UIColor.gray.withAlphaComponent(0.9)
      open var gridLineWidth = CGFloat(0.5)
      open var gridLineDashPhase = CGFloat(0.0)
      open var gridLineDashLengths: [CGFloat]!

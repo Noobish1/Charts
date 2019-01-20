@@ -11,23 +11,13 @@
 
 import Foundation
 import CoreGraphics
-
-#if !os(OSX)
-    import UIKit
-#endif
+import UIKit
 
 open class Description: ComponentBase
 {
     public override init()
     {
-        #if os(tvOS)
-            // 23 is the smallest recommended font size on the TV
-            font = NSUIFont.systemFont(ofSize: 23)
-        #elseif os(OSX)
-            font = NSUIFont.systemFont(ofSize: NSUIFont.systemFontSize)
-        #else
-            font = NSUIFont.systemFont(ofSize: 8.0)
-        #endif
+        font = UIFont.systemFont(ofSize: 8.0)
         
         super.init()
     }
@@ -42,8 +32,8 @@ open class Description: ComponentBase
      open var textAlign: NSTextAlignment = NSTextAlignment.right
     
     /// Font object used for drawing the description text.
-     open var font: NSUIFont
+     open var font: UIFont
     
     /// Text color used for drawing the description text
-     open var textColor = NSUIColor.black
+     open var textColor = UIColor.black
 }
