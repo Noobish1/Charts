@@ -12,7 +12,7 @@
 import Foundation
 import CoreGraphics
 
-public protocol IChartDataSet: class
+public protocol ChartDataSetProtocol: class
 {
     // MARK: - Data functions and accessors
     
@@ -180,7 +180,7 @@ public protocol IChartDataSet: class
     func setColor(_ color: UIColor)
     
     /// Custom formatter that is used instead of the auto-formatter if set
-    var valueFormatter: IValueFormatter? { get set }
+    var valueFormatter: ValueFormatterProtocol? { get set }
     
     /// - returns: `true` if the valueFormatter object of this DataSet is null.
     var needsFormatter: Bool { get }

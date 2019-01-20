@@ -22,7 +22,7 @@ open class BarLineScatterCandleBubbleRenderer: DataRenderer
     }
     
     /// Checks if the provided entry object is in bounds for drawing.
-    internal func isInBoundsX(entry e: ChartDataEntry, dataSet: IChartDataSet) -> Bool
+    internal func isInBoundsX(entry e: ChartDataEntry, dataSet: ChartDataSetProtocol) -> Bool
     {
         let entryIndex = dataSet.entryIndex(entry: e)
         return Double(entryIndex) < Double(dataSet.entryCount)
@@ -31,13 +31,13 @@ open class BarLineScatterCandleBubbleRenderer: DataRenderer
     /// Calculates and returns the x-bounds for the given DataSet in terms of index in their values array.
     /// This includes minimum and maximum visible x, as well as range.
     internal func xBounds(chart: BarLineScatterCandleBubbleChartDataProvider,
-                          dataSet: IChartDataSet) -> XBounds
+                          dataSet: ChartDataSetProtocol) -> XBounds
     {
         return XBounds(chart: chart, dataSet: dataSet)
     }
     
     /// - returns: `true` if the DataSet values should be drawn, `false` if not.
-    internal func shouldDrawValues(forDataSet set: IChartDataSet) -> Bool
+    internal func shouldDrawValues(forDataSet set: ChartDataSetProtocol) -> Bool
     {
         return set.isVisible && (set.isDrawValuesEnabled || set.isDrawIconsEnabled)
     }
@@ -60,14 +60,14 @@ open class BarLineScatterCandleBubbleRenderer: DataRenderer
         }
         
         public init(chart: BarLineScatterCandleBubbleChartDataProvider,
-                    dataSet: IChartDataSet)
+                    dataSet: ChartDataSetProtocol)
         {
             self.set(chart: chart, dataSet: dataSet)
         }
         
         /// Calculates the minimum and maximum x values as well as the range between them.
         open func set(chart: BarLineScatterCandleBubbleChartDataProvider,
-                      dataSet: IChartDataSet)
+                      dataSet: ChartDataSetProtocol)
         {
             let phaseX = Swift.max(0.0, 1.0)
             

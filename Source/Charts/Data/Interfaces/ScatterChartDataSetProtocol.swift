@@ -12,7 +12,7 @@
 import Foundation
 import CoreGraphics
 
-public protocol IScatterChartDataSet: IChartDataSet
+public protocol ScatterChartDataSetProtocol: ChartDataSetProtocol
 {
     // MARK: - Data functions and accessors
     

@@ -11,7 +11,7 @@
 
 import Foundation
 
-open class DefaultAxisValueFormatter: NSObject, IAxisValueFormatter
+open class DefaultAxisValueFormatter: NSObject, AxisValueFormatterProtocol
 {
     public typealias Block = (
         _ value: Double,

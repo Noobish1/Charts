@@ -11,7 +11,7 @@
 
 import Foundation
 
-open class DefaultValueFormatter: NSObject, IValueFormatter
+open class DefaultValueFormatter: NSObject, ValueFormatterProtocol
 {
     public typealias Block = (
         _ value: Double,

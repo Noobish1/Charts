@@ -34,19 +34,19 @@ open class ScatterChartRenderer: BarLineScatterCandleBubbleRenderer
             
             if set.isVisible
             {
-                if !(set is IScatterChartDataSet)
+                if !(set is ScatterChartDataSetProtocol)
                 {
                     fatalError("Datasets for ScatterChartRenderer must conform to IScatterChartDataSet")
                 }
                 
-                drawDataSet(context: context, dataSet: set as! IScatterChartDataSet)
+                drawDataSet(context: context, dataSet: set as! ScatterChartDataSetProtocol)
             }
         }
     }
     
     private var _lineSegments = [CGPoint](repeating: CGPoint(), count: 2)
     
-     open func drawDataSet(context: CGContext, dataSet: IScatterChartDataSet)
+     open func drawDataSet(context: CGContext, dataSet: ScatterChartDataSetProtocol)
     {
         guard let dataProvider = dataProvider else { return }
         
@@ -102,7 +102,7 @@ open class ScatterChartRenderer: BarLineScatterCandleBubbleRenderer
         // if values are drawn
         if isDrawingValuesAllowed(dataProvider: dataProvider)
         {
-            guard let dataSets = scatterData.dataSets as? [IScatterChartDataSet] else { return }
+            guard let dataSets = scatterData.dataSets as? [ScatterChartDataSetProtocol] else { return }
             
             var pt = CGPoint()
             

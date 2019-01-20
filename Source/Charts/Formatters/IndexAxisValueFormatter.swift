@@ -12,7 +12,7 @@
 import Foundation
 
 /// This formatter is used for passing an array of x-axis labels, on whole x steps.
-open class IndexAxisValueFormatter: NSObject, IAxisValueFormatter
+open class IndexAxisValueFormatter: NSObject, AxisValueFormatterProtocol
 {    
     private var _values: [String] = [String]()
     private var _valueCount: Int = 0

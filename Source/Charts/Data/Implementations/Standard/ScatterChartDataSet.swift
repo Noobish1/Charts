@@ -12,7 +12,7 @@
 import Foundation
 import CoreGraphics
 
-open class ScatterChartDataSet: ChartDataSet, IScatterChartDataSet
+open class ScatterChartDataSet: ChartDataSet, ScatterChartDataSetProtocol
 {
     
     public enum Shape: Int

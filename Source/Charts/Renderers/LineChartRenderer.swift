@@ -34,17 +34,17 @@ open class LineChartRenderer: LineRadarRenderer
             
             if set.isVisible
             {
-                if !(set is ILineChartDataSet)
+                if !(set is LineChartDataSetProtocol)
                 {
                     fatalError("Datasets for LineChartRenderer must conform to ILineChartDataSet")
                 }
                 
-                drawDataSet(context: context, dataSet: set as! ILineChartDataSet)
+                drawDataSet(context: context, dataSet: set as! LineChartDataSetProtocol)
             }
         }
     }
     
-     open func drawDataSet(context: CGContext, dataSet: ILineChartDataSet)
+     open func drawDataSet(context: CGContext, dataSet: LineChartDataSetProtocol)
     {
         if dataSet.entryCount < 1
         {
@@ -80,7 +80,7 @@ open class LineChartRenderer: LineRadarRenderer
         context.restoreGState()
     }
     
-     open func drawCubicBezier(context: CGContext, dataSet: ILineChartDataSet)
+     open func drawCubicBezier(context: CGContext, dataSet: LineChartDataSetProtocol)
     {
         guard let dataProvider = dataProvider else { return }
         
@@ -172,7 +172,7 @@ open class LineChartRenderer: LineRadarRenderer
         context.restoreGState()
     }
     
-     open func drawHorizontalBezier(context: CGContext, dataSet: ILineChartDataSet)
+     open func drawHorizontalBezier(context: CGContext, dataSet: LineChartDataSetProtocol)
     {
         guard let dataProvider = dataProvider else { return }
         
@@ -239,7 +239,7 @@ open class LineChartRenderer: LineRadarRenderer
     
     open func drawCubicFill(
         context: CGContext,
-                dataSet: ILineChartDataSet,
+                dataSet: LineChartDataSetProtocol,
                 spline: CGMutablePath,
                 matrix: CGAffineTransform,
                 bounds: XBounds)
@@ -276,7 +276,7 @@ open class LineChartRenderer: LineRadarRenderer
     
     private var _lineSegments = [CGPoint](repeating: CGPoint(), count: 2)
     
-     open func drawLinear(context: CGContext, dataSet: ILineChartDataSet)
+     open func drawLinear(context: CGContext, dataSet: LineChartDataSetProtocol)
     {
         guard let dataProvider = dataProvider else { return }
         
@@ -422,7 +422,7 @@ open class LineChartRenderer: LineRadarRenderer
         context.restoreGState()
     }
     
-    open func drawLinearFill(context: CGContext, dataSet: ILineChartDataSet, trans: Transformer, bounds: XBounds)
+    open func drawLinearFill(context: CGContext, dataSet: LineChartDataSetProtocol, trans: Transformer, bounds: XBounds)
     {
         guard let dataProvider = dataProvider else { return }
         
@@ -443,7 +443,7 @@ open class LineChartRenderer: LineRadarRenderer
     }
     
     /// Generates the path that is used for filled drawing.
-    private func generateFilledPath(dataSet: ILineChartDataSet, fillMin: CGFloat, bounds: XBounds, matrix: CGAffineTransform) -> CGPath
+    private func generateFilledPath(dataSet: LineChartDataSetProtocol, fillMin: CGFloat, bounds: XBounds, matrix: CGAffineTransform) -> CGPath
     {
         let isDrawSteppedEnabled = dataSet.mode == .stepped
         let matrix = matrix
@@ -499,7 +499,7 @@ open class LineChartRenderer: LineRadarRenderer
             
             for i in 0 ..< dataSets.count
             {
-                guard let dataSet = dataSets[i] as? ILineChartDataSet else { continue }
+                guard let dataSet = dataSets[i] as? LineChartDataSetProtocol else { continue }
                 
                 if !shouldDrawValues(forDataSet: dataSet)
                 {
@@ -596,7 +596,7 @@ open class LineChartRenderer: LineRadarRenderer
         
         for i in 0 ..< dataSets.count
         {
-            guard let dataSet = lineData.getDataSetByIndex(i) as? ILineChartDataSet else { continue }
+            guard let dataSet = lineData.getDataSetByIndex(i) as? LineChartDataSetProtocol else { continue }
             
             if !dataSet.isVisible || !dataSet.isDrawCirclesEnabled || dataSet.entryCount == 0
             {
