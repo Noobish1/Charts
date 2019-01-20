@@ -12,13 +12,12 @@
 import Foundation
 
 /// This formatter is used for passing an array of x-axis labels, on whole x steps.
-@objc(ChartIndexAxisValueFormatter)
 open class IndexAxisValueFormatter: NSObject, IAxisValueFormatter
-{
+{    
     private var _values: [String] = [String]()
     private var _valueCount: Int = 0
     
-    @objc public var values: [String]
+     public var values: [String]
     {
         get
         {
@@ -37,14 +36,14 @@ open class IndexAxisValueFormatter: NSObject, IAxisValueFormatter
         
     }
     
-    @objc public init(values: [String])
+     public init(values: [String])
     {
         super.init()
         
         self.values = values
     }
     
-    @objc public static func with(values: [String]) -> IndexAxisValueFormatter?
+     public static func with(values: [String]) -> IndexAxisValueFormatter?
     {
         return IndexAxisValueFormatter(values: values)
     }

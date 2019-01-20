@@ -12,7 +12,6 @@
 import Foundation
 
 /// An interface for providing custom axis Strings.
-@objc(IChartAxisValueFormatter)
 public protocol IAxisValueFormatter: class
 {
     
@@ -26,9 +25,4 @@ public protocol IAxisValueFormatter: class
     ///
     func stringForValue(_ value: Double,
                         axis: AxisBase?) -> String
-    
-    
-    @objc optional func colorForValue(_ value: Double,
-                       axis: AxisBase?) -> NSUIColor
-    
 }

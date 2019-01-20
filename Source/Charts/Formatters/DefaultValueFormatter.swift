@@ -11,7 +11,6 @@
 
 import Foundation
 
-@objc(ChartDefaultValueFormatter)
 open class DefaultValueFormatter: NSObject, IValueFormatter
 {
     public typealias Block = (
@@ -20,12 +19,12 @@ open class DefaultValueFormatter: NSObject, IValueFormatter
         _ dataSetIndex: Int,
         _ viewPortHandler: ViewPortHandler?) -> String
     
-    @objc open var block: Block?
+     open var block: Block?
     
-    @objc open var hasAutoDecimals: Bool = false
+     open var hasAutoDecimals: Bool = false
     
     private var _formatter: NumberFormatter?
-    @objc open var formatter: NumberFormatter?
+     open var formatter: NumberFormatter?
     {
         get { return _formatter }
         set
@@ -60,14 +59,14 @@ open class DefaultValueFormatter: NSObject, IValueFormatter
         hasAutoDecimals = true
     }
     
-    @objc public init(formatter: NumberFormatter)
+     public init(formatter: NumberFormatter)
     {
         super.init()
         
         self.formatter = formatter
     }
     
-    @objc public init(decimals: Int)
+     public init(decimals: Int)
     {
         super.init()
         
@@ -77,14 +76,14 @@ open class DefaultValueFormatter: NSObject, IValueFormatter
         hasAutoDecimals = true
     }
     
-    @objc public init(block: @escaping Block)
+     public init(block: @escaping Block)
     {
         super.init()
         
         self.block = block
     }
     
-    @objc public static func with(block: @escaping Block) -> DefaultValueFormatter?
+     public static func with(block: @escaping Block) -> DefaultValueFormatter?
     {
         return DefaultValueFormatter(block: block)
     }
