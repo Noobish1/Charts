@@ -14,7 +14,7 @@ import CoreGraphics
 import UIKit
 
 /// Base-class of LineChart, BarChart, ScatterChart and CandleStickChart.
-open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartDataProvider, UIGestureRecognizerDelegate
+open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartDataProvider
 {
     /// the maximum number of entries to which values will be drawn
     /// (entry numbers greater than this value will cause value-labels to disappear)
@@ -82,11 +82,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
     /// **default**: An instance of XAxisRenderer
     open lazy var xAxisRenderer = XAxisRenderer(viewPortHandler: _viewPortHandler, xAxis: _xAxis, transformer: _leftAxisTransformer)
     
-    internal var _tapGestureRecognizer: UITapGestureRecognizer!
-    internal var _doubleTapGestureRecognizer: UITapGestureRecognizer!
-    internal var _pinchGestureRecognizer: UIPinchGestureRecognizer!
-    internal var _panGestureRecognizer: UIPanGestureRecognizer!
-    
     /// flag that indicates if a custom viewport offset has been set
     private var _customViewPortEnabled = false
     
@@ -100,36 +95,12 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
         super.init(coder: aDecoder)
     }
     
-    deinit
-    {
-        stopDeceleration()
-    }
-    
     internal override func initialize()
     {
         super.initialize()
 
         _leftAxisTransformer = Transformer(viewPortHandler: _viewPortHandler)
         _rightAxisTransformer = Transformer(viewPortHandler: _viewPortHandler)
-        
-        _tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapGestureRecognized(_:)))
-        _doubleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(doubleTapGestureRecognized(_:)))
-        _doubleTapGestureRecognizer.numberOfTapsRequired = 2
-        _panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panGestureRecognized(_:)))
-        
-        _panGestureRecognizer.delegate = self
-        
-        self.addGestureRecognizer(_tapGestureRecognizer)
-        self.addGestureRecognizer(_doubleTapGestureRecognizer)
-        self.addGestureRecognizer(_panGestureRecognizer)
-        
-        _doubleTapGestureRecognizer.isEnabled = _doubleTapToZoomEnabled
-        _panGestureRecognizer.isEnabled = _dragXEnabled || _dragYEnabled
-
-        _pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(BarLineChartViewBase.pinchGestureRecognized(_:)))
-        _pinchGestureRecognizer.delegate = self
-        self.addGestureRecognizer(_pinchGestureRecognizer)
-        _pinchGestureRecognizer.isEnabled = _pinchZoomEnabled || _scaleXEnabled || _scaleYEnabled
     }
     
     open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?)
@@ -481,399 +452,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
         {
             context.restoreGState()
         }
-    }
-    
-    // MARK: - Gestures
-    
-    private enum GestureScaleAxis
-    {
-        case both
-        case x
-        case y
-    }
-    
-    private var _isDragging = false
-    private var _isScaling = false
-    private var _gestureScaleAxis = GestureScaleAxis.both
-    private weak var _outerScrollView: UIScrollView?
-    
-    private var _lastPanPoint = CGPoint() /// This is to prevent using setTranslation which resets velocity
-    
-    private var _decelerationLastTime: TimeInterval = 0.0
-    private var _decelerationDisplayLink: CADisplayLink!
-    private var _decelerationVelocity = CGPoint()
-    
-    @objc private func tapGestureRecognized(_ recognizer: UITapGestureRecognizer)
-    {
-        // do nothing
-    }
-    
-    @objc private func doubleTapGestureRecognized(_ recognizer: UITapGestureRecognizer)
-    {
-        if _data === nil
-        {
-            return
-        }
-        
-        if recognizer.state == UIGestureRecognizerState.ended
-        {
-            if _data !== nil && _doubleTapToZoomEnabled && (data?.entryCount ?? 0) > 0
-            {
-                var location = recognizer.location(in: self)
-                location.x = location.x - _viewPortHandler.offsetLeft
-                
-                if isTouchInverted()
-                {
-                    location.y = -(location.y - _viewPortHandler.offsetTop)
-                }
-                else
-                {
-                    location.y = -(self.bounds.size.height - location.y - _viewPortHandler.offsetBottom)
-                }
-                
-                self.zoom(scaleX: isScaleXEnabled ? 1.4 : 1.0, scaleY: isScaleYEnabled ? 1.4 : 1.0, x: location.x, y: location.y)
-            }
-        }
-    }
-    
-    @objc private func pinchGestureRecognized(_ recognizer: UIPinchGestureRecognizer)
-    {
-        if recognizer.state == UIGestureRecognizerState.began
-        {
-            stopDeceleration()
-            
-            if _data !== nil &&
-                (_pinchZoomEnabled || _scaleXEnabled || _scaleYEnabled)
-            {
-                _isScaling = true
-                
-                if _pinchZoomEnabled
-                {
-                    _gestureScaleAxis = .both
-                }
-                else
-                {
-                    let x = abs(recognizer.location(in: self).x - recognizer.location(ofTouch: 1, in: self).x)
-                    let y = abs(recognizer.location(in: self).y - recognizer.location(ofTouch: 1, in: self).y)
-                    
-                    if _scaleXEnabled != _scaleYEnabled
-                    {
-                        _gestureScaleAxis = _scaleXEnabled ? .x : .y
-                    }
-                    else
-                    {
-                        _gestureScaleAxis = x > y ? .x : .y
-                    }
-                }
-            }
-        }
-        else if recognizer.state == UIGestureRecognizerState.ended ||
-            recognizer.state == UIGestureRecognizerState.cancelled
-        {
-            if _isScaling
-            {
-                _isScaling = false
-                
-                // Range might have changed, which means that Y-axis labels could have changed in size, affecting Y-axis size. So we need to recalculate offsets.
-                calculateOffsets()
-                setNeedsDisplay()
-            }
-        }
-        else if recognizer.state == UIGestureRecognizerState.changed
-        {
-            let isZoomingOut = (recognizer.scale < 1)
-            var canZoomMoreX = isZoomingOut ? _viewPortHandler.canZoomOutMoreX : _viewPortHandler.canZoomInMoreX
-            var canZoomMoreY = isZoomingOut ? _viewPortHandler.canZoomOutMoreY : _viewPortHandler.canZoomInMoreY
-            
-            if _isScaling
-            {
-                canZoomMoreX = canZoomMoreX && _scaleXEnabled && (_gestureScaleAxis == .both || _gestureScaleAxis == .x)
-                canZoomMoreY = canZoomMoreY && _scaleYEnabled && (_gestureScaleAxis == .both || _gestureScaleAxis == .y)
-                if canZoomMoreX || canZoomMoreY
-                {
-                    var location = recognizer.location(in: self)
-                    location.x = location.x - _viewPortHandler.offsetLeft
-                    
-                    if isTouchInverted()
-                    {
-                        location.y = -(location.y - _viewPortHandler.offsetTop)
-                    }
-                    else
-                    {
-                        location.y = -(_viewPortHandler.chartHeight - location.y - _viewPortHandler.offsetBottom)
-                    }
-                    
-                    let scaleX = canZoomMoreX ? recognizer.scale : 1.0
-                    let scaleY = canZoomMoreY ? recognizer.scale : 1.0
-                    
-                    var matrix = CGAffineTransform(translationX: location.x, y: location.y)
-                    matrix = matrix.scaledBy(x: scaleX, y: scaleY)
-                    matrix = matrix.translatedBy(x: -location.x, y: -location.y)
-                    
-                    matrix = _viewPortHandler.touchMatrix.concatenating(matrix)
-                    
-                    _viewPortHandler.refresh(newMatrix: matrix, chart: self, invalidate: true)
-                    
-                    delegate?.chartScaled(self, scaleX: scaleX, scaleY: scaleY)
-                }
-                
-                recognizer.scale = 1.0
-            }
-        }
-    }
-    
-    @objc private func panGestureRecognized(_ recognizer: UIPanGestureRecognizer)
-    {
-        if recognizer.state == UIGestureRecognizerState.began && recognizer.numberOfTouches > 0
-        {
-            stopDeceleration()
-            
-            if _data === nil || !self.isDragEnabled
-                
-            { // If we have no data, we have nothing to pan
-                return
-            }
-            
-            // If drag is enabled and we are in a position where there's something to drag:
-            //  * If we're zoomed in, then obviously we have something to drag.
-            //  * If we have a drag offset - we always have something to drag
-            if !self.hasNoDragOffset || !self.isFullyZoomedOut
-            {
-                _isDragging = true
-                
-                var translation = recognizer.translation(in: self)
-                if !self.dragXEnabled
-                {
-                    translation.x = 0.0
-                }
-                else if !self.dragYEnabled
-                {
-                    translation.y = 0.0
-                }
-                
-                let didUserDrag = translation.x != 0.0 || translation.y != 0.0
-                
-                // Check to see if user dragged at all and if so, can the chart be dragged by the given amount
-                if didUserDrag && !performPanChange(translation: translation)
-                {
-                    if _outerScrollView !== nil
-                    {
-                        // We can stop dragging right now, and let the scroll view take control
-                        _outerScrollView = nil
-                        _isDragging = false
-                    }
-                }
-                else
-                {
-                    if _outerScrollView !== nil
-                    {
-                        // Prevent the parent scroll view from scrolling
-                        _outerScrollView?.isScrollEnabled = false
-                    }
-                }
-                
-                _lastPanPoint = recognizer.translation(in: self)
-            }
-        }
-        else if recognizer.state == UIGestureRecognizerState.changed
-        {
-            if _isDragging
-            {
-                let originalTranslation = recognizer.translation(in: self)
-                var translation = CGPoint(x: originalTranslation.x - _lastPanPoint.x, y: originalTranslation.y - _lastPanPoint.y)
-                
-                if !self.dragXEnabled
-                {
-                    translation.x = 0.0
-                }
-                else if !self.dragYEnabled
-                {
-                    translation.y = 0.0
-                }
-                
-                let _ = performPanChange(translation: translation)
-                
-                _lastPanPoint = originalTranslation
-            }
-        }
-        else if recognizer.state == UIGestureRecognizerState.ended || recognizer.state == UIGestureRecognizerState.cancelled
-        {
-            if _isDragging
-            {
-                if recognizer.state == UIGestureRecognizerState.ended && isDragDecelerationEnabled
-                {
-                    stopDeceleration()
-                    
-                    _decelerationLastTime = CACurrentMediaTime()
-                    _decelerationVelocity = recognizer.velocity(in: self)
-                    
-                    _decelerationDisplayLink = CADisplayLink(target: self, selector: #selector(BarLineChartViewBase.decelerationLoop))
-                    _decelerationDisplayLink.add(to: RunLoop.main, forMode: RunLoopMode.commonModes)
-                }
-                
-                _isDragging = false
-            }
-            
-            if _outerScrollView !== nil
-            {
-                _outerScrollView?.isScrollEnabled = true
-                _outerScrollView = nil
-            }
-        }
-    }
-    
-    private func performPanChange(translation: CGPoint) -> Bool
-    {
-        var translation = translation
-        
-        if isTouchInverted()
-        {
-            translation.y = -translation.y
-        }
-        
-        let originalMatrix = _viewPortHandler.touchMatrix
-        
-        var matrix = CGAffineTransform(translationX: translation.x, y: translation.y)
-        matrix = originalMatrix.concatenating(matrix)
-        
-        matrix = _viewPortHandler.refresh(newMatrix: matrix, chart: self, invalidate: true)
-        
-        delegate?.chartTranslated(self, dX: translation.x, dY: translation.y)
-        
-        // Did we managed to actually drag or did we reach the edge?
-        return matrix.tx != originalMatrix.tx || matrix.ty != originalMatrix.ty
-    }
-    
-    private func isTouchInverted() -> Bool
-    {
-        return false
-    }
-    
-    open func stopDeceleration()
-    {
-        if _decelerationDisplayLink !== nil
-        {
-            _decelerationDisplayLink.remove(from: RunLoop.main, forMode: RunLoopMode.commonModes)
-            _decelerationDisplayLink = nil
-        }
-    }
-    
-    @objc private func decelerationLoop()
-    {
-        let currentTime = CACurrentMediaTime()
-        
-        _decelerationVelocity.x *= self.dragDecelerationFrictionCoef
-        _decelerationVelocity.y *= self.dragDecelerationFrictionCoef
-        
-        let timeInterval = CGFloat(currentTime - _decelerationLastTime)
-        
-        let distance = CGPoint(
-            x: _decelerationVelocity.x * timeInterval,
-            y: _decelerationVelocity.y * timeInterval
-        )
-        
-        if !performPanChange(translation: distance)
-        {
-            // We reached the edge, stop
-            _decelerationVelocity.x = 0.0
-            _decelerationVelocity.y = 0.0
-        }
-        
-        _decelerationLastTime = currentTime
-        
-        if abs(_decelerationVelocity.x) < 0.001 && abs(_decelerationVelocity.y) < 0.001
-        {
-            stopDeceleration()
-            
-            // Range might have changed, which means that Y-axis labels could have changed in size, affecting Y-axis size. So we need to recalculate offsets.
-            calculateOffsets()
-            setNeedsDisplay()
-        }
-    }
-    
-    private func UIGestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool
-    {
-        if gestureRecognizer == _panGestureRecognizer
-        {
-            let velocity = _panGestureRecognizer.velocity(in: self)
-            if _data === nil || !isDragEnabled ||
-                (self.hasNoDragOffset && self.isFullyZoomedOut) ||
-                (!_dragYEnabled && fabs(velocity.y) > fabs(velocity.x)) ||
-                (!_dragXEnabled && fabs(velocity.y) < fabs(velocity.x))
-            {
-                return false
-            }
-        }
-        else
-        {
-            if gestureRecognizer == _pinchGestureRecognizer
-            {
-                if _data === nil || (!_pinchZoomEnabled && !_scaleXEnabled && !_scaleYEnabled)
-                {
-                    return false
-                }
-            }
-        }
-        
-        return true
-    }
-    
-    open override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool
-    {
-        if !super.gestureRecognizerShouldBegin(gestureRecognizer)
-        {
-            return false
-        }
-        
-        return UIGestureRecognizerShouldBegin(gestureRecognizer)
-    }
-    
-    open func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool
-    {
-        if ((gestureRecognizer is UIPinchGestureRecognizer && otherGestureRecognizer is UIPanGestureRecognizer) ||
-            (gestureRecognizer is UIPanGestureRecognizer && otherGestureRecognizer is UIPinchGestureRecognizer))
-        {
-            return true
-        }
-        
-        if gestureRecognizer is UIPanGestureRecognizer,
-            otherGestureRecognizer is UIPanGestureRecognizer,
-            gestureRecognizer == _panGestureRecognizer
-        {
-            var scrollView = self.superview
-            while scrollView != nil && !(scrollView is UIScrollView)
-            {
-                scrollView = scrollView?.superview
-            }
-            
-            // If there is two scrollview together, we pick the superview of the inner scrollview.
-            // In the case of UITableViewWrepperView, the superview will be UITableView
-            if let superViewOfScrollView = scrollView?.superview,
-                superViewOfScrollView is UIScrollView
-            {
-                scrollView = superViewOfScrollView
-            }
-
-            var foundScrollView = scrollView as? UIScrollView
-            
-            if !(foundScrollView?.isScrollEnabled ?? true)
-            {
-                foundScrollView = nil
-            }
-            
-            let scrollViewPanGestureRecognizer = foundScrollView?.gestureRecognizers?.first {
-                $0 is UIPanGestureRecognizer
-            }
-            
-            if otherGestureRecognizer === scrollViewPanGestureRecognizer
-            {
-                _outerScrollView = foundScrollView
-                
-                return true
-            }
-        }
-        
-        return false
     }
     
     /// MARK: Viewport modifiers
@@ -1256,7 +834,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
         {
             _scaleXEnabled = enabled
             _scaleYEnabled = enabled
-            _pinchGestureRecognizer.isEnabled = _pinchZoomEnabled || _scaleXEnabled || _scaleYEnabled
         }
     }
     
@@ -1271,7 +848,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
             if _scaleXEnabled != newValue
             {
                 _scaleXEnabled = newValue
-                _pinchGestureRecognizer.isEnabled = _pinchZoomEnabled || _scaleXEnabled || _scaleYEnabled
             }
         }
     }
@@ -1287,7 +863,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
             if _scaleYEnabled != newValue
             {
                 _scaleYEnabled = newValue
-                _pinchGestureRecognizer.isEnabled = _pinchZoomEnabled || _scaleXEnabled || _scaleYEnabled
             }
         }
     }
@@ -1307,7 +882,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
             if _doubleTapToZoomEnabled != newValue
             {
                 _doubleTapToZoomEnabled = newValue
-                _doubleTapGestureRecognizer.isEnabled = _doubleTapToZoomEnabled
             }
         }
     }
@@ -1398,7 +972,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
             if _pinchZoomEnabled != newValue
             {
                 _pinchZoomEnabled = newValue
-                _pinchGestureRecognizer.isEnabled = _pinchZoomEnabled || _scaleXEnabled || _scaleYEnabled
             }
         }
     }
