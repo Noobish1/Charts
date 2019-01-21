@@ -24,7 +24,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
     private var _autoScaleMinMaxEnabled = false
     
     private var _pinchZoomEnabled = false
-    private var _doubleTapToZoomEnabled = true
     private var _dragXEnabled = true
     private var _dragYEnabled = true
     
@@ -869,29 +868,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
     
     open var isScaleXEnabled: Bool { return scaleXEnabled }
     open var isScaleYEnabled: Bool { return scaleYEnabled }
-    
-    /// flag that indicates if double tap zoom is enabled or not
-    open var doubleTapToZoomEnabled: Bool
-    {
-        get
-        {
-            return _doubleTapToZoomEnabled
-        }
-        set
-        {
-            if _doubleTapToZoomEnabled != newValue
-            {
-                _doubleTapToZoomEnabled = newValue
-            }
-        }
-    }
-    
-    /// **default**: true
-    /// - returns: `true` if zooming via double-tap is enabled `false` ifnot.
-    open var isDoubleTapToZoomEnabled: Bool
-    {
-        return doubleTapToZoomEnabled
-    }
     
     /// **default**: true
     /// - returns: `true` if drawing the grid background is enabled, `false` ifnot.
