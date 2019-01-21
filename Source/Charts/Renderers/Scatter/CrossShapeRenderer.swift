@@ -11,7 +11,7 @@
 import Foundation
 import CoreGraphics
 
-open class CrossShapeRenderer : NSObject, IShapeRenderer
+open class CrossShapeRenderer : NSObject, ShapeRendererProtocol
 {
     open func renderShape(
         context: CGContext,

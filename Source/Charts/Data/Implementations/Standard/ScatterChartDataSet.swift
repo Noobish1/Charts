@@ -47,9 +47,9 @@ open class ScatterChartDataSet: ChartDataSet, ScatterChartDataSetProtocol
     /// The IShapeRenderer responsible for rendering this DataSet.
     /// This can also be used to set a custom IShapeRenderer aside from the default ones.
     /// **default**: `SquareShapeRenderer`
-    open var shapeRenderer: IShapeRenderer? = SquareShapeRenderer()
+    open var shapeRenderer: ShapeRendererProtocol? = SquareShapeRenderer()
     
-    open class func renderer(forShape shape: Shape) -> IShapeRenderer
+    open class func renderer(forShape shape: Shape) -> ShapeRendererProtocol
     {
         switch shape
         {

@@ -52,7 +52,7 @@
 		7E7561DE19DC7CABBE0B2D3A /* LineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0619A877C69A95ECCC440A44 /* LineChartView.swift */; };
 		8102A555DD6C93AC1290EA7C /* Fill.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4CFFFB65819121595F06F1 /* Fill.swift */; };
 		81892994002C0640AD858748 /* ChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E120E76C6F1B5877D56126DD /* ChartData.swift */; };
-		8A9FF54E2075A9047CC8E953 /* IShapeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1D3D13180C2E3893A82546 /* IShapeRenderer.swift */; };
+		8A9FF54E2075A9047CC8E953 /* ShapeRendererProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1D3D13180C2E3893A82546 /* ShapeRendererProtocol.swift */; };
 		8EF7B3FBE37F72CC030CD865 /* SquareShapeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32FC01A016DFF1BA73AF9182 /* SquareShapeRenderer.swift */; };
 		8F4B1A9060472764073DFA0B /* TriangleShapeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FB6219B143F8F7DA762950 /* TriangleShapeRenderer.swift */; };
 		93A94E1FF55041A6032891FE /* XShapeRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D35CF6F9177D77B6B97AE1 /* XShapeRenderer.swift */; };
@@ -149,7 +149,7 @@
 		ECE1B1623D3AF69CECAE8562 /* CircleShapeRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CircleShapeRenderer.swift; path = Source/Charts/Renderers/Scatter/CircleShapeRenderer.swift; sourceTree = "<group>"; };
 		F22750328058DEC2F019646F /* ChartDataEntry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartDataEntry.swift; path = Source/Charts/Data/Implementations/Standard/ChartDataEntry.swift; sourceTree = "<group>"; };
 		F6227A646166E248F90F86AD /* ChartColorTemplates.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartColorTemplates.swift; path = Source/Charts/Utils/ChartColorTemplates.swift; sourceTree = "<group>"; };
-		FA1D3D13180C2E3893A82546 /* IShapeRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = IShapeRenderer.swift; path = Source/Charts/Renderers/Scatter/IShapeRenderer.swift; sourceTree = "<group>"; };
+		FA1D3D13180C2E3893A82546 /* ShapeRendererProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ShapeRendererProtocol.swift; path = Source/Charts/Renderers/Scatter/ShapeRendererProtocol.swift; sourceTree = "<group>"; };
 		FA7BDB22C97F39A4B33E38A7 /* ViewPortJob.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ViewPortJob.swift; path = Source/Charts/Jobs/ViewPortJob.swift; sourceTree = "<group>"; };
 		FB3A4F5987E58F3E5BE855F9 /* ZoomViewJob.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZoomViewJob.swift; path = Source/Charts/Jobs/ZoomViewJob.swift; sourceTree = "<group>"; };
 		FB92A80F861C1362EED8D946 /* YAxis.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = YAxis.swift; path = Source/Charts/Components/YAxis.swift; sourceTree = "<group>"; };
@@ -375,7 +375,7 @@
 				AA70259ED16FF80D8EEB0F94 /* ChevronUpShapeRenderer.swift */,
 				ECE1B1623D3AF69CECAE8562 /* CircleShapeRenderer.swift */,
 				823F7DB281C6C6F069A69605 /* CrossShapeRenderer.swift */,
-				FA1D3D13180C2E3893A82546 /* IShapeRenderer.swift */,
+				FA1D3D13180C2E3893A82546 /* ShapeRendererProtocol.swift */,
 				32FC01A016DFF1BA73AF9182 /* SquareShapeRenderer.swift */,
 				C8FB6219B143F8F7DA762950 /* TriangleShapeRenderer.swift */,
 				23D35CF6F9177D77B6B97AE1 /* XShapeRenderer.swift */,
@@ -539,7 +539,7 @@
 				F103D90FC5DEEA0D7BB4407E /* ChevronUpShapeRenderer.swift in Sources */,
 				B85DEB06B4C1AFFC8A0E3295 /* CircleShapeRenderer.swift in Sources */,
 				0529DD51622C8769C1121F90 /* CrossShapeRenderer.swift in Sources */,
-				8A9FF54E2075A9047CC8E953 /* IShapeRenderer.swift in Sources */,
+				8A9FF54E2075A9047CC8E953 /* ShapeRendererProtocol.swift in Sources */,
 				8EF7B3FBE37F72CC030CD865 /* SquareShapeRenderer.swift in Sources */,
 				8F4B1A9060472764073DFA0B /* TriangleShapeRenderer.swift in Sources */,
 				93A94E1FF55041A6032891FE /* XShapeRenderer.swift in Sources */,
