@@ -27,8 +27,8 @@ open class XAxisRenderer: AxisRendererBase
         if let transformer = self.transformer
         {
             // calculate the starting and entry point of the y-labels (depending on
-            // zoom / contentrect bounds)
-            if viewPortHandler.contentWidth > 10 && !viewPortHandler.isFullyZoomedOutX
+            // contentrect bounds)
+            if viewPortHandler.contentWidth > 10
             {
                 let p1 = transformer.valueForTouchPoint(CGPoint(x: viewPortHandler.contentLeft, y: viewPortHandler.contentTop))
                 let p2 = transformer.valueForTouchPoint(CGPoint(x: viewPortHandler.contentRight, y: viewPortHandler.contentTop))

@@ -88,7 +88,6 @@ open class AxisBase: ComponentBase
     private var _granularity = Double(1.0)
     
     /// The minimum interval between axis values.
-    /// This can be used to avoid label duplicating when zooming in.
     ///
     /// **default**: 1.0
     open var granularity: Double

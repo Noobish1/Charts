@@ -41,6 +41,6 @@ open class DataRenderer: Renderer
     open func isDrawingValuesAllowed(dataProvider: ChartDataProvider?) -> Bool
     {
         guard let data = dataProvider?.data else { return false }
-        return data.entryCount < Int(CGFloat(dataProvider?.maxVisibleCount ?? 0) * viewPortHandler.scaleX)
+        return data.entryCount < Int(CGFloat(dataProvider?.maxVisibleCount ?? 0))
     }
 }
