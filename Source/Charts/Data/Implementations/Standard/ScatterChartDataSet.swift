@@ -14,18 +14,6 @@ import CoreGraphics
 
 open class ScatterChartDataSet: ChartDataSet, ScatterChartDataSetProtocol
 {
-    
-    public enum Shape: Int
-    {
-        case square
-        case circle
-        case triangle
-        case cross
-        case x
-        case chevronUp
-        case chevronDown
-    }
-    
     /// The size the scatter shape will have
     open var scatterShapeSize = CGFloat(10.0)
     
@@ -37,31 +25,10 @@ open class ScatterChartDataSet: ChartDataSet, ScatterChartDataSetProtocol
     /// **default**: nil
     open var scatterShapeHoleColor: UIColor? = nil
     
-    /// Sets the ScatterShape this DataSet should be drawn with.
-    /// This will search for an available IShapeRenderer and set this renderer for the DataSet
-    open func setScatterShape(_ shape: Shape)
-    {
-        self.shapeRenderer = ScatterChartDataSet.renderer(forShape: shape)
-    }
-    
     /// The IShapeRenderer responsible for rendering this DataSet.
     /// This can also be used to set a custom IShapeRenderer aside from the default ones.
     /// **default**: `SquareShapeRenderer`
-    open var shapeRenderer: ShapeRendererProtocol? = SquareShapeRenderer()
-    
-    open class func renderer(forShape shape: Shape) -> ShapeRendererProtocol
-    {
-        switch shape
-        {
-        case .square: return SquareShapeRenderer()
-        case .circle: return CircleShapeRenderer()
-        case .triangle: return TriangleShapeRenderer()
-        case .cross: return CrossShapeRenderer()
-        case .x: return XShapeRenderer()
-        case .chevronUp: return ChevronUpShapeRenderer()
-        case .chevronDown: return ChevronDownShapeRenderer()
-        }
-    }
+    open var shapeRenderer: ShapeRendererProtocol = XShapeRenderer()
     
     // MARK: NSCopying
     

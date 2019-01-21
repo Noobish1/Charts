@@ -56,38 +56,31 @@ open class ScatterChartRenderer: BarLineScatterRenderer
         
         let valueToPixelMatrix = trans.valueToPixelMatrix
         
-        if let renderer = dataSet.shapeRenderer
+        context.saveGState()
+        
+        for j in 0 ..< Int(min(ceil(Double(entryCount)), Double(entryCount)))
         {
-            context.saveGState()
+            guard let e = dataSet.entryForIndex(j) else { continue }
             
-            for j in 0 ..< Int(min(ceil(Double(entryCount)), Double(entryCount)))
+            point.x = CGFloat(e.x)
+            point.y = CGFloat(e.y)
+            point = point.applying(valueToPixelMatrix)
+            
+            if !viewPortHandler.isInBoundsRight(point.x)
             {
-                guard let e = dataSet.entryForIndex(j) else { continue }
-                
-                point.x = CGFloat(e.x)
-                point.y = CGFloat(e.y)
-                point = point.applying(valueToPixelMatrix)
-                
-                if !viewPortHandler.isInBoundsRight(point.x)
-                {
-                    break
-                }
-                
-                if !viewPortHandler.isInBoundsLeft(point.x) ||
-                    !viewPortHandler.isInBoundsY(point.y)
-                {
-                    continue
-                }
-                
-                renderer.renderShape(context: context, dataSet: dataSet, viewPortHandler: viewPortHandler, point: point, color: dataSet.color(atIndex: j))
+                break
             }
             
-            context.restoreGState()
+            if !viewPortHandler.isInBoundsLeft(point.x) ||
+                !viewPortHandler.isInBoundsY(point.y)
+            {
+                continue
+            }
+            
+            dataSet.shapeRenderer.renderShape(context: context, dataSet: dataSet, viewPortHandler: viewPortHandler, point: point, color: dataSet.color(atIndex: j))
         }
-        else
-        {
-            print("There's no IShapeRenderer specified for ScatterDataSet", terminator: "\n")
-        }
+        
+        context.restoreGState()
     }
     
     open override func drawValues(context: CGContext)

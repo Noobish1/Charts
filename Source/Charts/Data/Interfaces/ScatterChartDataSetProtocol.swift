@@ -31,5 +31,5 @@ public protocol ScatterChartDataSetProtocol: ChartDataSetProtocol
     var scatterShapeHoleColor: UIColor? { get }
     
     /// - returns: The IShapeRenderer responsible for rendering this DataSet.
-    var shapeRenderer: ShapeRendererProtocol? { get }
+    var shapeRenderer: ShapeRendererProtocol { get }
 }
