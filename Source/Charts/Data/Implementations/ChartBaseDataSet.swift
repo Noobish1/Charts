@@ -324,31 +324,6 @@ open class ChartBaseDataSet: NSObject, ChartDataSetProtocol
     /// the shadow for the value-text labels
     open var valueShadow = NSShadow()
     
-    /// The form to draw for this dataset in the legend.
-    open var form = Legend.Form.default
-    
-    /// The form size to draw for this dataset in the legend.
-    ///
-    /// Return `NaN` to use the default legend form size.
-    open var formSize: CGFloat = CGFloat.nan
-    
-    /// The line width for drawing the form of this dataset in the legend
-    ///
-    /// Return `NaN` to use the default legend form line width.
-    open var formLineWidth: CGFloat = CGFloat.nan
-    
-    /// Line dash configuration for legend shapes that consist of lines.
-    ///
-    /// This is how much (in pixels) into the dash pattern are we starting from.
-    open var formLineDashPhase: CGFloat = 0.0
-    
-    /// Line dash configuration for legend shapes that consist of lines.
-    ///
-    /// This is the actual dash pattern.
-    /// I.e. [2, 3] will paint [--   --   ]
-    /// [1, 3, 4, 2] will paint [-   ----  -   ----  ]
-    open var formLineDashLengths: [CGFloat]? = nil
-    
     /// Set this to true to draw y-values on the chart.
     ///
     /// - note: For bar and line charts: if `maxVisibleCount` is reached, no values will be drawn even if this is enabled.

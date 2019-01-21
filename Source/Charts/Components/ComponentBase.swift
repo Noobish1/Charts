@@ -13,7 +13,7 @@ import Foundation
 import CoreGraphics
 
 
-/// This class encapsulates everything both Axis, Legend and LimitLines have in common
+/// This class encapsulates everything both Axis and LimitLines have in common
 open class ComponentBase: NSObject
 {
     /// flag that indicates if this component is enabled or not

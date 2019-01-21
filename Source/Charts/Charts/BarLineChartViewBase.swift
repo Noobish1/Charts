@@ -221,8 +221,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
             renderer.drawValues(context: context)
         }
 
-        _legendRenderer.renderLegend(context: context)
-
         drawDescription(context: context)
     }
     
@@ -272,17 +270,12 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
         leftYAxisRenderer.computeAxis(min: leftAxis._axisMinimum, max: leftAxis._axisMaximum, inverted: leftAxis.isInverted)
         rightYAxisRenderer.computeAxis(min: rightAxis._axisMinimum, max: rightAxis._axisMaximum, inverted: rightAxis.isInverted)
         
-        if let data = _data
+        if let _ = _data
         {
             xAxisRenderer.computeAxis(
                 min: _xAxis._axisMinimum,
                 max: _xAxis._axisMaximum,
                 inverted: false)
-
-            if _legend !== nil
-            {
-                legendRenderer?.computeLegend(data: data)
-            }
         }
         
         calculateOffsets()
@@ -300,63 +293,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
         rightAxis.calculate(min: _data?.getYMin(axis: .right) ?? 0.0, max: _data?.getYMax(axis: .right) ?? 0.0)
     }
     
-    internal func calculateLegendOffsets(offsetLeft: inout CGFloat, offsetTop: inout CGFloat, offsetRight: inout CGFloat, offsetBottom: inout CGFloat)
-    {
-        // setup offsets for legend
-        if _legend !== nil && _legend.isEnabled && !_legend.drawInside
-        {
-            switch _legend.orientation
-            {
-            case .vertical:
-                
-                switch _legend.horizontalAlignment
-                {
-                case .left:
-                    offsetLeft += min(_legend.neededWidth, _viewPortHandler.chartWidth * _legend.maxSizePercent) + _legend.xOffset
-                    
-                case .right:
-                    offsetRight += min(_legend.neededWidth, _viewPortHandler.chartWidth * _legend.maxSizePercent) + _legend.xOffset
-                    
-                case .center:
-                    
-                    switch _legend.verticalAlignment
-                    {
-                    case .top:
-                        offsetTop += min(_legend.neededHeight, _viewPortHandler.chartHeight * _legend.maxSizePercent) + _legend.yOffset
-                        
-                    case .bottom:
-                        offsetBottom += min(_legend.neededHeight, _viewPortHandler.chartHeight * _legend.maxSizePercent) + _legend.yOffset
-                        
-                    default:
-                        break
-                    }
-                }
-                
-            case .horizontal:
-                
-                switch _legend.verticalAlignment
-                {
-                case .top:
-                    offsetTop += min(_legend.neededHeight, _viewPortHandler.chartHeight * _legend.maxSizePercent) + _legend.yOffset
-                    if xAxis.isEnabled && xAxis.isDrawLabelsEnabled
-                    {
-                        offsetTop += xAxis.labelRotatedHeight
-                    }
-                    
-                case .bottom:
-                    offsetBottom += min(_legend.neededHeight, _viewPortHandler.chartHeight * _legend.maxSizePercent) + _legend.yOffset
-                    if xAxis.isEnabled && xAxis.isDrawLabelsEnabled
-                    {
-                        offsetBottom += xAxis.labelRotatedHeight
-                    }
-                    
-                default:
-                    break
-                }
-            }
-        }
-    }
-    
     internal override func calculateOffsets()
     {
         if !_customViewPortEnabled
@@ -365,11 +301,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
             var offsetRight = CGFloat(0.0)
             var offsetTop = CGFloat(0.0)
             var offsetBottom = CGFloat(0.0)
-            
-            calculateLegendOffsets(offsetLeft: &offsetLeft,
-                                   offsetTop: &offsetTop,
-                                   offsetRight: &offsetRight,
-                                   offsetBottom: &offsetBottom)
             
             // offsets for y-labels
             if leftAxis.needsOffset

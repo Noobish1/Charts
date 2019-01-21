@@ -48,9 +48,6 @@ open class ChartViewBase: UIView, ChartDataProvider
     /// The `Description` object of the chart.
     /// This should have been called just "description", but
     open var chartDescription: Description?
-        
-    /// The legend object containing all data associated with the legend
-    internal var _legend: Legend!
     
     /// delegate to receive chart events
     open weak var delegate: ChartViewDelegate?
@@ -66,8 +63,6 @@ open class ChartViewBase: UIView, ChartDataProvider
 
     /// alignment of the no data text
     open var noDataTextAlignment: NSTextAlignment = .left
-
-    internal var _legendRenderer: LegendRenderer!
     
     /// object responsible for rendering the data
     open var renderer: DataRenderer?
@@ -127,9 +122,6 @@ open class ChartViewBase: UIView, ChartDataProvider
         _viewPortHandler = ViewPortHandler(width: bounds.size.width, height: bounds.size.height)
         
         chartDescription = Description()
-        
-        _legend = Legend()
-        _legendRenderer = LegendRenderer(viewPortHandler: _viewPortHandler, legend: _legend)
         
         _xAxis = XAxis()
         
@@ -359,18 +351,6 @@ open class ChartViewBase: UIView, ChartDataProvider
     open var centerOffsets: CGPoint
     {
         return _viewPortHandler.contentCenter
-    }
-    
-    /// - returns: The Legend object of the chart. This method can be used to get an instance of the legend in order to customize the automatically generated Legend.
-    open var legend: Legend
-    {
-        return _legend
-    }
-    
-    /// - returns: The renderer object responsible for rendering / drawing the Legend.
-    open var legendRenderer: LegendRenderer!
-    {
-        return _legendRenderer
     }
     
     /// - returns: The rectangle that defines the borders of the chart-value surface (into which the actual values are drawn).
