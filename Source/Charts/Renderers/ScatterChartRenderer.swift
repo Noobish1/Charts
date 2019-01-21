@@ -44,8 +44,6 @@ open class ScatterChartRenderer: BarLineScatterCandleBubbleRenderer
         }
     }
     
-    private var _lineSegments = [CGPoint](repeating: CGPoint(), count: 2)
-    
     open func drawDataSet(context: CGContext, dataSet: ScatterChartDataSetProtocol)
     {
         guard let dataProvider = dataProvider else { return }
