@@ -48,11 +48,6 @@ open class ChartBaseDataSet: NSObject, ChartDataSetProtocol
         fatalError("calcMinMax is not implemented in ChartBaseDataSet")
     }
     
-    open func calcMinMaxY(fromX: Double, toX: Double)
-    {
-        fatalError("calcMinMaxY(fromX:, toX:) is not implemented in ChartBaseDataSet")
-    }
-    
     open var yMin: Double
     {
         fatalError("yMin is not implemented in ChartBaseDataSet")

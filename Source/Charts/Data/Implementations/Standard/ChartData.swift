@@ -57,17 +57,6 @@ open class ChartData: NSObject
         calcMinMax()
     }
     
-    open func calcMinMaxY(fromX: Double, toX: Double)
-    {
-        for set in _dataSets
-        {
-            set.calcMinMaxY(fromX: fromX, toX: toX)
-        }
-        
-        // apply the new data
-        calcMinMax()
-    }
-    
     /// calc minimum and maximum y value over all datasets
     open func calcMinMax()
     {

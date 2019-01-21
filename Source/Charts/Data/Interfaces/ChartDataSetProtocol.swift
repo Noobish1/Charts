@@ -22,10 +22,6 @@ public protocol ChartDataSetProtocol: AnyObject
     /// Calculates the minimum and maximum x and y values (_xMin, _xMax, _yMin, _yMax).
     func calcMinMax()
     
-    /// Calculates the min and max y-values from the Entry closest to the given fromX to the Entry closest to the given toX value.
-    /// This is only needed for the autoScaleMinMax feature.
-    func calcMinMaxY(fromX: Double, toX: Double)
-    
     /// - returns: The minimum y-value this DataSet holds
     var yMin: Double { get }
     

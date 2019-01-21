@@ -20,9 +20,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterChartDataProvider
     /// (entry numbers greater than this value will cause value-labels to disappear)
     internal var _maxVisibleCount = 100
     
-    /// flag that indicates if auto scaling on the y axis is enabled
-    private var _autoScaleMinMaxEnabled = false
-    
     /// When enabled, the values will be clipped to contentRect, otherwise they can bleed outside the content rect.
     open var clipValuesToContentEnabled: Bool = false
 
@@ -115,11 +112,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterChartDataProvider
 
         // execute all drawing commands
 
-        if _autoScaleMinMaxEnabled
-        {
-            autoScale()
-        }
-
         if leftAxis.isEnabled
         {
             leftYAxisRenderer.computeAxis(min: leftAxis._axisMinimum, max: leftAxis._axisMaximum, inverted: leftAxis.isInverted)
@@ -174,31 +166,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterChartDataProvider
         }
 
         drawDescription(context: context)
-    }
-    
-    /// Performs auto scaling of the axis by recalculating the minimum and maximum y-values based on the entries currently in view.
-    internal func autoScale()
-    {
-        guard let data = _data
-            else { return }
-        
-        data.calcMinMaxY(fromX: self.lowestVisibleX, toX: self.highestVisibleX)
-        
-        _xAxis.calculate(min: data.xMin, max: data.xMax)
-        
-        // calculate axis range (min / max) according to provided data
-        
-        if leftAxis.isEnabled
-        {
-            leftAxis.calculate(min: data.getYMin(axis: .left), max: data.getYMax(axis: .left))
-        }
-        
-        if rightAxis.isEnabled
-        {
-            rightAxis.calculate(min: data.getYMin(axis: .right), max: data.getYMax(axis: .right))
-        }
-        
-        calculateOffsets()
     }
     
     internal func prepareValuePxMatrix()
@@ -375,18 +342,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterChartDataProvider
     {
         return leftAxis.isInverted || rightAxis.isInverted
     }
-    
-    /// flag that indicates if auto scaling on the y axis is enabled.
-    /// if yes, the y axis automatically adjusts to the min and max y values of the current x axis range whenever the viewport changes
-    open var autoScaleMinMaxEnabled: Bool
-    {
-        get { return _autoScaleMinMaxEnabled }
-        set { _autoScaleMinMaxEnabled = newValue }
-    }
-    
-    /// **default**: false
-    /// - returns: `true` if auto scaling on the y axis is enabled.
-    open var isAutoScaleMinMaxEnabled : Bool { return autoScaleMinMaxEnabled }
     
     /// Sets a minimum width to the specified y axis.
     open func setYAxisMinWidth(_ axis: YAxis.AxisDependency, width: CGFloat)

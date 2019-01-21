@@ -95,24 +95,6 @@ open class ChartDataSet: ChartBaseDataSet
         values.forEach { calcMinMax(entry: $0) }
     }
     
-    open override func calcMinMaxY(fromX: Double, toX: Double)
-    {
-        _yMax = -Double.greatestFiniteMagnitude
-        _yMin = Double.greatestFiniteMagnitude
-
-        guard !values.isEmpty else { return }
-        
-        let indexFrom = entryIndex(x: fromX, closestToY: Double.nan, rounding: .down)
-        let indexTo = entryIndex(x: toX, closestToY: Double.nan, rounding: .up)
-        
-        guard !(indexTo < indexFrom) else { return }
-        
-        (indexFrom...indexTo).forEach {
-            // only recalculate y
-            calcMinMaxY(entry: values[$0])
-        }
-    }
-    
     open func calcMinMaxX(entry e: ChartDataEntry)
     {
         if e.x < _xMin
