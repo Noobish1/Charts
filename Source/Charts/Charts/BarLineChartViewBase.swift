@@ -23,12 +23,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterChartDataProvider
     /// flag that indicates if auto scaling on the y axis is enabled
     private var _autoScaleMinMaxEnabled = false
     
-    /// the color for the background of the chart-drawing area (everything behind the grid lines).
-    open var gridBackgroundColor = UIColor(red: 240/255.0, green: 240/255.0, blue: 240/255.0, alpha: 1.0)
-    
-    /// flag indicating if the grid background should be drawn or not
-    open var drawGridBackgroundEnabled = false
-    
     /// When enabled, the values will be clipped to contentRect, otherwise they can bleed outside the content rect.
     open var clipValuesToContentEnabled: Bool = false
 
@@ -120,8 +114,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterChartDataProvider
         guard let context = optionalContext else { return }
 
         // execute all drawing commands
-        drawGridBackground(context: context)
-        
 
         if _autoScaleMinMaxEnabled
         {
@@ -306,27 +298,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterChartDataProvider
         prepareValuePxMatrix()
     }
     
-    /// draws the grid background
-    internal func drawGridBackground(context: CGContext)
-    {
-        if drawGridBackgroundEnabled
-        {
-            context.saveGState()
-        }
-        
-        if drawGridBackgroundEnabled
-        {
-            // draw the grid background
-            context.setFillColor(gridBackgroundColor.cgColor)
-            context.fill(_viewPortHandler.contentRect)
-        }
-        
-        if drawGridBackgroundEnabled
-        {
-            context.restoreGState()
-        }
-    }
-    
     /// MARK: Viewport modifiers
     
     open var visibleXRange: Double
@@ -357,13 +328,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterChartDataProvider
         getTransformer(forAxis: axis).pointValueToPixel(&vals)
 
         return vals
-    }
-    
-    /// **default**: true
-    /// - returns: `true` if drawing the grid background is enabled, `false` ifnot.
-    open var isDrawGridBackgroundEnabled: Bool
-    {
-        return drawGridBackgroundEnabled
     }
 
     /// - returns: The x and y values in the chart at the given touch point
