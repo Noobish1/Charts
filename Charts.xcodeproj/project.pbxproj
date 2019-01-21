@@ -427,7 +427,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "periphery scan --workspace Charts.xcworkspace --schemes Charts --targets Charts --format xcode --retain-public --retain-unused-protocol-func-params\n";
+			shellScript = "periphery scan --workspace Charts.xcworkspace --schemes Charts --targets Charts --format xcode --retain-unused-protocol-func-params\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

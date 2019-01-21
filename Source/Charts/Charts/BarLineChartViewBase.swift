@@ -287,32 +287,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterChartDataProvider
         }
     }
 
-    /// - returns: The position (in pixels) the provided Entry has inside the chart view
-    open func getPosition(entry e: ChartDataEntry, axis: YAxis.AxisDependency) -> CGPoint
-    {
-        var vals = CGPoint(x: CGFloat(e.x), y: CGFloat(e.y))
-
-        getTransformer(forAxis: axis).pointValueToPixel(&vals)
-
-        return vals
-    }
-
-    /// - returns: The x and y values in the chart at the given touch point
-    /// (encapsulated in a `CGPoint`). This method transforms pixel coordinates to
-    /// coordinates / values in the chart. This is the opposite method to
-    /// `getPixelsForValues(...)`.
-    open func valueForTouchPoint(point pt: CGPoint, axis: YAxis.AxisDependency) -> CGPoint
-    {
-        return getTransformer(forAxis: axis).valueForTouchPoint(pt)
-    }
-
-    /// Transforms the given chart values into pixels. This is the opposite
-    /// method to `valueForTouchPoint(...)`.
-    open func pixelForValues(x: Double, y: Double, axis: YAxis.AxisDependency) -> CGPoint
-    {
-        return getTransformer(forAxis: axis).pixelForValues(x: x, y: y)
-    }
-
     /// - returns: The y-axis object to the corresponding AxisDependency. In the
     /// horizontal bar-chart, LEFT == top, RIGHT == BOTTOM
     open func getAxis(_ axis: YAxis.AxisDependency) -> YAxis
