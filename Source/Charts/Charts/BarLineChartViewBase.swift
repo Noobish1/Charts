@@ -23,9 +23,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
     /// flag that indicates if auto scaling on the y axis is enabled
     private var _autoScaleMinMaxEnabled = false
     
-    private var _scaleXEnabled = true
-    private var _scaleYEnabled = true
-    
     /// the color for the background of the chart-drawing area (everything behind the grid lines).
     open var gridBackgroundColor = UIColor(red: 240/255.0, green: 240/255.0, blue: 240/255.0, alpha: 1.0)
     
@@ -600,7 +597,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
         _viewPortHandler.setMaximumScaleX(CGFloat(xScale))
     }
 
-    /// Limits the maximum and minimum value count that can be visible by pinching and zooming.
+    /// Limits the maximum and minimum value count that can be visible by zooming.
     ///
     /// e.g. minRange=10, maxRange=100 no less than 10 values and no more that 100 values can be viewed
     /// at once without scrolling.
@@ -635,7 +632,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
         _viewPortHandler.setMaximumScaleY(CGFloat(yScale))
     }
 
-    /// Limits the maximum and minimum y range that can be visible by pinching and zooming.
+    /// Limits the maximum and minimum y range that can be visible by zooming.
     ///
     /// - parameter minYRange:
     /// - parameter maxYRange:
@@ -775,49 +772,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
 
         return vals
     }
-    
-    /// is scaling enabled? (zooming in and out by gesture) for the chart (this does not affect dragging).
-    open func setScaleEnabled(_ enabled: Bool)
-    {
-        if _scaleXEnabled != enabled || _scaleYEnabled != enabled
-        {
-            _scaleXEnabled = enabled
-            _scaleYEnabled = enabled
-        }
-    }
-    
-    open var scaleXEnabled: Bool
-    {
-        get
-        {
-            return _scaleXEnabled
-        }
-        set
-        {
-            if _scaleXEnabled != newValue
-            {
-                _scaleXEnabled = newValue
-            }
-        }
-    }
-    
-    open var scaleYEnabled: Bool
-    {
-        get
-        {
-            return _scaleYEnabled
-        }
-        set
-        {
-            if _scaleYEnabled != newValue
-            {
-                _scaleYEnabled = newValue
-            }
-        }
-    }
-    
-    open var isScaleXEnabled: Bool { return scaleXEnabled }
-    open var isScaleYEnabled: Bool { return scaleYEnabled }
     
     /// **default**: true
     /// - returns: `true` if drawing the grid background is enabled, `false` ifnot.

@@ -22,9 +22,6 @@ public protocol ChartViewDelegate: AnyObject
     
     // Called when nothing has been selected or an "un-select" has been made.
     func chartValueNothingSelected(_ chartView: ChartViewBase)
-    
-    // Callbacks when the chart is scaled / zoomed via pinch zoom gesture.
-    func chartScaled(_ chartView: ChartViewBase, scaleX: CGFloat, scaleY: CGFloat)
 }
 
 open class ChartViewBase: UIView, ChartDataProvider
