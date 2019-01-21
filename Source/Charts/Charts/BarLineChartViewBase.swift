@@ -454,7 +454,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterChartDataProvider
         viewPortHandler.refresh(newMatrix: matrix, chart: self, invalidate: false)
     }
     
-    /// Resets all zooming and dragging and makes the chart fit exactly it's bounds.
+    /// Resets all zooming and makes the chart fit exactly it's bounds.
     open func fitScreen()
     {
         let matrix = _viewPortHandler.fitScreen()
