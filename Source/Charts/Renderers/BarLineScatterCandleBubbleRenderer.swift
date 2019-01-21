@@ -21,21 +21,6 @@ open class BarLineScatterCandleBubbleRenderer: DataRenderer
         super.init(viewPortHandler: viewPortHandler)
     }
     
-    /// Checks if the provided entry object is in bounds for drawing.
-    internal func isInBoundsX(entry e: ChartDataEntry, dataSet: ChartDataSetProtocol) -> Bool
-    {
-        let entryIndex = dataSet.entryIndex(entry: e)
-        return Double(entryIndex) < Double(dataSet.entryCount)
-    }
-
-    /// Calculates and returns the x-bounds for the given DataSet in terms of index in their values array.
-    /// This includes minimum and maximum visible x, as well as range.
-    internal func xBounds(chart: BarLineScatterCandleBubbleChartDataProvider,
-                          dataSet: ChartDataSetProtocol) -> XBounds
-    {
-        return XBounds(chart: chart, dataSet: dataSet)
-    }
-    
     /// - returns: `true` if the DataSet values should be drawn, `false` if not.
     internal func shouldDrawValues(forDataSet set: ChartDataSetProtocol) -> Bool
     {

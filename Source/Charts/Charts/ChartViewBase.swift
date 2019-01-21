@@ -42,9 +42,6 @@ open class ChartViewBase: UIView, ChartDataProvider
     /// object that holds all data that was originally set for the chart, before it was modified or any filtering algorithms had been applied
     internal var _data: ChartData?
     
-    /// if true, units are drawn next to the values in the chart
-    internal var _drawUnitInChart = false
-    
     /// The object representing the labels on the x-axis
     internal var _xAxis: XAxis!
     

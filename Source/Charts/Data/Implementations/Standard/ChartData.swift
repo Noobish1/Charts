@@ -380,24 +380,6 @@ open class ChartData: NSObject
         return -1
     }
     
-    /// - returns: The labels of all DataSets as a string array.
-    internal func dataSetLabels() -> [String]
-    {
-        var types = [String]()
-        
-        for i in 0 ..< _dataSets.count
-        {
-            if dataSets[i].label == nil
-            {
-                continue
-            }
-            
-            types[i] = _dataSets[i].label!
-        }
-        
-        return types
-    }
-    
     /// **IMPORTANT: This method does calculations at runtime. Use with care in performance critical situations.**
     ///
     /// - parameter label:
