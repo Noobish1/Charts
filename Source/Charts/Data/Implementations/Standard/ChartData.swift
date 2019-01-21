@@ -331,63 +331,6 @@ open class ChartData: NSObject
         }
     }
     
-    /// Retrieve the index of a ChartDataSet with a specific label from the ChartData. Search can be case sensitive or not.
-    /// 
-    /// **IMPORTANT: This method does calculations at runtime, do not over-use in performance critical situations.**
-    ///
-    /// - parameter dataSets: the DataSet array to search
-    /// - parameter type:
-    /// - parameter ignorecase: if true, the search is not case-sensitive
-    /// - returns: The index of the DataSet Object with the given label. Sensitive or not.
-    internal func getDataSetIndexByLabel(_ label: String, ignorecase: Bool) -> Int
-    {
-        if ignorecase
-        {
-            for i in 0 ..< dataSets.count
-            {
-                if dataSets[i].label == nil
-                {
-                    continue
-                }
-                if (label.caseInsensitiveCompare(dataSets[i].label!) == ComparisonResult.orderedSame)
-                {
-                    return i
-                }
-            }
-        }
-        else
-        {
-            for i in 0 ..< dataSets.count
-            {
-                if label == dataSets[i].label
-                {
-                    return i
-                }
-            }
-        }
-        
-        return -1
-    }
-    
-    /// **IMPORTANT: This method does calculations at runtime. Use with care in performance critical situations.**
-    ///
-    /// - parameter label:
-    /// - parameter ignorecase:
-    /// - returns: The DataSet Object with the given label. Sensitive or not.
-    open func getDataSetByLabel(_ label: String, ignorecase: Bool) -> ChartDataSetProtocol?
-    {
-        let index = getDataSetIndexByLabel(label, ignorecase: ignorecase)
-        
-        if index < 0 || index >= _dataSets.count
-        {
-            return nil
-        }
-        else
-        {
-            return _dataSets[index]
-        }
-    }
-    
     open func getDataSetByIndex(_ index: Int) -> ChartDataSetProtocol!
     {
         if index < 0 || index >= _dataSets.count

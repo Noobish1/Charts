@@ -152,9 +152,6 @@ public protocol ChartDataSetProtocol: AnyObject
     
     // MARK: - Styling functions and accessors
     
-    /// The label string that describes the DataSet.
-    var label: String? { get }
-    
     /// The axis this DataSet should be plotted against.
     var axisDependency: YAxis.AxisDependency { get }
     
