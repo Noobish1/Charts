@@ -19,7 +19,7 @@ open class ZoomViewJob: ViewPortJob
     internal var scaleY: CGFloat = 0.0
     internal var axisDependency: YAxis.AxisDependency = .left
     
-     public init(
+    public init(
         viewPortHandler: ViewPortHandler,
         scaleX: CGFloat,
         scaleY: CGFloat,

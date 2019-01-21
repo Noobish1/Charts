@@ -37,7 +37,7 @@ open class ChartDataSet: ChartBaseDataSet
         super.init(label: label)
     }
     
-     public init(values: [ChartDataEntry]?, label: String?)
+    public init(values: [ChartDataEntry]?, label: String?)
     {
         self.values = values ?? []
 
@@ -46,7 +46,7 @@ open class ChartDataSet: ChartBaseDataSet
         self.calcMinMax()
     }
     
-     public convenience init(values: [ChartDataEntry]?)
+    public convenience init(values: [ChartDataEntry]?)
     {
         self.init(values: values, label: "DataSet")
     }
@@ -57,7 +57,7 @@ open class ChartDataSet: ChartBaseDataSet
     /// - note: Calls `notifyDataSetChanged()` after setting a new value.
     /// - returns: The array of y-values that this DataSet represents.
     /// the entries that this dataset represents / holds together
-     open var values: [ChartDataEntry]
+    open var values: [ChartDataEntry]
         {
         didSet
         {
@@ -113,7 +113,7 @@ open class ChartDataSet: ChartBaseDataSet
         }
     }
     
-     open func calcMinMaxX(entry e: ChartDataEntry)
+    open func calcMinMaxX(entry e: ChartDataEntry)
     {
         if e.x < _xMin
         {
@@ -125,7 +125,7 @@ open class ChartDataSet: ChartBaseDataSet
         }
     }
     
-     open func calcMinMaxY(entry e: ChartDataEntry)
+    open func calcMinMaxY(entry e: ChartDataEntry)
     {
         if e.y < _yMin
         {

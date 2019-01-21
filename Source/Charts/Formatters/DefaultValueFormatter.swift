@@ -19,12 +19,12 @@ open class DefaultValueFormatter: NSObject, ValueFormatterProtocol
         _ dataSetIndex: Int,
         _ viewPortHandler: ViewPortHandler?) -> String
     
-     open var block: Block?
+    open var block: Block?
     
-     open var hasAutoDecimals: Bool = false
+    open var hasAutoDecimals: Bool = false
     
     private var _formatter: NumberFormatter?
-     open var formatter: NumberFormatter?
+    open var formatter: NumberFormatter?
     {
         get { return _formatter }
         set
@@ -59,14 +59,14 @@ open class DefaultValueFormatter: NSObject, ValueFormatterProtocol
         hasAutoDecimals = true
     }
     
-     public init(formatter: NumberFormatter)
+    public init(formatter: NumberFormatter)
     {
         super.init()
         
         self.formatter = formatter
     }
     
-     public init(decimals: Int)
+    public init(decimals: Int)
     {
         super.init()
         
@@ -76,14 +76,14 @@ open class DefaultValueFormatter: NSObject, ValueFormatterProtocol
         hasAutoDecimals = true
     }
     
-     public init(block: @escaping Block)
+    public init(block: @escaping Block)
     {
         super.init()
         
         self.block = block
     }
     
-     public static func with(block: @escaping Block) -> DefaultValueFormatter?
+    public static func with(block: @escaping Block) -> DefaultValueFormatter?
     {
         return DefaultValueFormatter(block: block)
     }

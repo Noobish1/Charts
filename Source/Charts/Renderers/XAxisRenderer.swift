@@ -15,7 +15,7 @@ import UIKit
 
 open class XAxisRenderer: AxisRendererBase
 {
-     public init(viewPortHandler: ViewPortHandler, xAxis: XAxis?, transformer: Transformer?)
+    public init(viewPortHandler: ViewPortHandler, xAxis: XAxis?, transformer: Transformer?)
     {
         super.init(viewPortHandler: viewPortHandler, transformer: transformer, axis: xAxis)
     }
@@ -56,7 +56,7 @@ open class XAxisRenderer: AxisRendererBase
         computeSize()
     }
     
-     open func computeSize()
+    open func computeSize()
     {
         guard let
             xAxis = self.axis as? XAxis
@@ -161,7 +161,7 @@ open class XAxisRenderer: AxisRendererBase
     }
     
     /// draws the x-labels on the specified y-position
-     open func drawLabels(context: CGContext, pos: CGFloat, anchor: CGPoint)
+    open func drawLabels(context: CGContext, pos: CGFloat, anchor: CGPoint)
     {
         guard
             let xAxis = self.axis as? XAxis,
@@ -245,7 +245,7 @@ open class XAxisRenderer: AxisRendererBase
         }
     }
     
-     open func drawLabel(
+    open func drawLabel(
         context: CGContext,
         formattedLabel: String,
         x: CGFloat,
@@ -311,7 +311,7 @@ open class XAxisRenderer: AxisRendererBase
         }
     }
     
-     open var gridClippingRect: CGRect
+    open var gridClippingRect: CGRect
     {
         var contentRect = viewPortHandler.contentRect
         let dx = self.axis?.gridLineWidth ?? 0.0
@@ -320,7 +320,7 @@ open class XAxisRenderer: AxisRendererBase
         return contentRect
     }
     
-     open func drawGridLine(context: CGContext, x: CGFloat, y: CGFloat)
+    open func drawGridLine(context: CGContext, x: CGFloat, y: CGFloat)
     {
         if x >= viewPortHandler.offsetLeft
             && x <= viewPortHandler.chartWidth
@@ -376,7 +376,7 @@ open class XAxisRenderer: AxisRendererBase
         }
     }
     
-     open func renderLimitLineLine(context: CGContext, limitLine: ChartLimitLine, position: CGPoint)
+    open func renderLimitLineLine(context: CGContext, limitLine: ChartLimitLine, position: CGPoint)
     {
         
         context.beginPath()
@@ -397,7 +397,7 @@ open class XAxisRenderer: AxisRendererBase
         context.strokePath()
     }
     
-     open func renderLimitLineLabel(context: CGContext, limitLine: ChartLimitLine, position: CGPoint, yOffset: CGFloat)
+    open func renderLimitLineLabel(context: CGContext, limitLine: ChartLimitLine, position: CGPoint, yOffset: CGFloat)
     {
         
         let label = limitLine.label

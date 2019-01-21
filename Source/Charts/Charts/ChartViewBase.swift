@@ -18,16 +18,16 @@ public protocol ChartViewDelegate: AnyObject
 {
     /// Called when a value has been selected inside the chart.
     /// - parameter entry: The selected Entry.
-     func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry)
+    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry)
     
     // Called when nothing has been selected or an "un-select" has been made.
-     func chartValueNothingSelected(_ chartView: ChartViewBase)
+    func chartValueNothingSelected(_ chartView: ChartViewBase)
     
     // Callbacks when the chart is scaled / zoomed via pinch zoom gesture.
-     func chartScaled(_ chartView: ChartViewBase, scaleX: CGFloat, scaleY: CGFloat)
+    func chartScaled(_ chartView: ChartViewBase, scaleX: CGFloat, scaleY: CGFloat)
     
     // Callbacks when the chart is moved / translated via drag gesture.
-     func chartTranslated(_ chartView: ChartViewBase, dX: CGFloat, dY: CGFloat)
+    func chartTranslated(_ chartView: ChartViewBase, dX: CGFloat, dY: CGFloat)
 }
 
 open class ChartViewBase: UIView, ChartDataProvider
@@ -37,7 +37,7 @@ open class ChartViewBase: UIView, ChartDataProvider
     /// - returns: The object representing all x-labels, this method can be used to
     /// acquire the XAxis object and modify it (e.g. change the position of the
     /// labels)
-     open var xAxis: XAxis
+    open var xAxis: XAxis
     {
         return _xAxis
     }
@@ -49,7 +49,7 @@ open class ChartViewBase: UIView, ChartDataProvider
     internal var _data: ChartData?
     
     /// If set to true, chart continues to scroll after touch up
-     open var dragDecelerationEnabled = true
+    open var dragDecelerationEnabled = true
     
     /// Deceleration friction coefficient in [0 ; 1] interval, higher values indicate that speed will decrease slowly, for example if it set to 0, it will stop immediately.
     /// 1 is an invalid value, and will be converted to 0.999 automatically.
@@ -63,22 +63,22 @@ open class ChartViewBase: UIView, ChartDataProvider
     
     /// The `Description` object of the chart.
     /// This should have been called just "description", but
-     open var chartDescription: Description?
+    open var chartDescription: Description?
         
     /// The legend object containing all data associated with the legend
     internal var _legend: Legend!
     
     /// delegate to receive chart events
-     open weak var delegate: ChartViewDelegate?
+    open weak var delegate: ChartViewDelegate?
     
     /// text that is displayed when the chart is empty
-     open var noDataText = "No chart data available."
+    open var noDataText = "No chart data available."
     
     /// Font to be used for the no data text.
-     open var noDataFont: UIFont! = UIFont(name: "HelveticaNeue", size: 12.0)
+    open var noDataFont: UIFont! = UIFont(name: "HelveticaNeue", size: 12.0)
     
     /// color of the no data text
-     open var noDataTextColor: UIColor = UIColor.black
+    open var noDataTextColor: UIColor = UIColor.black
 
     /// alignment of the no data text
     open var noDataTextAlignment: NSTextAlignment = .left
@@ -86,7 +86,7 @@ open class ChartViewBase: UIView, ChartDataProvider
     internal var _legendRenderer: LegendRenderer!
     
     /// object responsible for rendering the data
-     open var renderer: DataRenderer?
+    open var renderer: DataRenderer?
     
     /// object that manages the bounds and drawing constraints of the chart
     internal var _viewPortHandler: ViewPortHandler!
@@ -97,18 +97,18 @@ open class ChartViewBase: UIView, ChartDataProvider
     private var _interceptTouchEvents = false
     
     /// An extra offset to be appended to the viewport's top
-     open var extraTopOffset: CGFloat = 0.0
+    open var extraTopOffset: CGFloat = 0.0
     
     /// An extra offset to be appended to the viewport's right
-     open var extraRightOffset: CGFloat = 0.0
+    open var extraRightOffset: CGFloat = 0.0
     
     /// An extra offset to be appended to the viewport's bottom
-     open var extraBottomOffset: CGFloat = 0.0
+    open var extraBottomOffset: CGFloat = 0.0
     
     /// An extra offset to be appended to the viewport's left
-     open var extraLeftOffset: CGFloat = 0.0
+    open var extraLeftOffset: CGFloat = 0.0
     
-     open func setExtraOffsets(left: CGFloat, top: CGFloat, right: CGFloat, bottom: CGFloat)
+    open func setExtraOffsets(left: CGFloat, top: CGFloat, right: CGFloat, bottom: CGFloat)
     {
         extraLeftOffset = left
         extraTopOffset = top
@@ -190,7 +190,7 @@ open class ChartViewBase: UIView, ChartDataProvider
     }
     
     /// Clears the chart from all data (sets it to null) and refreshes it (by calling setNeedsDisplay()).
-     open func clear()
+    open func clear()
     {
         _data = nil
         _offsetsCalculated = false
@@ -199,14 +199,14 @@ open class ChartViewBase: UIView, ChartDataProvider
     }
     
     /// Removes all DataSets (and thereby Entries) from the chart. Does not set the data object to nil. Also refreshes the chart by calling setNeedsDisplay().
-     open func clearValues()
+    open func clearValues()
     {
         _data?.clearValues()
         setNeedsDisplay()
     }
 
     /// - returns: `true` if the chart is empty (meaning it's data object is either null or contains no entries).
-     open func isEmpty() -> Bool
+    open func isEmpty() -> Bool
     {
         guard let data = _data else { return true }
 
@@ -222,7 +222,7 @@ open class ChartViewBase: UIView, ChartDataProvider
     
     /// Lets the chart know its underlying data has changed and should perform all necessary recalculations.
     /// It is crucial that this method is called everytime data is changed dynamically. Not calling this method can lead to crashes or unexpected behaviour.
-     open func notifyDataSetChanged()
+    open func notifyDataSetChanged()
     {
         fatalError("notifyDataSetChanged() cannot be called on ChartViewBase")
     }
@@ -365,7 +365,7 @@ open class ChartViewBase: UIView, ChartDataProvider
     /// *
     /// - note: (Equivalent of getCenter() in MPAndroidChart, as center is already a standard in iOS that returns the center point relative to superview, and MPAndroidChart returns relative to self)*
     /// - returns: The center point of the chart (the whole View) in pixels.
-     open var midPoint: CGPoint
+    open var midPoint: CGPoint
     {
         let bounds = self.bounds
         return CGPoint(x: bounds.origin.x + bounds.size.width / 2.0, y: bounds.origin.y + bounds.size.height / 2.0)
@@ -378,32 +378,32 @@ open class ChartViewBase: UIView, ChartDataProvider
     }
     
     /// - returns: The Legend object of the chart. This method can be used to get an instance of the legend in order to customize the automatically generated Legend.
-     open var legend: Legend
+    open var legend: Legend
     {
         return _legend
     }
     
     /// - returns: The renderer object responsible for rendering / drawing the Legend.
-     open var legendRenderer: LegendRenderer!
+    open var legendRenderer: LegendRenderer!
     {
         return _legendRenderer
     }
     
     /// - returns: The rectangle that defines the borders of the chart-value surface (into which the actual values are drawn).
-     open var contentRect: CGRect
+    open var contentRect: CGRect
     {
         return _viewPortHandler.contentRect
     }
     
     /// - returns: The ViewPortHandler of the chart that is responsible for the
     /// content area of the chart and its offsets and dimensions.
-     open var viewPortHandler: ViewPortHandler!
+    open var viewPortHandler: ViewPortHandler!
     {
         return _viewPortHandler
     }
     
     /// - returns: The bitmap that represents the chart.
-     open func getChartImage(transparent: Bool) -> UIImage?
+    open func getChartImage(transparent: Bool) -> UIImage?
     {
         UIGraphicsBeginImageContextWithOptions(bounds.size, isOpaque || !transparent, UIScreen.main.scale)
         
@@ -503,7 +503,7 @@ open class ChartViewBase: UIView, ChartDataProvider
         }
     }
     
-     open func removeViewportJob(_ job: ViewPortJob)
+    open func removeViewportJob(_ job: ViewPortJob)
     {
         if let index = _viewportJobs.index(where: { $0 === job })
         {
@@ -511,12 +511,12 @@ open class ChartViewBase: UIView, ChartDataProvider
         }
     }
     
-     open func clearAllViewportJobs()
+    open func clearAllViewportJobs()
     {
         _viewportJobs.removeAll(keepingCapacity: false)
     }
     
-     open func addViewportJob(_ job: ViewPortJob)
+    open func addViewportJob(_ job: ViewPortJob)
     {
         if _viewPortHandler.hasChartDimens
         {
@@ -530,7 +530,7 @@ open class ChartViewBase: UIView, ChartDataProvider
     
     /// **default**: true
     /// - returns: `true` if chart continues to scroll after touch up, `false` ifnot.
-     open var isDragDecelerationEnabled: Bool
+    open var isDragDecelerationEnabled: Bool
         {
             return dragDecelerationEnabled
     }
@@ -539,7 +539,7 @@ open class ChartViewBase: UIView, ChartDataProvider
     /// 1 is an invalid value, and will be converted to 0.999 automatically.
     /// 
     /// **default**: true
-     open var dragDecelerationFrictionCoef: CGFloat
+    open var dragDecelerationFrictionCoef: CGFloat
     {
         get
         {

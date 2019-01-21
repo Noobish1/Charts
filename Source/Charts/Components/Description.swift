@@ -23,17 +23,17 @@ open class Description: ComponentBase
     }
     
     /// The text to be shown as the description.
-     open var text: String? = "Description Label"
+    open var text: String? = "Description Label"
     
     /// Custom position for the description text in pixels on the screen.
     open var position: CGPoint? = nil
     
     /// The text alignment of the description text. Default RIGHT.
-     open var textAlign: NSTextAlignment = NSTextAlignment.right
+    open var textAlign: NSTextAlignment = NSTextAlignment.right
     
     /// Font object used for drawing the description text.
-     open var font: UIFont
+    open var font: UIFont
     
     /// Text color used for drawing the description text
-     open var textColor = UIColor.black
+    open var textColor = UIColor.black
 }

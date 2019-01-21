@@ -39,7 +39,7 @@ open class ScatterChartDataSet: ChartDataSet, ScatterChartDataSetProtocol
     
     /// Sets the ScatterShape this DataSet should be drawn with.
     /// This will search for an available IShapeRenderer and set this renderer for the DataSet
-     open func setScatterShape(_ shape: Shape)
+    open func setScatterShape(_ shape: Shape)
     {
         self.shapeRenderer = ScatterChartDataSet.renderer(forShape: shape)
     }
@@ -49,7 +49,7 @@ open class ScatterChartDataSet: ChartDataSet, ScatterChartDataSetProtocol
     /// **default**: `SquareShapeRenderer`
     open var shapeRenderer: IShapeRenderer? = SquareShapeRenderer()
     
-     open class func renderer(forShape shape: Shape) -> IShapeRenderer
+    open class func renderer(forShape shape: Shape) -> IShapeRenderer
     {
         switch shape
         {

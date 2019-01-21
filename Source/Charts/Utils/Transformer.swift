@@ -23,13 +23,13 @@ open class Transformer: NSObject
 
     internal var _viewPortHandler: ViewPortHandler
 
-     public init(viewPortHandler: ViewPortHandler)
+    public init(viewPortHandler: ViewPortHandler)
     {
         _viewPortHandler = viewPortHandler
     }
 
     /// Prepares the matrix that transforms values to pixels. Calculates the scale factors from the charts size and offsets.
-     open func prepareMatrixValuePx(chartXMin: Double, deltaX: CGFloat, deltaY: CGFloat, chartYMin: Double)
+    open func prepareMatrixValuePx(chartXMin: Double, deltaX: CGFloat, deltaY: CGFloat, chartYMin: Double)
     {
         var scaleX = (_viewPortHandler.contentWidth / deltaX)
         var scaleY = (_viewPortHandler.contentHeight / deltaY)
@@ -50,7 +50,7 @@ open class Transformer: NSObject
     }
 
     /// Prepares the matrix that contains all offsets.
-     open func prepareMatrixOffset(inverted: Bool)
+    open func prepareMatrixOffset(inverted: Bool)
     {
         if !inverted
         {
@@ -79,7 +79,7 @@ open class Transformer: NSObject
         point = point.applying(valueToPixelMatrix)
     }
     
-     open func pixelForValues(x: Double, y: Double) -> CGPoint
+    open func pixelForValues(x: Double, y: Double) -> CGPoint
     {
         return CGPoint(x: x, y: y).applying(valueToPixelMatrix)
     }
@@ -152,7 +152,7 @@ open class Transformer: NSObject
     /// - returns: The x and y values in the chart at the given touch point
     /// (encapsulated in a CGPoint). This method transforms pixel coordinates to
     /// coordinates / values in the chart.
-     open func valueForTouchPoint(_ point: CGPoint) -> CGPoint
+    open func valueForTouchPoint(_ point: CGPoint) -> CGPoint
     {
         return point.applying(pixelToValueMatrix)
     }
@@ -160,12 +160,12 @@ open class Transformer: NSObject
     /// - returns: The x and y values in the chart at the given touch point
     /// (x/y). This method transforms pixel coordinates to
     /// coordinates / values in the chart.
-     open func valueForTouchPoint(x: CGFloat, y: CGFloat) -> CGPoint
+    open func valueForTouchPoint(x: CGFloat, y: CGFloat) -> CGPoint
     {
         return CGPoint(x: x, y: y).applying(pixelToValueMatrix)
     }
     
-     open var valueToPixelMatrix: CGAffineTransform
+    open var valueToPixelMatrix: CGAffineTransform
     {
         return
             _matrixValueToPx.concatenating(_viewPortHandler.touchMatrix
@@ -173,7 +173,7 @@ open class Transformer: NSObject
         )
     }
     
-     open var pixelToValueMatrix: CGAffineTransform
+    open var pixelToValueMatrix: CGAffineTransform
     {
         return valueToPixelMatrix.inverted()
     }

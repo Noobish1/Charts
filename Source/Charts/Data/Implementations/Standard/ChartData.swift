@@ -31,7 +31,7 @@ open class ChartData: NSObject
         _dataSets = [ChartDataSetProtocol]()
     }
     
-     public init(dataSets: [ChartDataSetProtocol]?)
+    public init(dataSets: [ChartDataSetProtocol]?)
     {
         super.init()
         
@@ -40,7 +40,7 @@ open class ChartData: NSObject
         self.initialize(dataSets: _dataSets)
     }
     
-     public convenience init(dataSet: ChartDataSetProtocol?)
+    public convenience init(dataSet: ChartDataSetProtocol?)
     {
         self.init(dataSets: dataSet === nil ? nil : [dataSet!])
     }
@@ -52,12 +52,12 @@ open class ChartData: NSObject
     
     /// Call this method to let the ChartData know that the underlying data has changed.
     /// Calling this performs all necessary recalculations needed when the contained data has changed.
-     open func notifyDataChanged()
+    open func notifyDataChanged()
     {
         calcMinMax()
     }
     
-     open func calcMinMaxY(fromX: Double, toX: Double)
+    open func calcMinMaxY(fromX: Double, toX: Double)
     {
         for set in _dataSets
         {
@@ -69,7 +69,7 @@ open class ChartData: NSObject
     }
     
     /// calc minimum and maximum y value over all datasets
-     open func calcMinMax()
+    open func calcMinMax()
     {
         _yMax = -Double.greatestFiniteMagnitude
         _yMin = Double.greatestFiniteMagnitude
@@ -138,7 +138,7 @@ open class ChartData: NSObject
     }
     
     /// Adjusts the current minimum and maximum values based on the provided Entry object.
-     open func calcMinMax(entry e: ChartDataEntry, axis: YAxis.AxisDependency)
+    open func calcMinMax(entry e: ChartDataEntry, axis: YAxis.AxisDependency)
     {
         if _yMax < e.y
         {
@@ -187,7 +187,7 @@ open class ChartData: NSObject
     }
     
     /// Adjusts the minimum and maximum values based on the given DataSet.
-     open func calcMinMax(dataSet d: ChartDataSetProtocol)
+    open func calcMinMax(dataSet d: ChartDataSetProtocol)
     {
         if _yMax < d.yMax
         {
@@ -236,13 +236,13 @@ open class ChartData: NSObject
     }
     
     /// - returns: The number of LineDataSets this object contains
-     open var dataSetCount: Int
+    open var dataSetCount: Int
     {
         return _dataSets.count
     }
     
     /// - returns: The smallest y-value the data object contains.
-     open var yMin: Double
+    open var yMin: Double
     {
         return _yMin
     }
@@ -253,7 +253,7 @@ open class ChartData: NSObject
         return _yMin
     }
     
-     open func getYMin(axis: YAxis.AxisDependency) -> Double
+    open func getYMin(axis: YAxis.AxisDependency) -> Double
     {
         if axis == .left
         {
@@ -280,7 +280,7 @@ open class ChartData: NSObject
     }
     
     /// - returns: The greatest y-value the data object contains.
-     open var yMax: Double
+    open var yMax: Double
     {
         return _yMax
     }
@@ -291,7 +291,7 @@ open class ChartData: NSObject
         return _yMax
     }
     
-     open func getYMax(axis: YAxis.AxisDependency) -> Double
+    open func getYMax(axis: YAxis.AxisDependency) -> Double
     {
         if axis == .left
         {
@@ -318,18 +318,18 @@ open class ChartData: NSObject
     }
     
     /// - returns: The minimum x-value the data object contains.
-     open var xMin: Double
+    open var xMin: Double
     {
         return _xMin
     }
     /// - returns: The maximum x-value the data object contains.
-     open var xMax: Double
+    open var xMax: Double
     {
         return _xMax
     }
     
     /// - returns: All DataSet objects this ChartData object holds.
-     open var dataSets: [ChartDataSetProtocol]
+    open var dataSets: [ChartDataSetProtocol]
     {
         get
         {
@@ -403,7 +403,7 @@ open class ChartData: NSObject
     /// - parameter label:
     /// - parameter ignorecase:
     /// - returns: The DataSet Object with the given label. Sensitive or not.
-     open func getDataSetByLabel(_ label: String, ignorecase: Bool) -> ChartDataSetProtocol?
+    open func getDataSetByLabel(_ label: String, ignorecase: Bool) -> ChartDataSetProtocol?
     {
         let index = getDataSetIndexByLabel(label, ignorecase: ignorecase)
         
@@ -417,7 +417,7 @@ open class ChartData: NSObject
         }
     }
     
-     open func getDataSetByIndex(_ index: Int) -> ChartDataSetProtocol!
+    open func getDataSetByIndex(_ index: Int) -> ChartDataSetProtocol!
     {
         if index < 0 || index >= _dataSets.count
         {
@@ -427,7 +427,7 @@ open class ChartData: NSObject
         return _dataSets[index]
     }
     
-     open func addDataSet(_ dataSet: ChartDataSetProtocol!)
+    open func addDataSet(_ dataSet: ChartDataSetProtocol!)
     {
         calcMinMax(dataSet: dataSet)
         
@@ -475,7 +475,7 @@ open class ChartData: NSObject
     }
     
     /// Adds an Entry to the DataSet at the specified index. Entries are added to the end of the list.
-     open func addEntry(_ e: ChartDataEntry, dataSetIndex: Int)
+    open func addEntry(_ e: ChartDataEntry, dataSetIndex: Int)
     {
         if _dataSets.count > dataSetIndex && dataSetIndex >= 0
         {
@@ -530,7 +530,7 @@ open class ChartData: NSObject
     }
     
     /// - returns: The DataSet that contains the provided Entry, or null, if no DataSet contains this entry.
-     open func getDataSetForEntry(_ e: ChartDataEntry!) -> ChartDataSetProtocol?
+    open func getDataSetForEntry(_ e: ChartDataEntry!) -> ChartDataSetProtocol?
     {
         if e == nil
         {
@@ -551,7 +551,7 @@ open class ChartData: NSObject
     }
 
     /// - returns: The index of the provided DataSet in the DataSet array of this data object, or -1 if it does not exist.
-     open func indexOfDataSet(_ dataSet: ChartDataSetProtocol) -> Int
+    open func indexOfDataSet(_ dataSet: ChartDataSetProtocol) -> Int
     {
         for i in 0 ..< _dataSets.count
         {
@@ -565,7 +565,7 @@ open class ChartData: NSObject
     }
     
     /// - returns: The first DataSet from the datasets-array that has it's dependency on the left axis. Returns null if no DataSet with left dependency could be found.
-     open func getFirstLeft(dataSets: [ChartDataSetProtocol]) -> ChartDataSetProtocol?
+    open func getFirstLeft(dataSets: [ChartDataSetProtocol]) -> ChartDataSetProtocol?
     {
         for dataSet in dataSets
         {
@@ -579,7 +579,7 @@ open class ChartData: NSObject
     }
     
     /// - returns: The first DataSet from the datasets-array that has it's dependency on the right axis. Returns null if no DataSet with right dependency could be found.
-     open func getFirstRight(dataSets: [ChartDataSetProtocol]) -> ChartDataSetProtocol?
+    open func getFirstRight(dataSets: [ChartDataSetProtocol]) -> ChartDataSetProtocol?
     {
         for dataSet in _dataSets
         {
@@ -593,7 +593,7 @@ open class ChartData: NSObject
     }
     
     /// - returns: All colors used across all DataSet objects this object represents.
-     open func getColors() -> [UIColor]?
+    open func getColors() -> [UIColor]?
     {
         var clrcnt = 0
         
@@ -618,7 +618,7 @@ open class ChartData: NSObject
     }
     
     /// Sets a custom IValueFormatter for all DataSets this data object contains.
-     open func setValueFormatter(_ formatter: ValueFormatterProtocol?)
+    open func setValueFormatter(_ formatter: ValueFormatterProtocol?)
     {
         guard let formatter = formatter
             else { return }
@@ -630,7 +630,7 @@ open class ChartData: NSObject
     }
     
     /// Sets the color of the value-text (color in which the value-labels are drawn) for all DataSets this data object contains.
-     open func setValueTextColor(_ color: UIColor!)
+    open func setValueTextColor(_ color: UIColor!)
     {
         for set in dataSets
         {
@@ -639,7 +639,7 @@ open class ChartData: NSObject
     }
     
     /// Sets the font for all value-labels for all DataSets this data object contains.
-     open func setValueFont(_ font: UIFont!)
+    open func setValueFont(_ font: UIFont!)
     {
         for set in dataSets
         {
@@ -648,7 +648,7 @@ open class ChartData: NSObject
     }
     
     /// Enables / disables drawing values (value-text) for all DataSets this data object contains.
-     open func setDrawValues(_ enabled: Bool)
+    open func setDrawValues(_ enabled: Bool)
     {
         for set in dataSets
         {
@@ -658,7 +658,7 @@ open class ChartData: NSObject
     
     /// Clears this data object from all DataSets and removes all Entries.
     /// Don't forget to invalidate the chart after this.
-     open func clearValues()
+    open func clearValues()
     {
         dataSets.removeAll(keepingCapacity: false)
         notifyDataChanged()
@@ -666,7 +666,7 @@ open class ChartData: NSObject
     
     /// Checks if this data object contains the specified DataSet. 
     /// - returns: `true` if so, `false` ifnot.
-     open func contains(dataSet: ChartDataSetProtocol) -> Bool
+    open func contains(dataSet: ChartDataSetProtocol) -> Bool
     {
         for set in dataSets
         {
@@ -680,7 +680,7 @@ open class ChartData: NSObject
     }
     
     /// - returns: The total entry count across all DataSet objects this data object contains.
-     open var entryCount: Int
+    open var entryCount: Int
     {
         var count = 0
         
@@ -693,7 +693,7 @@ open class ChartData: NSObject
     }
 
     /// - returns: The DataSet object with the maximum number of entries or null if there are no DataSets.
-     open var maxEntryCountSet: ChartDataSetProtocol?
+    open var maxEntryCountSet: ChartDataSetProtocol?
     {
         if _dataSets.count == 0
         {

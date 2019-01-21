@@ -24,7 +24,7 @@ open class ChartBaseDataSet: NSObject, ChartDataSetProtocol
         valueColors.append(UIColor.black)
     }
     
-     public init(label: String?)
+    public init(label: String?)
     {
         super.init()
         
@@ -235,7 +235,7 @@ open class ChartBaseDataSet: NSObject, ChartDataSetProtocol
     /// Sets colors to a single color a specific alpha value.
     /// - parameter color: the color to set
     /// - parameter alpha: alpha to apply to the set `color`
-     open func setColor(_ color: UIColor, alpha: CGFloat)
+    open func setColor(_ color: UIColor, alpha: CGFloat)
     {
         setColor(color.withAlphaComponent(alpha))
     }
@@ -243,7 +243,7 @@ open class ChartBaseDataSet: NSObject, ChartDataSetProtocol
     /// Sets colors with a specific alpha value.
     /// - parameter colors: the colors to set
     /// - parameter alpha: alpha to apply to the set `colors`
-     open func setColors(_ colors: [UIColor], alpha: CGFloat)
+    open func setColors(_ colors: [UIColor], alpha: CGFloat)
     {
         var colorsWithAlpha = colors
         
@@ -408,7 +408,7 @@ open class ChartBaseDataSet: NSObject, ChartDataSetProtocol
     
     // MARK: - NSCopying
     
-     open func copyWithZone(_ zone: NSZone?) -> AnyObject
+    open func copyWithZone(_ zone: NSZone?) -> AnyObject
     {
         let copy = type(of: self).init()
         

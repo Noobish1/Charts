@@ -15,7 +15,7 @@ import UIKit
 
 open class ChartColorTemplates: NSObject
 {
-     open class func liberty () -> [UIColor]
+    open class func liberty () -> [UIColor]
     {
         return [
             UIColor(red: 207/255.0, green: 248/255.0, blue: 246/255.0, alpha: 1.0),
@@ -26,7 +26,7 @@ open class ChartColorTemplates: NSObject
         ]
     }
     
-     open class func joyful () -> [UIColor]
+    open class func joyful () -> [UIColor]
     {
         return [
             UIColor(red: 217/255.0, green: 80/255.0, blue: 138/255.0, alpha: 1.0),
@@ -37,7 +37,7 @@ open class ChartColorTemplates: NSObject
         ]
     }
     
-     open class func pastel () -> [UIColor]
+    open class func pastel () -> [UIColor]
     {
         return [
             UIColor(red: 64/255.0, green: 89/255.0, blue: 128/255.0, alpha: 1.0),
@@ -48,7 +48,7 @@ open class ChartColorTemplates: NSObject
         ]
     }
     
-     open class func colorful () -> [UIColor]
+    open class func colorful () -> [UIColor]
     {
         return [
             UIColor(red: 193/255.0, green: 37/255.0, blue: 82/255.0, alpha: 1.0),
@@ -59,7 +59,7 @@ open class ChartColorTemplates: NSObject
         ]
     }
     
-     open class func vordiplom () -> [UIColor]
+    open class func vordiplom () -> [UIColor]
     {
         return [
             UIColor(red: 192/255.0, green: 255/255.0, blue: 140/255.0, alpha: 1.0),
@@ -70,7 +70,7 @@ open class ChartColorTemplates: NSObject
         ]
     }
     
-     open class func material () -> [UIColor]
+    open class func material () -> [UIColor]
     {
         return [
             UIColor(red: 46/255.0, green: 204/255.0, blue: 113/255.0, alpha: 1.0),
@@ -80,7 +80,7 @@ open class ChartColorTemplates: NSObject
         ]
     }
     
-     open class func colorFromString(_ colorString: String) -> UIColor
+    open class func colorFromString(_ colorString: String) -> UIColor
     {
         let leftParenCharset: CharacterSet = CharacterSet(charactersIn: "( ")
         let commaCharset: CharacterSet = CharacterSet(charactersIn: ", ")

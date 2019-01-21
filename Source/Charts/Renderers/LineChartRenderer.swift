@@ -15,9 +15,9 @@ import UIKit
 
 open class LineChartRenderer: LineRadarRenderer
 {
-     open weak var dataProvider: LineChartDataProvider?
+    open weak var dataProvider: LineChartDataProvider?
     
-     public init(dataProvider: LineChartDataProvider, viewPortHandler: ViewPortHandler)
+    public init(dataProvider: LineChartDataProvider, viewPortHandler: ViewPortHandler)
     {
         super.init(viewPortHandler: viewPortHandler)
         
@@ -44,7 +44,7 @@ open class LineChartRenderer: LineRadarRenderer
         }
     }
     
-     open func drawDataSet(context: CGContext, dataSet: LineChartDataSetProtocol)
+    open func drawDataSet(context: CGContext, dataSet: LineChartDataSetProtocol)
     {
         if dataSet.entryCount < 1
         {
@@ -80,7 +80,7 @@ open class LineChartRenderer: LineRadarRenderer
         context.restoreGState()
     }
     
-     open func drawCubicBezier(context: CGContext, dataSet: LineChartDataSetProtocol)
+    open func drawCubicBezier(context: CGContext, dataSet: LineChartDataSetProtocol)
     {
         guard let dataProvider = dataProvider else { return }
         
@@ -172,7 +172,7 @@ open class LineChartRenderer: LineRadarRenderer
         context.restoreGState()
     }
     
-     open func drawHorizontalBezier(context: CGContext, dataSet: LineChartDataSetProtocol)
+    open func drawHorizontalBezier(context: CGContext, dataSet: LineChartDataSetProtocol)
     {
         guard let dataProvider = dataProvider else { return }
         
@@ -276,7 +276,7 @@ open class LineChartRenderer: LineRadarRenderer
     
     private var _lineSegments = [CGPoint](repeating: CGPoint(), count: 2)
     
-     open func drawLinear(context: CGContext, dataSet: LineChartDataSetProtocol)
+    open func drawLinear(context: CGContext, dataSet: LineChartDataSetProtocol)
     {
         guard let dataProvider = dataProvider else { return }
         

@@ -20,7 +20,7 @@ open class LineRadarRenderer: BarLineScatterCandleBubbleRenderer
     }
     
     /// Draws the provided path in filled mode with the provided drawable.
-     open func drawFilledPath(context: CGContext, path: CGPath, fill: Fill, fillAlpha: CGFloat)
+    open func drawFilledPath(context: CGContext, path: CGPath, fill: Fill, fillAlpha: CGFloat)
     {
         
         context.saveGState()
@@ -36,7 +36,7 @@ open class LineRadarRenderer: BarLineScatterCandleBubbleRenderer
     }
     
     /// Draws the provided path in filled mode with the provided color and alpha.
-     open func drawFilledPath(context: CGContext, path: CGPath, fillColor: UIColor, fillAlpha: CGFloat)
+    open func drawFilledPath(context: CGContext, path: CGPath, fillColor: UIColor, fillAlpha: CGFloat)
     {
         context.saveGState()
         context.beginPath()

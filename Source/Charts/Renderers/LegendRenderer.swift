@@ -16,9 +16,9 @@ import UIKit
 open class LegendRenderer: Renderer
 {
     /// the legend object this renderer renders
-     open var legend: Legend?
+    open var legend: Legend?
 
-     public init(viewPortHandler: ViewPortHandler, legend: Legend?)
+    public init(viewPortHandler: ViewPortHandler, legend: Legend?)
     {
         super.init(viewPortHandler: viewPortHandler)
         
@@ -26,7 +26,7 @@ open class LegendRenderer: Renderer
     }
 
     /// Prepares the legend and calculates all needed forms, labels and colors.
-     open func computeLegend(data: ChartData)
+    open func computeLegend(data: ChartData)
     {
         guard let legend = legend else { return }
         
@@ -77,7 +77,7 @@ open class LegendRenderer: Renderer
         legend.calculateDimensions(labelFont: legend.font, viewPortHandler: viewPortHandler)
     }
     
-     open func renderLegend(context: CGContext)
+    open func renderLegend(context: CGContext)
     {
         guard let legend = legend else { return }
         
@@ -379,7 +379,7 @@ open class LegendRenderer: Renderer
     private var _formLineSegmentsBuffer = [CGPoint](repeating: CGPoint(), count: 2)
     
     /// Draws the Legend-form at the given position with the color at the given index.
-     open func drawForm(
+    open func drawForm(
         context: CGContext,
         x: CGFloat,
         y: CGFloat,
@@ -451,7 +451,7 @@ open class LegendRenderer: Renderer
     }
 
     /// Draws the provided label at the given position.
-     open func drawLabel(context: CGContext, x: CGFloat, y: CGFloat, label: String, font: UIFont, textColor: UIColor)
+    open func drawLabel(context: CGContext, x: CGFloat, y: CGFloat, label: String, font: UIFont, textColor: UIColor)
     {
         ChartUtils.drawText(context: context, text: label, point: CGPoint(x: x, y: y), align: .left, attributes: [NSAttributedStringKey.font: font, NSAttributedStringKey.foregroundColor: textColor])
     }
