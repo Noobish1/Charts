@@ -30,7 +30,6 @@
 		2BA03CEC36BADCF682F1328B /* LineChartDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFABD027DAF6851088F002AC /* LineChartDataProvider.swift */; };
 		2FBA7E982EB57932B9F3E9B5 /* YAxis.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB92A80F861C1362EED8D946 /* YAxis.swift */; };
 		331AA2C4BC34F56C23012F02 /* CombinedChartData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DDE409E9ECF54D2C146A6F0 /* CombinedChartData.swift */; };
-		40C82F2209E1BA9E41E8F3DA /* ChartColorTemplates.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6227A646166E248F90F86AD /* ChartColorTemplates.swift */; };
 		41B13F3179ACB5A3837C6E55 /* YAxisRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 688B80F1AA88AE54152BE768 /* YAxisRenderer.swift */; };
 		41BEBF8BDB9DC403B5697D67 /* XAxisRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C02C3AF5C92FCFC18224C35 /* XAxisRenderer.swift */; };
 		48E875BBD6540BDE1C1B7D3D /* AxisBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7AEFBF4D85B9D2EAAB3071 /* AxisBase.swift */; };
@@ -132,7 +131,6 @@
 		E120E76C6F1B5877D56126DD /* ChartData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartData.swift; path = Source/Charts/Data/Implementations/Standard/ChartData.swift; sourceTree = "<group>"; };
 		E7AD2FC320A16CA1EE0A52F4 /* ScatterChartData.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScatterChartData.swift; path = Source/Charts/Data/Implementations/Standard/ScatterChartData.swift; sourceTree = "<group>"; };
 		F22750328058DEC2F019646F /* ChartDataEntry.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartDataEntry.swift; path = Source/Charts/Data/Implementations/Standard/ChartDataEntry.swift; sourceTree = "<group>"; };
-		F6227A646166E248F90F86AD /* ChartColorTemplates.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ChartColorTemplates.swift; path = Source/Charts/Utils/ChartColorTemplates.swift; sourceTree = "<group>"; };
 		FA1D3D13180C2E3893A82546 /* ShapeRendererProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ShapeRendererProtocol.swift; path = Source/Charts/Renderers/Scatter/ShapeRendererProtocol.swift; sourceTree = "<group>"; };
 		FA7BDB22C97F39A4B33E38A7 /* ViewPortJob.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ViewPortJob.swift; path = Source/Charts/Jobs/ViewPortJob.swift; sourceTree = "<group>"; };
 		FB3A4F5987E58F3E5BE855F9 /* ZoomViewJob.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZoomViewJob.swift; path = Source/Charts/Jobs/ZoomViewJob.swift; sourceTree = "<group>"; };
@@ -297,7 +295,6 @@
 		D047819AB7170595896D6FE8 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				F6227A646166E248F90F86AD /* ChartColorTemplates.swift */,
 				3FDA09EF973925A110506799 /* ChartUtils.swift */,
 				5A4CFFFB65819121595F06F1 /* Fill.swift */,
 				FF475B9593B9898853814340 /* Transformer.swift */,
@@ -506,7 +503,6 @@
 				5DC9BC1B6C128B2C9995AB84 /* ScatterChartRenderer.swift in Sources */,
 				41BEBF8BDB9DC403B5697D67 /* XAxisRenderer.swift in Sources */,
 				41B13F3179ACB5A3837C6E55 /* YAxisRenderer.swift in Sources */,
-				40C82F2209E1BA9E41E8F3DA /* ChartColorTemplates.swift in Sources */,
 				CB785FE9B6B312408D17BC3B /* ChartUtils.swift in Sources */,
 				8102A555DD6C93AC1290EA7C /* Fill.swift in Sources */,
 				DE0F434FE8C24C52B023370F /* Transformer.swift in Sources */,
