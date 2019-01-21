@@ -12,7 +12,7 @@
 import Foundation
 import CoreGraphics
 
-public protocol BarLineScatterCandleBubbleChartDataProvider: ChartDataProvider
+public protocol BarLineScatterChartDataProvider: ChartDataProvider
 {
     func getTransformer(forAxis: YAxis.AxisDependency) -> Transformer
     func isInverted(axis: YAxis.AxisDependency) -> Bool

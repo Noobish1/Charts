@@ -13,7 +13,7 @@ import Foundation
 import CoreGraphics
 import UIKit
 
-open class ScatterChartRenderer: BarLineScatterCandleBubbleRenderer
+open class ScatterChartRenderer: BarLineScatterRenderer
 {
     open weak var dataProvider: ScatterChartDataProvider?
     

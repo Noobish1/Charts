@@ -11,7 +11,7 @@
 
 import Foundation
 
-open class CombinedChartData: BarLineScatterCandleBubbleChartData
+open class CombinedChartData: ChartData
 {
     private var _lineData: LineChartData!
     private var _scatterData: ScatterChartData!

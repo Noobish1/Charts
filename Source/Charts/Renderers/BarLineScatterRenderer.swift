@@ -12,7 +12,7 @@
 import Foundation
 import CoreGraphics
 
-open class BarLineScatterCandleBubbleRenderer: DataRenderer
+open class BarLineScatterRenderer: DataRenderer
 {
     internal var _xBounds = XBounds() // Reusable XBounds object
     
@@ -44,14 +44,14 @@ open class BarLineScatterCandleBubbleRenderer: DataRenderer
             
         }
         
-        public init(chart: BarLineScatterCandleBubbleChartDataProvider,
+        public init(chart: BarLineScatterChartDataProvider,
                     dataSet: ChartDataSetProtocol)
         {
             self.set(chart: chart, dataSet: dataSet)
         }
         
         /// Calculates the minimum and maximum x values as well as the range between them.
-        open func set(chart: BarLineScatterCandleBubbleChartDataProvider,
+        open func set(chart: BarLineScatterChartDataProvider,
                       dataSet: ChartDataSetProtocol)
         {
             let phaseX = Swift.max(0.0, 1.0)
