@@ -137,17 +137,6 @@ open class ViewPortHandler: NSObject
 
     // MARK: - Scaling/Panning etc.
     
-    /// Translates to the specified point.
-    open func translate(pt: CGPoint) -> CGAffineTransform
-    {
-        let translateX = pt.x - offsetLeft
-        let translateY = pt.y - offsetTop
-        
-        let matrix = _touchMatrix.concatenating(CGAffineTransform(translationX: -translateX, y: -translateY))
-        
-        return matrix
-    }
-    
     /// Centers the viewport around the specified position (x-index and y-value) in the chart.
     /// Centering the viewport outside the bounds of the chart is not possible.
     /// Makes most sense in combination with the setScaleMinima(...) method.
