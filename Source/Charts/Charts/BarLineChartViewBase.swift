@@ -26,15 +26,8 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterChartDataProvider
     /// the color for the background of the chart-drawing area (everything behind the grid lines).
     open var gridBackgroundColor = UIColor(red: 240/255.0, green: 240/255.0, blue: 240/255.0, alpha: 1.0)
     
-    open var borderColor = UIColor.black
-    open var borderLineWidth: CGFloat = 1.0
-    
     /// flag indicating if the grid background should be drawn or not
     open var drawGridBackgroundEnabled = false
-    
-    /// When enabled, the borders rectangle will be rendered.
-    /// If this is enabled, there is no point drawing the axis-lines of x- and y-axis.
-    open var drawBordersEnabled = false
     
     /// When enabled, the values will be clipped to contentRect, otherwise they can bleed outside the content rect.
     open var clipValuesToContentEnabled: Bool = false
@@ -316,7 +309,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterChartDataProvider
     /// draws the grid background
     internal func drawGridBackground(context: CGContext)
     {
-        if drawGridBackgroundEnabled || drawBordersEnabled
+        if drawGridBackgroundEnabled
         {
             context.saveGState()
         }
@@ -328,14 +321,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterChartDataProvider
             context.fill(_viewPortHandler.contentRect)
         }
         
-        if drawBordersEnabled
-        {
-            context.setLineWidth(borderLineWidth)
-            context.setStrokeColor(borderColor.cgColor)
-            context.stroke(_viewPortHandler.contentRect)
-        }
-        
-        if drawGridBackgroundEnabled || drawBordersEnabled
+        if drawGridBackgroundEnabled
         {
             context.restoreGState()
         }
@@ -378,13 +364,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterChartDataProvider
     open var isDrawGridBackgroundEnabled: Bool
     {
         return drawGridBackgroundEnabled
-    }
-    
-    /// **default**: false
-    /// - returns: `true` if drawing the borders rectangle is enabled, `false` ifnot.
-    open var isDrawBordersEnabled: Bool
-    {
-        return drawBordersEnabled
     }
 
     /// - returns: The x and y values in the chart at the given touch point
