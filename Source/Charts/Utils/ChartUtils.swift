@@ -76,7 +76,7 @@ extension Double
 
 open class ChartUtils
 {
-    private static var _defaultValueFormatter: ValueFormatterProtocol = ChartUtils.generateDefaultValueFormatter()
+    private static var _defaultValueFormatter = ChartUtils.generateDefaultValueFormatter()
     
     open class func drawImage(
         context: CGContext,
