@@ -16,7 +16,7 @@ import CoreGraphics
 open class CombinedChartView: BarLineChartViewBase, CombinedChartDataProvider
 {
     /// the fill-formatter used for determining the position of the fill-line
-    internal var _fillFormatter: FillFormatterProtocol!
+    open var fillFormatter: FillFormatterProtocol = DefaultFillFormatter()
     
     /// enum that allows to specify the order in which the different data objects for the combined-chart are drawn
     public enum DrawOrder: Int
@@ -28,8 +28,6 @@ open class CombinedChartView: BarLineChartViewBase, CombinedChartDataProvider
     open override func initialize()
     {
         super.initialize()
-        
-        _fillFormatter = DefaultFillFormatter()
         
         renderer = CombinedChartRenderer(chart: self, viewPortHandler: _viewPortHandler)
     }
@@ -46,22 +44,6 @@ open class CombinedChartView: BarLineChartViewBase, CombinedChartDataProvider
             
             (renderer as? CombinedChartRenderer)?.createRenderers()
             renderer?.initBuffers()
-        }
-    }
-    
-    open var fillFormatter: FillFormatterProtocol
-    {
-        get
-        {
-            return _fillFormatter
-        }
-        set
-        {
-            _fillFormatter = newValue
-            if _fillFormatter == nil
-            {
-                _fillFormatter = DefaultFillFormatter()
-            }
         }
     }
     
