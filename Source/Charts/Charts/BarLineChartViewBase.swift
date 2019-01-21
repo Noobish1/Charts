@@ -74,9 +74,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterChartDataProvider
     /// **default**: An instance of XAxisRenderer
     open lazy var xAxisRenderer = XAxisRenderer(viewPortHandler: _viewPortHandler, xAxis: _xAxis, transformer: _leftAxisTransformer)
     
-    /// flag that indicates if a custom viewport offset has been set
-    private var _customViewPortEnabled = false
-    
     public override init(frame: CGRect)
     {
         super.init(frame: frame)
@@ -265,55 +262,52 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterChartDataProvider
     
     internal override func calculateOffsets()
     {
-        if !_customViewPortEnabled
+        var offsetLeft = CGFloat(0.0)
+        var offsetRight = CGFloat(0.0)
+        var offsetTop = CGFloat(0.0)
+        var offsetBottom = CGFloat(0.0)
+        
+        // offsets for y-labels
+        if leftAxis.needsOffset
         {
-            var offsetLeft = CGFloat(0.0)
-            var offsetRight = CGFloat(0.0)
-            var offsetTop = CGFloat(0.0)
-            var offsetBottom = CGFloat(0.0)
-            
-            // offsets for y-labels
-            if leftAxis.needsOffset
-            {
-                offsetLeft += leftAxis.requiredSize().width
-            }
-            
-            if rightAxis.needsOffset
-            {
-                offsetRight += rightAxis.requiredSize().width
-            }
-
-            if xAxis.isEnabled && xAxis.isDrawLabelsEnabled
-            {
-                let xlabelheight = xAxis.labelRotatedHeight + xAxis.yOffset
-                
-                // offsets for x-labels
-                if xAxis.labelPosition == .bottom
-                {
-                    offsetBottom += xlabelheight
-                }
-                else if xAxis.labelPosition == .top
-                {
-                    offsetTop += xlabelheight
-                }
-                else if xAxis.labelPosition == .bothSided
-                {
-                    offsetBottom += xlabelheight
-                    offsetTop += xlabelheight
-                }
-            }
-            
-            offsetTop += self.extraTopOffset
-            offsetRight += self.extraRightOffset
-            offsetBottom += self.extraBottomOffset
-            offsetLeft += self.extraLeftOffset
-
-            _viewPortHandler.restrainViewPort(
-                offsetLeft: max(self.minOffset, offsetLeft),
-                offsetTop: max(self.minOffset, offsetTop),
-                offsetRight: max(self.minOffset, offsetRight),
-                offsetBottom: max(self.minOffset, offsetBottom))
+            offsetLeft += leftAxis.requiredSize().width
         }
+        
+        if rightAxis.needsOffset
+        {
+            offsetRight += rightAxis.requiredSize().width
+        }
+
+        if xAxis.isEnabled && xAxis.isDrawLabelsEnabled
+        {
+            let xlabelheight = xAxis.labelRotatedHeight + xAxis.yOffset
+            
+            // offsets for x-labels
+            if xAxis.labelPosition == .bottom
+            {
+                offsetBottom += xlabelheight
+            }
+            else if xAxis.labelPosition == .top
+            {
+                offsetTop += xlabelheight
+            }
+            else if xAxis.labelPosition == .bothSided
+            {
+                offsetBottom += xlabelheight
+                offsetTop += xlabelheight
+            }
+        }
+        
+        offsetTop += self.extraTopOffset
+        offsetRight += self.extraRightOffset
+        offsetBottom += self.extraBottomOffset
+        offsetLeft += self.extraLeftOffset
+
+        _viewPortHandler.restrainViewPort(
+            offsetLeft: max(self.minOffset, offsetLeft),
+            offsetTop: max(self.minOffset, offsetTop),
+            offsetRight: max(self.minOffset, offsetRight),
+            offsetBottom: max(self.minOffset, offsetBottom))
         
         prepareOffsetMatrix()
         prepareValuePxMatrix()
@@ -352,33 +346,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterChartDataProvider
     open var visibleXRange: Double
     {
         return abs(highestVisibleX - lowestVisibleX)
-    }
-
-    /// Sets custom offsets for the current `ChartViewPort` (the offsets on the sides of the actual chart window). Setting this will prevent the chart from automatically calculating it's offsets. Use `resetViewPortOffsets()` to undo this.
-    /// ONLY USE THIS WHEN YOU KNOW WHAT YOU ARE DOING, else use `setExtraOffsets(...)`.
-    open func setViewPortOffsets(left: CGFloat, top: CGFloat, right: CGFloat, bottom: CGFloat)
-    {
-        _customViewPortEnabled = true
-        
-        if Thread.isMainThread
-        {
-            self._viewPortHandler.restrainViewPort(offsetLeft: left, offsetTop: top, offsetRight: right, offsetBottom: bottom)
-            prepareOffsetMatrix()
-            prepareValuePxMatrix()
-        }
-        else
-        {
-            DispatchQueue.main.async(execute: {
-                self.setViewPortOffsets(left: left, top: top, right: right, bottom: bottom)
-            })
-        }
-    }
-
-    /// Resets all custom offsets set via `setViewPortOffsets(...)` method. Allows the chart to again calculate all offsets automatically.
-    open func resetViewPortOffsets()
-    {
-        _customViewPortEnabled = false
-        calculateOffsets()
     }
 
     // MARK: - Accessors
