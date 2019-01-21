@@ -59,14 +59,6 @@ open class AxisBase: ComponentBase
         get { return centerAxisLabelsEnabled }
     }
 
-    /// array of limitlines that can be set for the axis
-    private var _limitLines = [ChartLimitLine]()
-    
-    /// Are the LimitLines drawn behind the data or in front of the data?
-    /// 
-    /// **default**: false
-    open var drawLimitLinesBehindDataEnabled = false
-
     /// the flag can be used to turn off the antialias for grid lines
     open var gridAntialiasEnabled = true
     
@@ -195,11 +187,6 @@ open class AxisBase: ComponentBase
     
     open var isDrawLabelsEnabled: Bool { return drawLabelsEnabled }
     
-    /// Are the LimitLines drawn behind the data or in front of the data?
-    /// 
-    /// **default**: false
-    open var isDrawLimitLinesBehindDataEnabled: Bool { return drawLimitLinesBehindDataEnabled }
-    
     /// Extra spacing for `axisMinimum` to be added to automatically calculated `axisMinimum`
     open var spaceMin: Double = 0.0
     
@@ -271,37 +258,6 @@ open class AxisBase: ComponentBase
     
     /// - returns: `true` if focing the y-label count is enabled. Default: false
     open var isForceLabelsEnabled: Bool { return forceLabelsEnabled }
-    
-    /// Adds a new ChartLimitLine to this axis.
-    open func addLimitLine(_ line: ChartLimitLine)
-    {
-        _limitLines.append(line)
-    }
-    
-    /// Removes the specified ChartLimitLine from the axis.
-    open func removeLimitLine(_ line: ChartLimitLine)
-    {
-        for i in 0 ..< _limitLines.count
-        {
-            if _limitLines[i] === line
-            {
-                _limitLines.remove(at: i)
-                return
-            }
-        }
-    }
-    
-    /// Removes all LimitLines from the axis.
-    open func removeAllLimitLines()
-    {
-        _limitLines.removeAll(keepingCapacity: false)
-    }
-    
-    /// - returns: The LimitLines of this axis.
-    open var limitLines : [ChartLimitLine]
-    {
-        return _limitLines
-    }
     
     // MARK: Custom axis ranges
     

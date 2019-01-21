@@ -46,12 +46,6 @@ open class AxisRendererBase: Renderer
         fatalError("renderAxisLine() cannot be called on AxisRendererBase")
     }
     
-    /// Draws the LimitLines associated with this axis to the screen.
-    open func renderLimitLines(context: CGContext)
-    {
-        fatalError("renderLimitLines() cannot be called on AxisRendererBase")
-    }
-    
     /// Computes the axis values.
     /// - parameter min: the minimum value in the data object for this axis
     /// - parameter max: the maximum value in the data object for this axis

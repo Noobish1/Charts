@@ -162,21 +162,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
         leftYAxisRenderer.renderGridLines(context: context)
         rightYAxisRenderer.renderGridLines(context: context)
         
-        if _xAxis.isEnabled && _xAxis.isDrawLimitLinesBehindDataEnabled
-        {
-            xAxisRenderer.renderLimitLines(context: context)
-        }
-        
-        if leftAxis.isEnabled && leftAxis.isDrawLimitLinesBehindDataEnabled
-        {
-            leftYAxisRenderer.renderLimitLines(context: context)
-        }
-        
-        if rightAxis.isEnabled && rightAxis.isDrawLimitLinesBehindDataEnabled
-        {
-            rightYAxisRenderer.renderLimitLines(context: context)
-        }
-        
         context.saveGState()
         // make sure the data cannot be drawn outside the content-rect
         if clipDataToContentEnabled {
@@ -187,21 +172,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
         context.restoreGState()
         
         renderer.drawExtras(context: context)
-        
-        if _xAxis.isEnabled && !_xAxis.isDrawLimitLinesBehindDataEnabled
-        {
-            xAxisRenderer.renderLimitLines(context: context)
-        }
-        
-        if leftAxis.isEnabled && !leftAxis.isDrawLimitLinesBehindDataEnabled
-        {
-            leftYAxisRenderer.renderLimitLines(context: context)
-        }
-        
-        if rightAxis.isEnabled && !rightAxis.isDrawLimitLinesBehindDataEnabled
-        {
-            rightYAxisRenderer.renderLimitLines(context: context)
-        }
         
         xAxisRenderer.renderAxisLabels(context: context)
         leftYAxisRenderer.renderAxisLabels(context: context)
