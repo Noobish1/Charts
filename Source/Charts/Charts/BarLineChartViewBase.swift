@@ -23,10 +23,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
     /// flag that indicates if auto scaling on the y axis is enabled
     private var _autoScaleMinMaxEnabled = false
     
-    private var _pinchZoomEnabled = false
-    private var _dragXEnabled = true
-    private var _dragYEnabled = true
-    
     private var _scaleXEnabled = true
     private var _scaleYEnabled = true
     
@@ -779,52 +775,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
 
         return vals
     }
-
-    /// is dragging enabled? (moving the chart with the finger) for the chart (this does not affect scaling).
-    open var dragEnabled: Bool
-    {
-        get
-        {
-            return _dragXEnabled || _dragYEnabled
-        }
-        set
-        {
-            _dragYEnabled = newValue
-            _dragXEnabled = newValue
-        }
-    }
-    
-    /// is dragging enabled? (moving the chart with the finger) for the chart (this does not affect scaling).
-    open var isDragEnabled: Bool
-    {
-        return dragEnabled
-    }
-    
-    /// is dragging on the X axis enabled?
-    open var dragXEnabled: Bool 
-    {
-        get
-        {
-            return _dragXEnabled
-        }
-        set
-        {
-            _dragXEnabled = newValue
-        }
-    }
-    
-    /// is dragging on the Y axis enabled?
-    open var dragYEnabled: Bool
-    {
-        get
-        {
-            return _dragYEnabled
-        }
-        set
-        {
-            _dragYEnabled = newValue
-        }
-    }
     
     /// is scaling enabled? (zooming in and out by gesture) for the chart (this does not affect dragging).
     open func setScaleEnabled(_ enabled: Bool)
@@ -935,43 +885,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
             return rightAxis
         }
     }
-    
-    /// flag that indicates if pinch-zoom is enabled. if true, both x and y axis can be scaled simultaneously with 2 fingers, if false, x and y axis can be scaled separately
-    open var pinchZoomEnabled: Bool
-    {
-        get
-        {
-            return _pinchZoomEnabled
-        }
-        set
-        {
-            if _pinchZoomEnabled != newValue
-            {
-                _pinchZoomEnabled = newValue
-            }
-        }
-    }
-
-    /// **default**: false
-    /// - returns: `true` if pinch-zoom is enabled, `false` ifnot
-    open var isPinchZoomEnabled: Bool { return pinchZoomEnabled }
-
-    /// Set an offset in dp that allows the user to drag the chart over it's
-    /// bounds on the x-axis.
-    open func setDragOffsetX(_ offset: CGFloat)
-    {
-        _viewPortHandler.setDragOffsetX(offset)
-    }
-
-    /// Set an offset in dp that allows the user to drag the chart over it's
-    /// bounds on the y-axis.
-    open func setDragOffsetY(_ offset: CGFloat)
-    {
-        _viewPortHandler.setDragOffsetY(offset)
-    }
-
-    /// - returns: `true` if both drag offsets (x and y) are zero or smaller.
-    open var hasNoDragOffset: Bool { return _viewPortHandler.hasNoDragOffset }
 
     open override var chartYMax: Double
     {

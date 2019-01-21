@@ -25,9 +25,6 @@ public protocol ChartViewDelegate: AnyObject
     
     // Callbacks when the chart is scaled / zoomed via pinch zoom gesture.
     func chartScaled(_ chartView: ChartViewBase, scaleX: CGFloat, scaleY: CGFloat)
-    
-    // Callbacks when the chart is moved / translated via drag gesture.
-    func chartTranslated(_ chartView: ChartViewBase, dX: CGFloat, dY: CGFloat)
 }
 
 open class ChartViewBase: UIView, ChartDataProvider
@@ -47,13 +44,6 @@ open class ChartViewBase: UIView, ChartDataProvider
     
     /// object that holds all data that was originally set for the chart, before it was modified or any filtering algorithms had been applied
     internal var _data: ChartData?
-    
-    /// If set to true, chart continues to scroll after touch up
-    open var dragDecelerationEnabled = true
-    
-    /// Deceleration friction coefficient in [0 ; 1] interval, higher values indicate that speed will decrease slowly, for example if it set to 0, it will stop immediately.
-    /// 1 is an invalid value, and will be converted to 0.999 automatically.
-    private var _dragDecelerationFrictionCoef: CGFloat = 0.9
     
     /// if true, units are drawn next to the values in the chart
     internal var _drawUnitInChart = false
@@ -525,39 +515,6 @@ open class ChartViewBase: UIView, ChartDataProvider
         else
         {
             _viewportJobs.append(job)
-        }
-    }
-    
-    /// **default**: true
-    /// - returns: `true` if chart continues to scroll after touch up, `false` ifnot.
-    open var isDragDecelerationEnabled: Bool
-        {
-            return dragDecelerationEnabled
-    }
-    
-    /// Deceleration friction coefficient in [0 ; 1] interval, higher values indicate that speed will decrease slowly, for example if it set to 0, it will stop immediately.
-    /// 1 is an invalid value, and will be converted to 0.999 automatically.
-    /// 
-    /// **default**: true
-    open var dragDecelerationFrictionCoef: CGFloat
-    {
-        get
-        {
-            return _dragDecelerationFrictionCoef
-        }
-        set
-        {
-            var val = newValue
-            if val < 0.0
-            {
-                val = 0.0
-            }
-            if val >= 1.0
-            {
-                val = 0.999
-            }
-            
-            _dragDecelerationFrictionCoef = val
         }
     }
     
