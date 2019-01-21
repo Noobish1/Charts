@@ -14,16 +14,6 @@ import Foundation
 import CoreGraphics
 import UIKit
 
-public protocol ChartViewDelegate: AnyObject
-{
-    /// Called when a value has been selected inside the chart.
-    /// - parameter entry: The selected Entry.
-    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry)
-    
-    // Called when nothing has been selected or an "un-select" has been made.
-    func chartValueNothingSelected(_ chartView: ChartViewBase)
-}
-
 open class ChartViewBase: UIView, ChartDataProvider
 {
     // MARK: - Properties
@@ -45,25 +35,6 @@ open class ChartViewBase: UIView, ChartDataProvider
     /// The object representing the labels on the x-axis
     internal var _xAxis: XAxis!
     
-    /// The `Description` object of the chart.
-    /// This should have been called just "description", but
-    open var chartDescription: Description?
-    
-    /// delegate to receive chart events
-    open weak var delegate: ChartViewDelegate?
-    
-    /// text that is displayed when the chart is empty
-    open var noDataText = "No chart data available."
-    
-    /// Font to be used for the no data text.
-    open var noDataFont: UIFont! = UIFont(name: "HelveticaNeue", size: 12.0)
-    
-    /// color of the no data text
-    open var noDataTextColor: UIColor = UIColor.black
-
-    /// alignment of the no data text
-    open var noDataTextAlignment: NSTextAlignment = .left
-    
     /// object responsible for rendering the data
     open var renderer: DataRenderer?
     
@@ -72,8 +43,6 @@ open class ChartViewBase: UIView, ChartDataProvider
     
     /// flag that indicates if offsets calculation has already been done or not
     private var _offsetsCalculated = false
-    
-    private var _interceptTouchEvents = false
     
     /// An extra offset to be appended to the viewport's top
     open var extraTopOffset: CGFloat = 0.0
@@ -120,8 +89,6 @@ open class ChartViewBase: UIView, ChartDataProvider
         self.backgroundColor = UIColor.clear
 
         _viewPortHandler = ViewPortHandler(width: bounds.size.width, height: bounds.size.height)
-        
-        chartDescription = Description()
         
         _xAxis = XAxis()
         
@@ -245,68 +212,11 @@ open class ChartViewBase: UIView, ChartDataProvider
     
     open override func draw(_ rect: CGRect)
     {
-        let optionalContext = UIGraphicsGetCurrentContext()
-        guard let context = optionalContext else { return }
-        
-        let frame = self.bounds
-
-        if _data === nil && noDataText.count > 0
-        {
-            context.saveGState()
-            defer { context.restoreGState() }
-
-            let paragraphStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
-            paragraphStyle.minimumLineHeight = noDataFont.lineHeight
-            paragraphStyle.lineBreakMode = .byWordWrapping
-            paragraphStyle.alignment = noDataTextAlignment
-
-            ChartUtils.drawMultilineText(
-                context: context,
-                text: noDataText,
-                point: CGPoint(x: frame.width / 2.0, y: frame.height / 2.0),
-                attributes:
-                [.font: noDataFont,
-                 .foregroundColor: noDataTextColor,
-                 .paragraphStyle: paragraphStyle],
-                constrainedToSize: self.bounds.size,
-                anchor: CGPoint(x: 0.5, y: 0.5),
-                angleRadians: 0.0)
-            
-            return
-        }
-        
         if !_offsetsCalculated
         {
             calculateOffsets()
             _offsetsCalculated = true
         }
-    }
-    
-    /// Draws the description text in the bottom right corner of the chart (per default)
-    internal func drawDescription(context: CGContext)
-    {
-        // check if description should be drawn
-        guard
-            let description = chartDescription,
-            description.isEnabled,
-            let descriptionText = description.text,
-            descriptionText.count > 0
-            else { return }
-        
-        let position = description.position ?? CGPoint(x: bounds.width - _viewPortHandler.offsetRight - description.xOffset,
-                                                       y: bounds.height - _viewPortHandler.offsetBottom - description.yOffset - description.font.lineHeight)
-        
-        var attrs = [NSAttributedStringKey : Any]()
-        
-        attrs[NSAttributedStringKey.font] = description.font
-        attrs[NSAttributedStringKey.foregroundColor] = description.textColor
-
-        ChartUtils.drawText(
-            context: context,
-            text: descriptionText,
-            point: position,
-            align: description.textAlign,
-            attributes: attrs)
     }
     
     // MARK: - Accessors
@@ -462,39 +372,5 @@ open class ChartViewBase: UIView, ChartDataProvider
     open var maxVisibleCount: Int
     {
         return Int(INT_MAX)
-    }
-    
-    // MARK: - Touches
-    
-    open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?)
-    {
-        if !_interceptTouchEvents
-        {
-            super.touchesBegan(touches, with: event)
-        }
-    }
-    
-    open override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?)
-    {
-        if !_interceptTouchEvents
-        {
-            super.touchesMoved(touches, with: event)
-        }
-    }
-    
-    open override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?)
-    {
-        if !_interceptTouchEvents
-        {
-            super.touchesEnded(touches, with: event)
-        }
-    }
-    
-    open override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?)
-    {
-        if !_interceptTouchEvents
-        {
-            super.touchesCancelled(touches, with: event)
-        }
     }
 }

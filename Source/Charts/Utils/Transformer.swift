@@ -84,65 +84,6 @@ open class Transformer: NSObject
         return CGPoint(x: x, y: y).applying(valueToPixelMatrix)
     }
     
-    /// Transform a rectangle with all matrices.
-    open func rectValueToPixel(_ r: inout CGRect)
-    {
-        r = r.applying(valueToPixelMatrix)
-    }
-    
-    /// Transform a rectangle with all matrices with potential animation phases.
-    open func rectValueToPixel(_ r: inout CGRect, phaseY: Double)
-    {
-        // multiply the height of the rect with the phase
-        var bottom = r.origin.y + r.size.height
-        bottom *= CGFloat(phaseY)
-        let top = r.origin.y * CGFloat(phaseY)
-        r.size.height = bottom - top
-        r.origin.y = top
-
-        r = r.applying(valueToPixelMatrix)
-    }
-    
-    /// Transform a rectangle with all matrices.
-    open func rectValueToPixelHorizontal(_ r: inout CGRect)
-    {
-        r = r.applying(valueToPixelMatrix)
-    }
-    
-    /// Transform a rectangle with all matrices with potential animation phases.
-    open func rectValueToPixelHorizontal(_ r: inout CGRect, phaseY: Double)
-    {
-        // multiply the height of the rect with the phase
-        let left = r.origin.x * CGFloat(phaseY)
-        let right = (r.origin.x + r.size.width) * CGFloat(phaseY)
-        r.size.width = right - left
-        r.origin.x = left
-        
-        r = r.applying(valueToPixelMatrix)
-    }
-
-    /// transforms multiple rects with all matrices
-    open func rectValuesToPixel(_ rects: inout [CGRect])
-    {
-        let trans = valueToPixelMatrix
-        
-        for i in 0 ..< rects.count
-        {
-            rects[i] = rects[i].applying(trans)
-        }
-    }
-    
-    /// Transforms the given array of touch points (pixels) into values on the chart.
-    open func pixelsToValues(_ pixels: inout [CGPoint])
-    {
-        let trans = pixelToValueMatrix
-        
-        for i in 0 ..< pixels.count
-        {
-            pixels[i] = pixels[i].applying(trans)
-        }
-    }
-    
     /// Transforms the given touch point (pixels) into a value on the chart.
     open func pixelToValues(_ pixel: inout CGPoint)
     {
@@ -155,14 +96,6 @@ open class Transformer: NSObject
     open func valueForTouchPoint(_ point: CGPoint) -> CGPoint
     {
         return point.applying(pixelToValueMatrix)
-    }
-    
-    /// - returns: The x and y values in the chart at the given touch point
-    /// (x/y). This method transforms pixel coordinates to
-    /// coordinates / values in the chart.
-    open func valueForTouchPoint(x: CGFloat, y: CGFloat) -> CGPoint
-    {
-        return CGPoint(x: x, y: y).applying(pixelToValueMatrix)
     }
     
     open var valueToPixelMatrix: CGAffineTransform

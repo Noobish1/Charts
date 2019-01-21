@@ -164,8 +164,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterChartDataProvider
         {
             renderer.drawValues(context: context)
         }
-
-        drawDescription(context: context)
     }
     
     internal func prepareValuePxMatrix()

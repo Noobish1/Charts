@@ -141,58 +141,6 @@ open class ChartUtils
         UIGraphicsPopContext()
     }
     
-    open class func drawText(context: CGContext, text: String, point: CGPoint, attributes: [NSAttributedStringKey : Any]?, anchor: CGPoint, angleRadians: CGFloat)
-    {
-        var drawOffset = CGPoint()
-        
-        UIGraphicsPushContext(context)
-        
-        if angleRadians != 0.0
-        {
-            let size = text.size(withAttributes: attributes)
-            
-            // Move the text drawing rect in a way that it always rotates around its center
-            drawOffset.x = -size.width * 0.5
-            drawOffset.y = -size.height * 0.5
-            
-            var translate = point
-            
-            // Move the "outer" rect relative to the anchor, assuming its centered
-            if anchor.x != 0.5 || anchor.y != 0.5
-            {
-                let rotatedSize = size.rotatedBy(radians: angleRadians)
-                
-                translate.x -= rotatedSize.width * (anchor.x - 0.5)
-                translate.y -= rotatedSize.height * (anchor.y - 0.5)
-            }
-            
-            context.saveGState()
-            context.translateBy(x: translate.x, y: translate.y)
-            context.rotate(by: angleRadians)
-            
-            (text as NSString).draw(at: drawOffset, withAttributes: attributes)
-            
-            context.restoreGState()
-        }
-        else
-        {
-            if anchor.x != 0.0 || anchor.y != 0.0
-            {
-                let size = text.size(withAttributes: attributes)
-                
-                drawOffset.x = -size.width * anchor.x
-                drawOffset.y = -size.height * anchor.y
-            }
-            
-            drawOffset.x += point.x
-            drawOffset.y += point.y
-            
-            (text as NSString).draw(at: drawOffset, withAttributes: attributes)
-        }
-        
-        UIGraphicsPopContext()
-    }
-    
     internal class func drawMultilineText(context: CGContext, text: String, knownTextSize: CGSize, point: CGPoint, attributes: [NSAttributedStringKey : Any]?, constrainedToSize: CGSize, anchor: CGPoint, angleRadians: CGFloat)
     {
         var rect = CGRect(origin: CGPoint(), size: knownTextSize)

@@ -44,18 +44,6 @@ open class ViewPortHandler: NSObject
         
         restrainViewPort(offsetLeft: offsetLeft, offsetTop: offsetTop, offsetRight: offsetRight, offsetBottom: offsetBottom)
     }
-    
-    open var hasChartDimens: Bool
-    {
-        if _chartHeight > 0.0 && _chartWidth > 0.0
-        {
-            return true
-        }
-        else
-        {
-            return false
-        }
-    }
 
     open func restrainViewPort(offsetLeft: CGFloat, offsetTop: CGFloat, offsetRight: CGFloat, offsetBottom: CGFloat)
     {
@@ -174,11 +162,6 @@ open class ViewPortHandler: NSObject
     open func isInBoundsY(_ y: CGFloat) -> Bool
     {
         return isInBoundsTop(y) && isInBoundsBottom(y)
-    }
-    
-    open func isInBounds(x: CGFloat, y: CGFloat) -> Bool
-    {
-        return isInBoundsX(x) && isInBoundsY(y)
     }
     
     open func isInBoundsLeft(_ x: CGFloat) -> Bool
