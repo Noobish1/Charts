@@ -12,7 +12,7 @@
 import Foundation
 import CoreGraphics
 
-public protocol ChartDataSetProtocol: class
+public protocol ChartDataSetProtocol: AnyObject
 {
     // MARK: - Data functions and accessors
     

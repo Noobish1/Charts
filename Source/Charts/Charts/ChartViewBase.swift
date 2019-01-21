@@ -14,7 +14,7 @@ import Foundation
 import CoreGraphics
 import UIKit
 
-public protocol ChartViewDelegate: class
+public protocol ChartViewDelegate: AnyObject
 {
     /// Called when a value has been selected inside the chart.
     /// - parameter entry: The selected Entry.

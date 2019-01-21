@@ -16,7 +16,7 @@ import Foundation
 /// Simply create your own formatting class and let it implement ValueFormatter.
 ///
 /// Then override the getFormattedValue(...) method and return whatever you want.
-public protocol ValueFormatterProtocol: class
+public protocol ValueFormatterProtocol: AnyObject
 {
     
     /// Called when a value (from labels inside the chart) is formatted before being drawn.
