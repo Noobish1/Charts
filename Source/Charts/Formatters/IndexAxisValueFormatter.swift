@@ -43,11 +43,6 @@ open class IndexAxisValueFormatter: NSObject, AxisValueFormatterProtocol
         self.values = values
     }
     
-    public static func with(values: [String]) -> IndexAxisValueFormatter?
-    {
-        return IndexAxisValueFormatter(values: values)
-    }
-    
     open func stringForValue(_ value: Double,
                              axis: AxisBase?) -> String
     {

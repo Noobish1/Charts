@@ -108,11 +108,6 @@ open class ViewPortHandler: NSObject
         return _contentRect
     }
     
-    open var contentCenter: CGPoint
-    {
-        return CGPoint(x: _contentRect.origin.x + _contentRect.size.width / 2.0, y: _contentRect.origin.y + _contentRect.size.height / 2.0)
-    }
-    
     open var chartHeight: CGFloat
     { 
         return _chartHeight
@@ -134,11 +129,11 @@ open class ViewPortHandler: NSObject
         let translateY = pt.y - offsetTop
         
         let matrix = _touchMatrix.concatenating(CGAffineTransform(translationX: -translateX, y: -translateY))
-        refresh(newMatrix: matrix, chart: chart, invalidate: true)
+        refresh(newMatrix: matrix, chart: chart)
     }
     
     /// call this method to refresh the graph with a given matrix
-     @discardableResult open func refresh(newMatrix: CGAffineTransform, chart: ChartViewBase, invalidate: Bool) -> CGAffineTransform
+     @discardableResult open func refresh(newMatrix: CGAffineTransform, chart: ChartViewBase) -> CGAffineTransform
     {
         _touchMatrix = newMatrix
         

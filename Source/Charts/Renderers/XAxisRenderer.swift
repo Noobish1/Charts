@@ -290,7 +290,7 @@ open class XAxisRenderer: AxisRendererBase
             position.y = position.x
             position = position.applying(valueToPixelMatrix)
             
-            drawGridLine(context: context, x: position.x, y: position.y)
+            drawGridLine(context: context, x: position.x)
         }
     }
     
@@ -303,7 +303,7 @@ open class XAxisRenderer: AxisRendererBase
         return contentRect
     }
     
-    open func drawGridLine(context: CGContext, x: CGFloat, y: CGFloat)
+    open func drawGridLine(context: CGContext, x: CGFloat)
     {
         if x >= viewPortHandler.offsetLeft
             && x <= viewPortHandler.chartWidth

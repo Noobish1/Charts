@@ -39,10 +39,7 @@ open class BarLineScatterRenderer: DataRenderer
         /// range of visible entry indices
         open var range: Int = 0
 
-        public init()
-        {
-            
-        }
+        public init(){}
         
         public init(chart: BarLineScatterChartDataProvider,
                     dataSet: ChartDataSetProtocol)

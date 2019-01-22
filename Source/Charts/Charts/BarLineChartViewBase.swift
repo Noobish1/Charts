@@ -97,7 +97,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterChartDataProvider
         }
         else
         {
-            viewPortHandler.refresh(newMatrix: viewPortHandler.touchMatrix, chart: self, invalidate: true)
+            viewPortHandler.refresh(newMatrix: viewPortHandler.touchMatrix, chart: self)
         }
     }
     
