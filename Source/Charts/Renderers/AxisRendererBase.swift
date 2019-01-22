@@ -12,8 +12,10 @@
 import Foundation
 import CoreGraphics
 
-open class AxisRendererBase: Renderer
+open class AxisRendererBase: RendererProtocol
 {
+    open var viewPortHandler: ViewPortHandler
+    
     /// base axis this axis renderer works with
     open var axis: AxisBase?
     
@@ -22,8 +24,7 @@ open class AxisRendererBase: Renderer
 
     public init(viewPortHandler: ViewPortHandler, transformer: Transformer?, axis: AxisBase?)
     {
-        super.init(viewPortHandler: viewPortHandler)
-        
+        self.viewPortHandler = viewPortHandler
         self.transformer = transformer
         self.axis = axis
     }

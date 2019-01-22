@@ -13,18 +13,25 @@ import Foundation
 import CoreGraphics
 import UIKit
 
-open class ScatterChartRenderer: BarLineScatterRenderer
-{
+open class ScatterChartRenderer: BarLineScatterRendererProtocol {
+    // MARK: properties
+    public var viewPortHandler: ViewPortHandler
     open weak var dataProvider: ScatterChartDataProvider?
+    internal var _xBounds = XBounds()
     
-    public init(dataProvider: ScatterChartDataProvider, viewPortHandler: ViewPortHandler)
-    {
-        super.init(viewPortHandler: viewPortHandler)
-        
+    // MARK: init
+    public init(dataProvider: ScatterChartDataProvider, viewPortHandler: ViewPortHandler) {
+        self.viewPortHandler = viewPortHandler
         self.dataProvider = dataProvider
     }
     
-    open override func drawData(context: CGContext)
+    // MARK: init helpers
+    public func initBuffers() {
+        // do nothing
+    }
+    
+    // MARK: drawing
+    open func drawData(context: CGContext)
     {
         guard let scatterData = dataProvider?.scatterData else { return }
         
@@ -83,7 +90,7 @@ open class ScatterChartRenderer: BarLineScatterRenderer
         context.restoreGState()
     }
     
-    open override func drawValues(context: CGContext)
+    open func drawValues(context: CGContext)
     {
         guard
             let dataProvider = dataProvider,
@@ -116,7 +123,7 @@ open class ScatterChartRenderer: BarLineScatterRenderer
                 let shapeSize = dataSet.scatterShapeSize
                 let lineHeight = valueFont.lineHeight
                 
-                _xBounds.set(chart: dataProvider, dataSet: dataSet)
+                _xBounds = XBounds(chart: dataProvider, dataSet: dataSet)
                 
                 for j in stride(from: _xBounds.min, through: _xBounds.range + _xBounds.min, by: 1)
                 {

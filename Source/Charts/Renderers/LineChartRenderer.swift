@@ -13,18 +13,27 @@ import Foundation
 import CoreGraphics
 import UIKit
 
-open class LineChartRenderer: BarLineScatterRenderer
+open class LineChartRenderer: BarLineScatterRendererProtocol
 {
+    // MARK: properties
+    public var viewPortHandler: ViewPortHandler
+    internal var _xBounds = XBounds()
     open weak var dataProvider: LineChartDataProvider?
     
-    public init(dataProvider: LineChartDataProvider, viewPortHandler: ViewPortHandler)
-    {
-        super.init(viewPortHandler: viewPortHandler)
+    // MARK: init
+    public init(dataProvider: LineChartDataProvider, viewPortHandler: ViewPortHandler) {
+        self.viewPortHandler = viewPortHandler
         
         self.dataProvider = dataProvider
     }
     
-    open override func drawData(context: CGContext)
+    // MARK: init helpers
+    public func initBuffers() {
+        // do nothing
+    }
+    
+    // MARK: drawing
+    open func drawData(context: CGContext)
     {
         guard let lineData = dataProvider?.lineData else { return }
         
@@ -78,7 +87,7 @@ open class LineChartRenderer: BarLineScatterRenderer
         
         let trans = dataProvider.getTransformer(forAxis: dataSet.axisDependency)
         
-        _xBounds.set(chart: dataProvider, dataSet: dataSet)
+        _xBounds = XBounds(chart: dataProvider, dataSet: dataSet)
         
         // get the color that is specified for this position from the DataSet
         let drawingColor = dataSet.colors.first!
@@ -170,7 +179,7 @@ open class LineChartRenderer: BarLineScatterRenderer
         
         let trans = dataProvider.getTransformer(forAxis: dataSet.axisDependency)
         
-        _xBounds.set(chart: dataProvider, dataSet: dataSet)
+        _xBounds = XBounds(chart: dataProvider, dataSet: dataSet)
         
         // get the color that is specified for this position from the DataSet
         let drawingColor = dataSet.colors.first!
@@ -319,7 +328,7 @@ open class LineChartRenderer: BarLineScatterRenderer
         let isDrawSteppedEnabled = dataSet.mode == .stepped
         let pointsPerEntryPair = isDrawSteppedEnabled ? 4 : 2
         
-        _xBounds.set(chart: dataProvider, dataSet: dataSet)
+        _xBounds = XBounds(chart: dataProvider, dataSet: dataSet)
         
         // if drawing filled is enabled
         if dataSet.isDrawFilledEnabled && entryCount > 0
@@ -522,7 +531,7 @@ open class LineChartRenderer: BarLineScatterRenderer
         return filled
     }
     
-    open override func drawValues(context: CGContext)
+    open func drawValues(context: CGContext)
     {
         guard
             let dataProvider = dataProvider,
@@ -551,7 +560,7 @@ open class LineChartRenderer: BarLineScatterRenderer
                 let trans = dataProvider.getTransformer(forAxis: dataSet.axisDependency)
                 let valueToPixelMatrix = trans.valueToPixelMatrix
                 
-                _xBounds.set(chart: dataProvider, dataSet: dataSet)
+                _xBounds = XBounds(chart: dataProvider, dataSet: dataSet)
                 
                 for j in stride(from: _xBounds.min, through: min(_xBounds.min + _xBounds.range, _xBounds.max), by: 1)
                 {

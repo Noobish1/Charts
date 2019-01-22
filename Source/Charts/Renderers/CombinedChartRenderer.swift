@@ -15,6 +15,7 @@ import CoreGraphics
 open class CombinedChartRenderer: DataRenderer
 {
     open weak var chart: CombinedChartView?
+    public var viewPortHandler: ViewPortHandler
     
     internal var _renderers = [DataRenderer]()
     
@@ -22,8 +23,7 @@ open class CombinedChartRenderer: DataRenderer
     
     public init(chart: CombinedChartView, viewPortHandler: ViewPortHandler)
     {
-        super.init(viewPortHandler: viewPortHandler)
-        
+        self.viewPortHandler = viewPortHandler
         self.chart = chart
         
         createRenderers()
@@ -57,7 +57,7 @@ open class CombinedChartRenderer: DataRenderer
 
     }
     
-    open override func initBuffers()
+    open func initBuffers()
     {
         for renderer in _renderers
         {
@@ -65,7 +65,7 @@ open class CombinedChartRenderer: DataRenderer
         }
     }
     
-    open override func drawData(context: CGContext)
+    open func drawData(context: CGContext)
     {
         for renderer in _renderers
         {
@@ -73,7 +73,7 @@ open class CombinedChartRenderer: DataRenderer
         }
     }
     
-    open override func drawValues(context: CGContext)
+    open func drawValues(context: CGContext)
     {
         for renderer in _renderers
         {
