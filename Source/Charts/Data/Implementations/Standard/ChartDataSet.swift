@@ -21,14 +21,71 @@ public enum ChartDataSetRounding: Int
 
 /// The DataSet class represents one group or type of entries (Entry) in the Chart that belong together.
 /// It is designed to logically separate different groups of values inside the Chart (e.g. the values for a specific line in the LineChart, or the values of a specific group of bars in the BarChart).
-open class ChartDataSet: ChartBaseDataSet
-{
+open class ChartDataSet: ChartDataSetProtocol
+{        
+    // MARK: - Styling functions and accessors
+    
+    /// All the colors that are used for this DataSet.
+    /// Colors are reused as soon as the number of Entries the DataSet represents is higher than the size of the colors array.
+    open var colors: [UIColor] = []
+    
+    /// List representing all colors that are used for drawing the actual values for this DataSet
+    open var valueColors: [UIColor] = []
+    
+    /// The axis this DataSet should be plotted against.
+    open var axisDependency = YAxis.AxisDependency.left
+    
+    /// Custom formatter that is used instead of the auto-formatter if set
+    internal var _valueFormatter: ValueFormatterProtocol?
+    
+    /// Custom formatter that is used instead of the auto-formatter if set
+    open var valueFormatter: ValueFormatterProtocol?
+    {
+        get
+        {
+            if needsFormatter
+            {
+                return ChartUtils.defaultValueFormatter()
+            }
+            
+            return _valueFormatter
+        }
+        set
+        {
+            if newValue == nil { return }
+            
+            _valueFormatter = newValue
+        }
+    }
+    
+    open var needsFormatter: Bool
+    {
+        return _valueFormatter == nil
+    }
+    
+    /// the font for the value-text labels
+    open var valueFont: UIFont = UIFont.systemFont(ofSize: 7.0)
+    
+    /// the shadow for the value-text labels
+    open var valueShadow = NSShadow()
+    
+    /// Set this to true to draw y-values on the chart.
+    ///
+    /// - note: For bar and line charts: if `maxVisibleCount` is reached, no values will be drawn even if this is enabled.
+    open var isDrawValuesEnabled = true
+    
+    /// Set the visibility of this DataSet. If not visible, the DataSet will not be drawn to the chart upon refreshing it.
+    open var isVisible = true
+    
+    // MARK: init
     public init(values: [ChartDataEntry] = [])
     {
         self.values = values
 
-        super.init()
-
+        // default colors
+        colors.append(UIColor(red: 140.0/255.0, green: 234.0/255.0, blue: 255.0/255.0, alpha: 1.0))
+        valueColors.append(UIColor.black)
+        
         self.calcMinMax()
     }
     
@@ -64,7 +121,7 @@ open class ChartDataSet: ChartBaseDataSet
     /// minimum x-value in the value array
     internal var _xMin: Double = Double.greatestFiniteMagnitude
     
-    open override func calcMinMax()
+    open func calcMinMax()
     {
         _yMax = -Double.greatestFiniteMagnitude
         _yMin = Double.greatestFiniteMagnitude
@@ -110,24 +167,24 @@ open class ChartDataSet: ChartBaseDataSet
     }
     
     /// - returns: The minimum y-value this DataSet holds
-    open override var yMin: Double { return _yMin }
+    open var yMin: Double { return _yMin }
     
     /// - returns: The maximum y-value this DataSet holds
-    open override var yMax: Double { return _yMax }
+    open var yMax: Double { return _yMax }
     
     /// - returns: The minimum x-value this DataSet holds
-    open override var xMin: Double { return _xMin }
+    open var xMin: Double { return _xMin }
     
     /// - returns: The maximum x-value this DataSet holds
-    open override var xMax: Double { return _xMax }
+    open var xMax: Double { return _xMax }
     
     /// - returns: The number of y-values this DataSet represents
-    open override var entryCount: Int { return values.count }
+    open var entryCount: Int { return values.count }
     
     /// - returns: The entry object found at the given index (not x-value!)
     /// - throws: out of bounds
     /// if `i` is out of bounds, it may throw an out-of-bounds exception
-    open override func entryForIndex(_ i: Int) -> ChartDataEntry?
+    open func entryForIndex(_ i: Int) -> ChartDataEntry?
     {
         guard i >= values.startIndex, i < values.endIndex else {
             return nil
@@ -141,7 +198,7 @@ open class ChartDataSet: ChartBaseDataSet
     /// - parameter xValue: the x-value
     /// - parameter closestToY: If there are multiple y-values for the specified x-value,
     /// - parameter rounding: determine whether to round up/down/closest if there is no Entry matching the provided x-value
-    open override func entryForXValue(
+    open func entryForXValue(
         _ xValue: Double,
         closestToY yValue: Double,
         rounding: ChartDataSetRounding) -> ChartDataEntry?
@@ -160,7 +217,7 @@ open class ChartDataSet: ChartBaseDataSet
     /// - parameter xValue: x-value of the entry to search for
     /// - parameter closestToY: If there are multiple y-values for the specified x-value,
     /// - parameter rounding: Rounding method if exact value was not found
-    open override func entryIndex(
+    open func entryIndex(
         x xValue: Double,
         closestToY yValue: Double,
         rounding: ChartDataSetRounding) -> Int
@@ -265,7 +322,7 @@ open class ChartDataSet: ChartBaseDataSet
     /// - returns: The array-index of the specified entry
     ///
     /// - parameter e: the entry to search for
-    open override func entryIndex(entry e: ChartDataEntry) -> Int
+    open func entryIndex(entry e: ChartDataEntry) -> Int
     {
         for i in 0 ..< values.count
         {
@@ -279,7 +336,7 @@ open class ChartDataSet: ChartBaseDataSet
     }
     
     /// Removes all values from this DataSet and recalculates min and max value.
-    open override func clear()
+    open func clear()
     {
         values.removeAll(keepingCapacity: true)
     }
