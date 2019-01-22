@@ -267,24 +267,6 @@ open class ChartBaseDataSet: NSObject, ChartDataSetProtocol
     {
         return drawValuesEnabled
     }
-
-    /// Set this to true to draw y-icons on the chart.
-    ///
-    /// - note: For bar and line charts: if `maxVisibleCount` is reached, no icons will be drawn even if this is enabled.
-    open var drawIconsEnabled = true
-    
-    /// Returns true if y-icon drawing is enabled, false if not
-    open var isDrawIconsEnabled: Bool
-    {
-        return drawIconsEnabled
-    }
-    
-    /// Offset of icons drawn on the chart.  
-    ///
-    /// For all charts except Pie and Radar it will be ordinary (x offset, y offset).
-    ///
-    /// For Pie and Radar chart it will be (y offset, distance from center offset); so if you want icon to be rendered under value, you should increase X component of CGPoint, and if you want icon to be rendered closet to center, you should decrease height component of CGPoint.
-    open var iconsOffset = CGPoint(x: 0, y: 0)
     
     /// Set the visibility of this DataSet. If not visible, the DataSet will not be drawn to the chart upon refreshing it.
     open var visible = true

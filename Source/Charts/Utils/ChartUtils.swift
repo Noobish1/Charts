@@ -78,49 +78,6 @@ open class ChartUtils
 {
     private static var _defaultValueFormatter = ChartUtils.generateDefaultValueFormatter()
     
-    open class func drawImage(
-        context: CGContext,
-        image: UIImage,
-        x: CGFloat,
-        y: CGFloat,
-        size: CGSize)
-    {
-        var drawOffset = CGPoint()
-        drawOffset.x = x - (size.width / 2)
-        drawOffset.y = y - (size.height / 2)
-        
-        UIGraphicsPushContext(context)
-        
-        if image.size.width != size.width && image.size.height != size.height
-        {
-            let key = "resized_\(size.width)_\(size.height)"
-            
-            // Try to take scaled image from cache of this image
-            var scaledImage = objc_getAssociatedObject(image, key) as? UIImage
-            if scaledImage == nil
-            {
-                // Scale the image
-                UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
-                
-                image.draw(in: CGRect(origin: CGPoint(x: 0, y: 0), size: size))
-                
-                scaledImage = UIGraphicsGetImageFromCurrentImageContext()
-                UIGraphicsEndImageContext()
-                
-                // Put the scaled image in a cache owned by the original image
-                objc_setAssociatedObject(image, key, scaledImage, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            }
-            
-            scaledImage?.draw(in: CGRect(origin: drawOffset, size: size))
-        }
-        else
-        {
-            image.draw(in: CGRect(origin: drawOffset, size: size))
-        }
-        
-        UIGraphicsPopContext()
-    }
-    
     open class func drawText(context: CGContext, text: String, point: CGPoint, align: NSTextAlignment, attributes: [NSAttributedStringKey : Any]?)
     {
         var point = point

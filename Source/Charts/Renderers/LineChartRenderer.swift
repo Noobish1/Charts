@@ -545,8 +545,6 @@ open class LineChartRenderer: BarLineScatterRenderer
                 let trans = dataProvider.getTransformer(forAxis: dataSet.axisDependency)
                 let valueToPixelMatrix = trans.valueToPixelMatrix
                 
-                let iconsOffset = dataSet.iconsOffset
-                
                 _xBounds.set(chart: dataProvider, dataSet: dataSet)
                 
                 for j in stride(from: _xBounds.min, through: min(_xBounds.min + _xBounds.range, _xBounds.max), by: 1)
@@ -584,15 +582,6 @@ open class LineChartRenderer: BarLineScatterRenderer
                             attributes: [NSAttributedStringKey.font: valueFont,
                                          NSAttributedStringKey.foregroundColor: dataSet.valueTextColorAt(j),
                                          NSAttributedStringKey.shadow: valueShadow])
-                    }
-                    
-                    if let icon = e.icon, dataSet.isDrawIconsEnabled
-                    {
-                        ChartUtils.drawImage(context: context,
-                                             image: icon,
-                                             x: pt.x + iconsOffset.x,
-                                             y: pt.y + iconsOffset.y,
-                                             size: icon.size)
                     }
                 }
             }

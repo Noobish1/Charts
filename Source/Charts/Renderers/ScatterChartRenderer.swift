@@ -113,8 +113,6 @@ open class ScatterChartRenderer: BarLineScatterRenderer
                 let trans = dataProvider.getTransformer(forAxis: dataSet.axisDependency)
                 let valueToPixelMatrix = trans.valueToPixelMatrix
                 
-                let iconsOffset = dataSet.iconsOffset
-                
                 let shapeSize = dataSet.scatterShapeSize
                 let lineHeight = valueFont.lineHeight
                 
@@ -157,15 +155,6 @@ open class ScatterChartRenderer: BarLineScatterRenderer
                             align: .center,
                             attributes: [NSAttributedStringKey.font: valueFont, NSAttributedStringKey.foregroundColor: dataSet.valueTextColorAt(j)]
                         )
-                    }
-                    
-                    if let icon = e.icon, dataSet.isDrawIconsEnabled
-                    {
-                        ChartUtils.drawImage(context: context,
-                                             image: icon,
-                                             x: pt.x + iconsOffset.x,
-                                             y: pt.y + iconsOffset.y,
-                                             size: icon.size)
                     }
                 }
             }
