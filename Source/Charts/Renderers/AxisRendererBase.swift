@@ -28,24 +28,6 @@ open class AxisRendererBase: Renderer
         self.axis = axis
     }
     
-    /// Draws the axis labels on the specified context
-    open func renderAxisLabels(context: CGContext)
-    {
-        fatalError("renderAxisLabels() cannot be called on AxisRendererBase")
-    }
-    
-    /// Draws the grid lines belonging to the axis.
-    open func renderGridLines(context: CGContext)
-    {
-        fatalError("renderGridLines() cannot be called on AxisRendererBase")
-    }
-    
-    /// Draws the line that goes alongside the axis.
-    open func renderAxisLine(context: CGContext)
-    {
-        fatalError("renderAxisLine() cannot be called on AxisRendererBase")
-    }
-    
     /// Computes the axis values.
     /// - parameter min: the minimum value in the data object for this axis
     /// - parameter max: the maximum value in the data object for this axis

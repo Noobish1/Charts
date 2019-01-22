@@ -198,7 +198,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterChartDataProvider
         setNeedsDisplay()
     }
     
-    internal override func calcMinMax()
+    internal func calcMinMax()
     {
         // calculate / set x-axis range
         _xAxis.calculate(min: _data?.xMin ?? 0.0, max: _data?.xMax ?? 0.0)

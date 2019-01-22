@@ -77,7 +77,7 @@ open class XAxisRenderer: AxisRendererBase
         xAxis.labelRotatedHeight = labelRotatedSize.height
     }
     
-    open override func renderAxisLabels(context: CGContext)
+    open func renderAxisLabels(context: CGContext)
     {
         guard let xAxis = self.axis as? XAxis else { return }
         
@@ -113,7 +113,7 @@ open class XAxisRenderer: AxisRendererBase
     
     private var _axisLineSegmentsBuffer = [CGPoint](repeating: CGPoint(), count: 2)
     
-    open override func renderAxisLine(context: CGContext)
+    open func renderAxisLine(context: CGContext)
     {
         guard let xAxis = self.axis as? XAxis else { return }
         
@@ -257,7 +257,7 @@ open class XAxisRenderer: AxisRendererBase
             angleRadians: angleRadians)
     }
     
-    open override func renderGridLines(context: CGContext)
+    open func renderGridLines(context: CGContext)
     {
         guard
             let xAxis = self.axis as? XAxis,

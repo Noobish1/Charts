@@ -21,7 +21,7 @@ open class YAxisRenderer: AxisRendererBase
     }
     
     /// draws the y-axis labels to the screen
-    open override func renderAxisLabels(context: CGContext)
+    open func renderAxisLabels(context: CGContext)
     {
         guard let yAxis = self.axis as? YAxis else { return }
         
@@ -76,7 +76,7 @@ open class YAxisRenderer: AxisRendererBase
             textAlign: textAlign)
     }
     
-    open override func renderAxisLine(context: CGContext)
+    open func renderAxisLine(context: CGContext)
     {
         guard let yAxis = self.axis as? YAxis else { return }
         
@@ -139,7 +139,7 @@ open class YAxisRenderer: AxisRendererBase
         }
     }
     
-    open override func renderGridLines(context: CGContext)
+    open func renderGridLines(context: CGContext)
     {
         guard let
             yAxis = self.axis as? YAxis

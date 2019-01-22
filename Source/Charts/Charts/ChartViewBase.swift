@@ -159,12 +159,6 @@ open class ChartViewBase: UIView, ChartDataProvider
         fatalError("calculateOffsets() cannot be called on ChartViewBase")
     }
     
-    /// calcualtes the y-min and y-max value and the y-delta and x-delta value
-    internal func calcMinMax()
-    {
-        fatalError("calcMinMax() cannot be called on ChartViewBase")
-    }
-    
     /// calculates the required number of digits for the values that might be drawn in the chart (if enabled), and creates the default value formatter
     internal func setupDefaultFormatter(min: Double, max: Double)
     {
