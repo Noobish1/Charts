@@ -29,11 +29,6 @@ open class DataRenderer: Renderer
         fatalError("drawValues() cannot be called on DataRenderer")
     }
     
-    open func drawExtras(context: CGContext)
-    {
-        fatalError("drawExtras() cannot be called on DataRenderer")
-    }
-    
     /// An opportunity for initializing internal buffers used for rendering with a new size.
     /// Since this might do memory allocations, it should only be called if necessary.
     open func initBuffers() { }

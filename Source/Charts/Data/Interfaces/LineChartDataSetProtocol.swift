@@ -50,40 +50,6 @@ public protocol LineChartDataSetProtocol: ChartDataSetProtocol
     /// **default**: 0.2
     var cubicIntensity: CGFloat { get set }
     
-    /// The radius of the drawn circles.
-    var circleRadius: CGFloat { get set }
-    
-    /// The hole radius of the drawn circles.
-    var circleHoleRadius: CGFloat { get set }
-    
-    var circleColors: [UIColor] { get set }
-    
-    /// - returns: The color at the given index of the DataSet's circle-color array.
-    /// Performs a IndexOutOfBounds check by modulus.
-    func getCircleColor(atIndex: Int) -> UIColor?
-    
-    /// Sets the one and ONLY color that should be used for this DataSet.
-    /// Internally, this recreates the colors array and adds the specified color.
-    func setCircleColor(_ color: UIColor)
-    
-    /// Resets the circle-colors array and creates a new one
-    func resetCircleColors(_ index: Int)
-    
-    /// If true, drawing circles is enabled
-    var drawCirclesEnabled: Bool { get set }
-    
-    /// - returns: `true` if drawing circles for this DataSet is enabled, `false` ifnot
-    var isDrawCirclesEnabled: Bool { get }
-    
-    /// The color of the inner circle (the circle-hole).
-    var circleHoleColor: UIColor? { get set }
-    
-    /// `true` if drawing circles for this DataSet is enabled, `false` ifnot
-    var drawCircleHoleEnabled: Bool { get set }
-    
-    /// - returns: `true` if drawing the circle-holes is enabled, `false` ifnot.
-    var isDrawCircleHoleEnabled: Bool { get }
-    
     /// This is how much (in pixels) into the dash pattern are we starting from.
     var lineDashPhase: CGFloat { get }
     

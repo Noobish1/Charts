@@ -171,9 +171,4 @@ open class ScatterChartRenderer: BarLineScatterRenderer
             }
         }
     }
-    
-    open override func drawExtras(context: CGContext)
-    {
-        
-    }
 }

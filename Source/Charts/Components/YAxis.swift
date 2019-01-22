@@ -111,11 +111,6 @@ open class YAxis: AxisBase
         return size
     }
     
-    open func getRequiredHeightSpace() -> CGFloat
-    {
-        return requiredSize().height
-    }
-    
     /// - returns: `true` if this axis needs horizontal offset, `false` ifno offset is needed.
     open var needsOffset: Bool
     {

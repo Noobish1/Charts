@@ -145,8 +145,6 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterChartDataProvider
         
         context.restoreGState()
         
-        renderer.drawExtras(context: context)
-        
         xAxisRenderer.renderAxisLabels(context: context)
         leftYAxisRenderer.renderAxisLabels(context: context)
         rightYAxisRenderer.renderAxisLabels(context: context)
@@ -262,28 +260,8 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterChartDataProvider
         prepareOffsetMatrix()
         prepareValuePxMatrix()
     }
-    
-    /// MARK: Viewport modifiers
-    
-    open var visibleXRange: Double
-    {
-        return abs(highestVisibleX - lowestVisibleX)
-    }
 
     // MARK: - Accessors
-    
-    /// - returns: The range of the specified axis.
-    open func getAxisRange(axis: YAxis.AxisDependency) -> Double
-    {
-        if axis == .left
-        {
-            return leftAxis.axisRange
-        }
-        else
-        {
-            return rightAxis.axisRange
-        }
-    }
 
     /// - returns: The y-axis object to the corresponding AxisDependency. In the
     /// horizontal bar-chart, LEFT == top, RIGHT == BOTTOM

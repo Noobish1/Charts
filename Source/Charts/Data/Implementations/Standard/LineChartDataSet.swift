@@ -23,24 +23,6 @@ open class LineChartDataSet: ChartDataSet, LineChartDataSetProtocol
         case horizontalBezier
     }
     
-    private func initialize()
-    {
-        // default color
-        circleColors.append(UIColor(red: 140.0/255.0, green: 234.0/255.0, blue: 255.0/255.0, alpha: 1.0))
-    }
-    
-    public required init()
-    {
-        super.init()
-        initialize()
-    }
-    
-    public override init(values: [ChartDataEntry]?, label: String?)
-    {
-        super.init(values: values, label: label)
-        initialize()
-    }
-    
     // MARK: - Styling functions and accessors
     
     /// The color that is used for filling the line surface area.
@@ -133,62 +115,6 @@ open class LineChartDataSet: ChartDataSet, LineChartDataSetProtocol
             }
         }
     }
-        
-    /// The radius of the drawn circles.
-    open var circleRadius = CGFloat(8.0)
-    
-    /// The hole radius of the drawn circles
-    open var circleHoleRadius = CGFloat(4.0)
-    
-    open var circleColors = [UIColor]()
-    
-    /// - returns: The color at the given index of the DataSet's circle-color array.
-    /// Performs a IndexOutOfBounds check by modulus.
-    open func getCircleColor(atIndex index: Int) -> UIColor?
-    {
-        let size = circleColors.count
-        let index = index % size
-        if index >= size
-        {
-            return nil
-        }
-        return circleColors[index]
-    }
-    
-    /// Sets the one and ONLY color that should be used for this DataSet.
-    /// Internally, this recreates the colors array and adds the specified color.
-    open func setCircleColor(_ color: UIColor)
-    {
-        circleColors.removeAll(keepingCapacity: false)
-        circleColors.append(color)
-    }
-    
-    open func setCircleColors(_ colors: UIColor...)
-    {
-        circleColors.removeAll(keepingCapacity: false)
-        circleColors.append(contentsOf: colors)
-    }
-    
-    /// Resets the circle-colors array and creates a new one
-    open func resetCircleColors(_ index: Int)
-    {
-        circleColors.removeAll(keepingCapacity: false)
-    }
-    
-    /// If true, drawing circles is enabled
-    open var drawCirclesEnabled = true
-    
-    /// - returns: `true` if drawing circles for this DataSet is enabled, `false` ifnot
-    open var isDrawCirclesEnabled: Bool { return drawCirclesEnabled }
-    
-    /// The color of the inner circle (the circle-hole).
-    open var circleHoleColor: UIColor? = UIColor.white
-    
-    /// `true` if drawing circles for this DataSet is enabled, `false` ifnot
-    open var drawCircleHoleEnabled = true
-    
-    /// - returns: `true` if drawing the circle-holes is enabled, `false` ifnot.
-    open var isDrawCircleHoleEnabled: Bool { return drawCircleHoleEnabled }
     
     /// This is how much (in pixels) into the dash pattern are we starting from.
     open var lineDashPhase = CGFloat(0.0)
@@ -224,14 +150,10 @@ open class LineChartDataSet: ChartDataSet, LineChartDataSetProtocol
         copy.fillColor = fillColor
         copy._lineWidth = _lineWidth
         copy.drawFilledEnabled = drawFilledEnabled
-        copy.circleColors = circleColors
-        copy.circleRadius = circleRadius
         copy.cubicIntensity = cubicIntensity
         copy.lineDashPhase = lineDashPhase
         copy.lineDashLengths = lineDashLengths
         copy.lineCapType = lineCapType
-        copy.drawCirclesEnabled = drawCirclesEnabled
-        copy.drawCircleHoleEnabled = drawCircleHoleEnabled
         copy.mode = mode
         return copy
     }

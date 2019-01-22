@@ -150,43 +150,6 @@ open class CombinedChartData: ChartData
         return allData.index(of: data)
     }
     
-    open override func removeDataSet(_ dataSet: ChartDataSetProtocol!) -> Bool
-    {
-        let datas = allData
-        
-        var success = false
-        
-        for data in datas
-        {
-            success = data.removeDataSet(dataSet)
-            
-            if success
-            {
-                break
-            }
-        }
-        
-        return success
-    }
-    
-    open override func removeDataSetByIndex(_ index: Int) -> Bool
-    {
-        print("removeDataSet(index) not supported for CombinedData", terminator: "\n")
-        return false
-    }
-    
-    open override func removeEntry(_ entry: ChartDataEntry, dataSetIndex: Int) -> Bool
-    {
-        print("removeEntry(entry, dataSetIndex) not supported for CombinedData", terminator: "\n")
-        return false
-    }
-    
-    open override func removeEntry(xValue: Double, dataSetIndex: Int) -> Bool
-    {
-        print("removeEntry(xValue, dataSetIndex) not supported for CombinedData", terminator: "\n")
-        return false
-    }
-    
     open override func notifyDataChanged()
     {
         if _lineData !== nil

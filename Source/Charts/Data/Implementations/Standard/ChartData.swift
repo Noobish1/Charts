@@ -126,55 +126,6 @@ open class ChartData: NSObject
         }
     }
     
-    /// Adjusts the current minimum and maximum values based on the provided Entry object.
-    open func calcMinMax(entry e: ChartDataEntry, axis: YAxis.AxisDependency)
-    {
-        if _yMax < e.y
-        {
-            _yMax = e.y
-        }
-        
-        if _yMin > e.y
-        {
-            _yMin = e.y
-        }
-        
-        if _xMax < e.x
-        {
-            _xMax = e.x
-        }
-        
-        if _xMin > e.x
-        {
-            _xMin = e.x
-        }
-        
-        if axis == .left
-        {
-            if _leftAxisMax < e.y
-            {
-                _leftAxisMax = e.y
-            }
-            
-            if _leftAxisMin > e.y
-            {
-                _leftAxisMin = e.y
-            }
-        }
-        else
-        {
-            if _rightAxisMax < e.y
-            {
-                _rightAxisMax = e.y
-            }
-            
-            if _rightAxisMin > e.y
-            {
-                _rightAxisMin = e.y
-            }
-        }
-    }
-    
     /// Adjusts the minimum and maximum values based on the given DataSet.
     open func calcMinMax(dataSet d: ChartDataSetProtocol)
     {
@@ -341,143 +292,6 @@ open class ChartData: NSObject
         return _dataSets[index]
     }
     
-    open func addDataSet(_ dataSet: ChartDataSetProtocol!)
-    {
-        calcMinMax(dataSet: dataSet)
-        
-        _dataSets.append(dataSet)
-    }
-    
-    /// Removes the given DataSet from this data object.
-    /// Also recalculates all minimum and maximum values.
-    ///
-    /// - returns: `true` if a DataSet was removed, `false` ifno DataSet could be removed.
-     @discardableResult open func removeDataSet(_ dataSet: ChartDataSetProtocol!) -> Bool
-    {
-        if dataSet === nil
-        {
-            return false
-        }
-        
-        for i in 0 ..< _dataSets.count
-        {
-            if _dataSets[i] === dataSet
-            {
-                return removeDataSetByIndex(i)
-            }
-        }
-        
-        return false
-    }
-    
-    /// Removes the DataSet at the given index in the DataSet array from the data object. 
-    /// Also recalculates all minimum and maximum values. 
-    ///
-    /// - returns: `true` if a DataSet was removed, `false` ifno DataSet could be removed.
-     @discardableResult open func removeDataSetByIndex(_ index: Int) -> Bool
-    {
-        if index >= _dataSets.count || index < 0
-        {
-            return false
-        }
-        
-        _dataSets.remove(at: index)
-        
-        calcMinMax()
-        
-        return true
-    }
-    
-    /// Adds an Entry to the DataSet at the specified index. Entries are added to the end of the list.
-    open func addEntry(_ e: ChartDataEntry, dataSetIndex: Int)
-    {
-        if _dataSets.count > dataSetIndex && dataSetIndex >= 0
-        {
-            let set = _dataSets[dataSetIndex]
-            
-            if !set.addEntry(e) { return }
-            
-            calcMinMax(entry: e, axis: set.axisDependency)
-        }
-        else
-        {
-            print("ChartData.addEntry() - Cannot add Entry because dataSetIndex too high or too low.", terminator: "\n")
-        }
-    }
-    
-    /// Removes the given Entry object from the DataSet at the specified index.
-     @discardableResult open func removeEntry(_ entry: ChartDataEntry, dataSetIndex: Int) -> Bool
-    {
-        // entry outofbounds
-        if dataSetIndex >= _dataSets.count
-        {
-            return false
-        }
-        
-        // remove the entry from the dataset
-        let removed = _dataSets[dataSetIndex].removeEntry(entry)
-        
-        if removed
-        {
-            calcMinMax()
-        }
-        
-        return removed
-    }
-    
-    /// Removes the Entry object closest to the given xIndex from the ChartDataSet at the
-    /// specified index. 
-    /// - returns: `true` if an entry was removed, `false` ifno Entry was found that meets the specified requirements.
-     @discardableResult open func removeEntry(xValue: Double, dataSetIndex: Int) -> Bool
-    {
-        if dataSetIndex >= _dataSets.count
-        {
-            return false
-        }
-        
-        if let entry = _dataSets[dataSetIndex].entryForXValue(xValue, closestToY: Double.nan)
-        {
-            return removeEntry(entry, dataSetIndex: dataSetIndex)
-        }
-        
-        return false
-    }
-    
-    /// - returns: The DataSet that contains the provided Entry, or null, if no DataSet contains this entry.
-    open func getDataSetForEntry(_ e: ChartDataEntry!) -> ChartDataSetProtocol?
-    {
-        if e == nil
-        {
-            return nil
-        }
-        
-        for i in 0 ..< _dataSets.count
-        {
-            let set = _dataSets[i]
-            
-            if e === set.entryForXValue(e.x, closestToY: e.y)
-            {
-                return set
-            }
-        }
-        
-        return nil
-    }
-
-    /// - returns: The index of the provided DataSet in the DataSet array of this data object, or -1 if it does not exist.
-    open func indexOfDataSet(_ dataSet: ChartDataSetProtocol) -> Int
-    {
-        for i in 0 ..< _dataSets.count
-        {
-            if _dataSets[i] === dataSet
-            {
-                return i
-            }
-        }
-        
-        return -1
-    }
-    
     /// - returns: The first DataSet from the datasets-array that has it's dependency on the left axis. Returns null if no DataSet with left dependency could be found.
     open func getFirstLeft(dataSets: [ChartDataSetProtocol]) -> ChartDataSetProtocol?
     {
@@ -506,91 +320,12 @@ open class ChartData: NSObject
         return nil
     }
     
-    /// - returns: All colors used across all DataSet objects this object represents.
-    open func getColors() -> [UIColor]?
-    {
-        var clrcnt = 0
-        
-        for i in 0 ..< _dataSets.count
-        {
-            clrcnt += _dataSets[i].colors.count
-        }
-        
-        var colors = [UIColor]()
-        
-        for i in 0 ..< _dataSets.count
-        {
-            let clrs = _dataSets[i].colors
-            
-            for clr in clrs
-            {
-                colors.append(clr)
-            }
-        }
-        
-        return colors
-    }
-    
-    /// Sets a custom IValueFormatter for all DataSets this data object contains.
-    open func setValueFormatter(_ formatter: ValueFormatterProtocol?)
-    {
-        guard let formatter = formatter
-            else { return }
-        
-        for set in dataSets
-        {
-            set.valueFormatter = formatter
-        }
-    }
-    
-    /// Sets the color of the value-text (color in which the value-labels are drawn) for all DataSets this data object contains.
-    open func setValueTextColor(_ color: UIColor!)
-    {
-        for set in dataSets
-        {
-            set.valueTextColor = color ?? set.valueTextColor
-        }
-    }
-    
-    /// Sets the font for all value-labels for all DataSets this data object contains.
-    open func setValueFont(_ font: UIFont!)
-    {
-        for set in dataSets
-        {
-            set.valueFont = font ?? set.valueFont
-        }
-    }
-    
-    /// Enables / disables drawing values (value-text) for all DataSets this data object contains.
-    open func setDrawValues(_ enabled: Bool)
-    {
-        for set in dataSets
-        {
-            set.drawValuesEnabled = enabled
-        }
-    }
-    
     /// Clears this data object from all DataSets and removes all Entries.
     /// Don't forget to invalidate the chart after this.
     open func clearValues()
     {
         dataSets.removeAll(keepingCapacity: false)
         notifyDataChanged()
-    }
-    
-    /// Checks if this data object contains the specified DataSet. 
-    /// - returns: `true` if so, `false` ifnot.
-    open func contains(dataSet: ChartDataSetProtocol) -> Bool
-    {
-        for set in dataSets
-        {
-            if set === dataSet
-            {
-                return true
-            }
-        }
-        
-        return false
     }
     
     /// - returns: The total entry count across all DataSet objects this data object contains.
@@ -604,26 +339,5 @@ open class ChartData: NSObject
         }
         
         return count
-    }
-
-    /// - returns: The DataSet object with the maximum number of entries or null if there are no DataSets.
-    open var maxEntryCountSet: ChartDataSetProtocol?
-    {
-        if _dataSets.count == 0
-        {
-            return nil
-        }
-        
-        var max = _dataSets[0]
-        
-        for set in _dataSets
-        {
-            if set.entryCount > max.entryCount
-            {
-                max = set
-            }
-        }
-        
-        return max
     }
 }

@@ -23,26 +23,4 @@ open class ScatterChartData: ChartData
     {
         super.init(dataSets: dataSets)
     }
-    
-    /// - returns: The maximum shape-size across all DataSets.
-    open func getGreatestShapeSize() -> CGFloat
-    {
-        var max = CGFloat(0.0)
-        
-        for set in _dataSets
-        {
-            let scatterDataSet = set as? ScatterChartDataSetProtocol
-            
-            if scatterDataSet == nil
-            {
-                print("ScatterChartData: Found a DataSet which is not a ScatterChartDataSet", terminator: "\n")
-            }
-            else if let size = scatterDataSet?.scatterShapeSize, size > max
-            {
-                max = size
-            }
-        }
-        
-        return max
-    }
 }
