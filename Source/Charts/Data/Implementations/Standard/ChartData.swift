@@ -11,7 +11,7 @@
 
 import Foundation
 
-open class ChartData: NSObject
+open class ChartData
 {
     internal var _yMax: Double = -Double.greatestFiniteMagnitude
     internal var _yMin: Double = Double.greatestFiniteMagnitude
@@ -22,31 +22,12 @@ open class ChartData: NSObject
     internal var _rightAxisMax: Double = -Double.greatestFiniteMagnitude
     internal var _rightAxisMin: Double = Double.greatestFiniteMagnitude
     
-    internal var _dataSets = [ChartDataSetProtocol]()
+    internal var _dataSets: [ChartDataSetProtocol]
     
-    public override init()
+    public init(dataSets: [ChartDataSetProtocol] = [])
     {
-        super.init()
+        self._dataSets = dataSets
         
-        _dataSets = [ChartDataSetProtocol]()
-    }
-    
-    public init(dataSets: [ChartDataSetProtocol]?)
-    {
-        super.init()
-        
-        _dataSets = dataSets ?? [ChartDataSetProtocol]()
-        
-        self.initialize(dataSets: _dataSets)
-    }
-    
-    public convenience init(dataSet: ChartDataSetProtocol?)
-    {
-        self.init(dataSets: dataSet === nil ? nil : [dataSet!])
-    }
-    
-    internal func initialize(dataSets: [ChartDataSetProtocol])
-    {
         notifyDataChanged()
     }
     

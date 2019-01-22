@@ -14,39 +14,20 @@ import CoreGraphics
 import UIKit
 
 /// Default formatter that calculates the position of the filled line.
-open class DefaultFillFormatter: NSObject, FillFormatterProtocol
-{
-    public typealias Block = (
-        _ dataSet: LineChartDataSetProtocol,
-        _ dataProvider: LineChartDataProvider) -> CGFloat
-    
-    open var block: Block?
-    
-    public override init() { }
-    
-    public init(block: @escaping Block)
-    {
-        self.block = block
-    }
-    
-    public static func with(block: @escaping Block) -> DefaultFillFormatter?
-    {
-        return DefaultFillFormatter(block: block)
-    }
-    
-    open func getFillLinePosition(
+public class DefaultFillFormatter {}
+
+// MARK: FillFormatterPtrotocol
+extension DefaultFillFormatter: FillFormatterProtocol {
+    public func getFillLinePosition(
         dataSet: LineChartDataSetProtocol,
-        dataProvider: LineChartDataProvider) -> CGFloat
-    {
-        guard block == nil else { return block!(dataSet, dataProvider) }
+        dataProvider: LineChartDataProvider
+    ) -> CGFloat {
         var fillMin: CGFloat = 0.0
 
-        if dataSet.yMax > 0.0 && dataSet.yMin < 0.0
-        {
+        if dataSet.yMax > 0.0 && dataSet.yMin < 0.0 {
             fillMin = 0.0
         }
-        else if let data = dataProvider.data
-        {
+        else if let data = dataProvider.data {
             let max = data.yMax > 0.0 ? 0.0 : dataProvider.chartYMax
             let min = data.yMin < 0.0 ? 0.0 : dataProvider.chartYMin
 

@@ -11,72 +11,12 @@
 
 import Foundation
 
-open class ChartDataEntry: ChartDataEntryBase
-{
-    /// the x value
-    open var x = Double(0.0)
+public struct ChartDataEntry: Equatable {
+    public var x: Double
+    public var y: Double
     
-    public required init()
-    {
-        super.init()
-    }
-    
-    /// An Entry represents one single entry in the chart.
-    /// - parameter x: the x value
-    /// - parameter y: the y value (the actual value of the entry)
-    public init(x: Double, y: Double)
-    {
-        super.init(y: y)
-        
+    public init(x: Double, y: Double) {
         self.x = x
-    }
-    
-    /// An Entry represents one single entry in the chart.
-    /// - parameter x: the x value
-    /// - parameter y: the y value (the actual value of the entry)
-    /// - parameter data: Space for additional data this Entry represents.
-    
-    public init(x: Double, y: Double, data: AnyObject?)
-    {
-        super.init(y: y)
-        
-        self.x = x
-        self.data = data
-    }
-        
-    // MARK: NSObject
-    
-    open override var description: String
-    {
-        return "ChartDataEntry, x: \(x), y \(y)"
-    }
-    
-    // MARK: NSCopying
-    
-    open func copyWithZone(_ zone: NSZone?) -> AnyObject
-    {
-        let copy = type(of: self).init()
-        
-        copy.x = x
-        copy.y = y
-        copy.data = data
-        
-        return copy
-    }
-}
-
-// MARK: Equatable
-extension ChartDataEntry/*: Equatable*/ {
-    open override func isEqual(_ object: Any?) -> Bool {
-        guard let object = object as? ChartDataEntry else { return false }
-
-        if self === object
-        {
-            return true
-        }
-
-        return ((data == nil && object.data == nil) || (data?.isEqual(object.data) ?? false))
-            && y == object.y
-            && x == object.x
+        self.y = y
     }
 }

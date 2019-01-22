@@ -21,14 +21,4 @@ open class ScatterChartDataSet: ChartDataSet, ScatterChartDataSetProtocol
     /// This can also be used to set a custom IShapeRenderer aside from the default ones.
     /// **default**: `SquareShapeRenderer`
     open var shapeRenderer: ShapeRendererProtocol = XShapeRenderer()
-    
-    // MARK: NSCopying
-    
-    open override func copyWithZone(_ zone: NSZone?) -> AnyObject
-    {
-        let copy = super.copyWithZone(zone) as! ScatterChartDataSet
-        copy.scatterShapeSize = scatterShapeSize
-        copy.shapeRenderer = shapeRenderer
-        return copy
-    }
 }

@@ -23,32 +23,13 @@ public enum ChartDataSetRounding: Int
 /// It is designed to logically separate different groups of values inside the Chart (e.g. the values for a specific line in the LineChart, or the values of a specific group of bars in the BarChart).
 open class ChartDataSet: ChartBaseDataSet
 {
-    public required init()
+    public init(values: [ChartDataEntry] = [])
     {
-        values = []
+        self.values = values
 
         super.init()
-    }
-    
-    public override init(label: String?)
-    {
-        values = []
-
-        super.init(label: label)
-    }
-    
-    public init(values: [ChartDataEntry]?, label: String?)
-    {
-        self.values = values ?? []
-
-        super.init(label: label)
 
         self.calcMinMax()
-    }
-    
-    public convenience init(values: [ChartDataEntry]?)
-    {
-        self.init(values: values, label: "DataSet")
     }
     
     // MARK: - Data functions and accessors
@@ -288,7 +269,7 @@ open class ChartDataSet: ChartBaseDataSet
     {
         for i in 0 ..< values.count
         {
-            if values[i] === e
+            if values[i] == e
             {
                 return i
             }
@@ -301,20 +282,5 @@ open class ChartDataSet: ChartBaseDataSet
     open override func clear()
     {
         values.removeAll(keepingCapacity: true)
-    }
-    
-    // MARK: - Data functions and accessors
-
-    // MARK: - NSCopying
-    
-    open override func copyWithZone(_ zone: NSZone?) -> AnyObject
-    {
-        let copy = super.copyWithZone(zone) as! ChartDataSet
-        
-        copy.values = values
-        copy._yMax = _yMax
-        copy._yMin = _yMin
-
-        return copy
     }
 }

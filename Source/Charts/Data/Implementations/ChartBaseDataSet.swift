@@ -13,26 +13,13 @@ import Foundation
 import CoreGraphics
 
 
-open class ChartBaseDataSet: NSObject, ChartDataSetProtocol
+open class ChartBaseDataSet: ChartDataSetProtocol
 {
-    public required override init()
+    public init()
     {
-        super.init()
-        
         // default color
         colors.append(UIColor(red: 140.0/255.0, green: 234.0/255.0, blue: 255.0/255.0, alpha: 1.0))
         valueColors.append(UIColor.black)
-    }
-    
-    public init(label: String?)
-    {
-        super.init()
-        
-        // default color
-        colors.append(UIColor(red: 140.0/255.0, green: 234.0/255.0, blue: 255.0/255.0, alpha: 1.0))
-        valueColors.append(UIColor.black)
-        
-        self.label = label
     }
     
     // MARK: - Data functions and accessors
@@ -124,9 +111,6 @@ open class ChartBaseDataSet: NSObject, ChartDataSetProtocol
     
     /// List representing all colors that are used for drawing the actual values for this DataSet
     open var valueColors = [UIColor]()
-
-    /// The label string that describes the DataSet.
-    open var label: String? = "DataSet"
     
     /// The axis this DataSet should be plotted against.
     open var axisDependency = YAxis.AxisDependency.left
@@ -275,37 +259,5 @@ open class ChartBaseDataSet: NSObject, ChartDataSetProtocol
     open var isVisible: Bool
     {
         return visible
-    }
-    
-    // MARK: - NSObject
-    
-    open override var description: String
-    {
-        return String(format: "%@, label: %@, %i entries", arguments: [NSStringFromClass(type(of: self)), self.label ?? "", self.entryCount])
-    }
-    
-    open override var debugDescription: String
-    {
-        var desc = description + ":"
-        
-        for i in 0 ..< self.entryCount
-        {
-            desc += "\n" + (self.entryForIndex(i)?.description ?? "")
-        }
-        
-        return desc
-    }
-    
-    // MARK: - NSCopying
-    
-    open func copyWithZone(_ zone: NSZone?) -> AnyObject
-    {
-        let copy = type(of: self).init()
-        
-        copy.colors = colors
-        copy.valueColors = valueColors
-        copy.label = label
-        
-        return copy
     }
 }

@@ -11,92 +11,39 @@
 
 import Foundation
 
-open class DefaultValueFormatter: NSObject, ValueFormatterProtocol
-{
-    public typealias Block = (
-        _ value: Double,
-        _ entry: ChartDataEntry,
-        _ dataSetIndex: Int,
-        _ viewPortHandler: ViewPortHandler?) -> String
-    
-    open var block: Block?
-    
-    open var hasAutoDecimals: Bool = false
-    
-    private var _formatter: NumberFormatter?
-    open var formatter: NumberFormatter?
-    {
-        get { return _formatter }
-        set
-        {
+open class DefaultValueFormatter {
+    // MARK: properties
+    open var hasAutoDecimals: Bool
+    open var formatter: NumberFormatter {
+        didSet {
             hasAutoDecimals = false
-            _formatter = newValue
+        }
+    }
+    open var decimals: Int {
+        didSet {
+            self.formatter.minimumFractionDigits = decimals
+            self.formatter.maximumFractionDigits = decimals
+            self.formatter.usesGroupingSeparator = true
         }
     }
     
-    private var _decimals: Int?
-    open var decimals: Int?
-    {
-        get { return _decimals }
-        set
-        {
-            _decimals = newValue
-            
-            if let digits = newValue
-            {
-                self.formatter?.minimumFractionDigits = digits
-                self.formatter?.maximumFractionDigits = digits
-                self.formatter?.usesGroupingSeparator = true
-            }
-        }
-    }
-    
-    public override init()
-    {
-        super.init()
-        
-        self.formatter = NumberFormatter()
-        hasAutoDecimals = true
-    }
-    
-    public init(formatter: NumberFormatter)
-    {
-        super.init()
-        
-        self.formatter = formatter
-    }
-    
-    public init(decimals: Int)
-    {
-        super.init()
-        
-        self.formatter = NumberFormatter()
-        self.formatter?.usesGroupingSeparator = true
+    // MARK: init
+    public init(decimals: Int) {
         self.decimals = decimals
-        hasAutoDecimals = true
+        self.formatter = NumberFormatter()
+        self.formatter.usesGroupingSeparator = true
+        self.hasAutoDecimals = true
     }
-    
-    public init(block: @escaping Block)
-    {
-        super.init()
-        
-        self.block = block
-    }
-    
-    public static func with(block: @escaping Block) -> DefaultValueFormatter?
-    {
-        return DefaultValueFormatter(block: block)
-    }
-    
-    open func stringForValue(_ value: Double,
-                             entry: ChartDataEntry,
-                             dataSetIndex: Int,
-                             viewPortHandler: ViewPortHandler?) -> String
-    {
-        if let block = block {
-            return block(value, entry, dataSetIndex, viewPortHandler)
-        } else {
-            return formatter?.string(from: NSNumber(floatLiteral: value)) ?? ""
-        }
+}
+
+// MARK: ValueFormatterProtocol
+extension DefaultValueFormatter: ValueFormatterProtocol {
+    open func stringForValue(
+        _ value: Double,
+        entry: ChartDataEntry,
+        dataSetIndex: Int,
+        viewPortHandler: ViewPortHandler?
+    ) -> String {
+        return formatter.string(from: NSNumber(floatLiteral: value)) ?? ""
     }
 }

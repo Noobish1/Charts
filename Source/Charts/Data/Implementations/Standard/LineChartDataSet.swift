@@ -134,17 +134,4 @@ open class LineChartDataSet: ChartDataSet, LineChartDataSetProtocol
             _fillFormatter = newValue ?? DefaultFillFormatter()
         }
     }
-    
-    // MARK: NSCopying
-    open override func copyWithZone(_ zone: NSZone?) -> AnyObject
-    {
-        let copy = super.copyWithZone(zone) as! LineChartDataSet
-        copy.fillColor = fillColor
-        copy._lineWidth = _lineWidth
-        copy.drawFilledEnabled = drawFilledEnabled
-        copy.cubicIntensity = cubicIntensity
-        copy.lineCapType = lineCapType
-        copy.mode = mode
-        return copy
-    }
 }

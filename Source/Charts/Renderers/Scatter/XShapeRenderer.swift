@@ -11,15 +11,18 @@
 import Foundation
 import CoreGraphics
 
-open class XShapeRenderer : NSObject, ShapeRendererProtocol
-{
+// MARK: XShapeRenderer
+open class XShapeRenderer {}
+
+// MARK: ShapeRendererProtocol
+extension XShapeRenderer: ShapeRendererProtocol {
     open func renderShape(
         context: CGContext,
         dataSet: ScatterChartDataSetProtocol,
         viewPortHandler: ViewPortHandler,
         point: CGPoint,
-        color: UIColor)
-    {
+        color: UIColor
+    ) {
         let shapeSize = dataSet.scatterShapeSize
         let shapeHalf = shapeSize / 2.0
         

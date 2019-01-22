@@ -16,16 +16,6 @@ open class CombinedChartData: ChartData
     private var _lineData: LineChartData!
     private var _scatterData: ScatterChartData!
     
-    public override init()
-    {
-        super.init()
-    }
-    
-    public override init(dataSets: [ChartDataSetProtocol]?)
-    {
-        super.init(dataSets: dataSets)
-    }
-    
     open var lineData: LineChartData!
     {
         get
@@ -138,16 +128,6 @@ open class CombinedChartData: ChartData
         }
         
         return data
-    }
-    
-    open func dataByIndex(_ index: Int) -> ChartData
-    {
-        return allData[index]
-    }
-    
-    open func dataIndex(_ data: ChartData) -> Int?
-    {
-        return allData.index(of: data)
     }
     
     open override func notifyDataChanged()

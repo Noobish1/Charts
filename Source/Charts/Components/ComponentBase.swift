@@ -14,7 +14,7 @@ import CoreGraphics
 
 
 /// Base class for Axes
-open class ComponentBase: NSObject
+open class ComponentBase
 {
     /// flag that indicates if this component is enabled or not
     open var enabled = true
@@ -26,11 +26,6 @@ open class ComponentBase: NSObject
     /// The offset this component has on the x-axis
     /// **default**: 5.0 (or 0.0 on ChartYAxis)
     open var yOffset = CGFloat(5.0)
-    
-    public override init()
-    {
-        super.init()
-    }
 
     open var isEnabled: Bool { return enabled }
 }
