@@ -54,14 +54,6 @@ open class LineChartRenderer: BarLineScatterRenderer
         context.saveGState()
         
         context.setLineWidth(dataSet.lineWidth)
-        if dataSet.lineDashLengths != nil
-        {
-            context.setLineDash(phase: dataSet.lineDashPhase, lengths: dataSet.lineDashLengths!)
-        }
-        else
-        {
-            context.setLineDash(phase: 0.0, lengths: [])
-        }
         
         // if drawing cubic lines is enabled
         switch dataSet.mode

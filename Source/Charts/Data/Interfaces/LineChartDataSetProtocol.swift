@@ -50,14 +50,6 @@ public protocol LineChartDataSetProtocol: ChartDataSetProtocol
     /// **default**: 0.2
     var cubicIntensity: CGFloat { get set }
     
-    /// This is how much (in pixels) into the dash pattern are we starting from.
-    var lineDashPhase: CGFloat { get }
-    
-    /// This is the actual dash pattern.
-    /// I.e. [2, 3] will paint [--   --   ]
-    /// [1, 3, 4, 2] will paint [-   ----  -   ----  ]
-    var lineDashLengths: [CGFloat]? { get set }
-    
     /// Line cap type, default is CGLineCap.Butt
     var lineCapType: CGLineCap { get set }
     

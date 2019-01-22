@@ -116,14 +116,6 @@ open class LineChartDataSet: ChartDataSet, LineChartDataSetProtocol
         }
     }
     
-    /// This is how much (in pixels) into the dash pattern are we starting from.
-    open var lineDashPhase = CGFloat(0.0)
-    
-    /// This is the actual dash pattern.
-    /// I.e. [2, 3] will paint [--   --   ]
-    /// [1, 3, 4, 2] will paint [-   ----  -   ----  ]
-    open var lineDashLengths: [CGFloat]?
-    
     /// Line cap type, default is CGLineCap.Butt
     open var lineCapType = CGLineCap.butt
     
@@ -151,8 +143,6 @@ open class LineChartDataSet: ChartDataSet, LineChartDataSetProtocol
         copy._lineWidth = _lineWidth
         copy.drawFilledEnabled = drawFilledEnabled
         copy.cubicIntensity = cubicIntensity
-        copy.lineDashPhase = lineDashPhase
-        copy.lineDashLengths = lineDashLengths
         copy.lineCapType = lineCapType
         copy.mode = mode
         return copy

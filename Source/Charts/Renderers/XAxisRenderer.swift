@@ -126,14 +126,6 @@ open class XAxisRenderer: AxisRendererBase
         
         context.setStrokeColor(xAxis.axisLineColor.cgColor)
         context.setLineWidth(xAxis.axisLineWidth)
-        if xAxis.axisLineDashLengths != nil
-        {
-            context.setLineDash(phase: xAxis.axisLineDashPhase, lengths: xAxis.axisLineDashLengths)
-        }
-        else
-        {
-            context.setLineDash(phase: 0.0, lengths: [])
-        }
         
         if xAxis.labelPosition == .top
             || xAxis.labelPosition == .topInside
@@ -285,15 +277,6 @@ open class XAxisRenderer: AxisRendererBase
         context.setStrokeColor(xAxis.gridColor.cgColor)
         context.setLineWidth(xAxis.gridLineWidth)
         context.setLineCap(xAxis.gridLineCap)
-        
-        if xAxis.gridLineDashLengths != nil
-        {
-            context.setLineDash(phase: xAxis.gridLineDashPhase, lengths: xAxis.gridLineDashLengths)
-        }
-        else
-        {
-            context.setLineDash(phase: 0.0, lengths: [])
-        }
         
         let valueToPixelMatrix = transformer.valueToPixelMatrix
         

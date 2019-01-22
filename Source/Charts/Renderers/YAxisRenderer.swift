@@ -89,14 +89,6 @@ open class YAxisRenderer: AxisRendererBase
         
         context.setStrokeColor(yAxis.axisLineColor.cgColor)
         context.setLineWidth(yAxis.axisLineWidth)
-        if yAxis.axisLineDashLengths != nil
-        {
-            context.setLineDash(phase: yAxis.axisLineDashPhase, lengths: yAxis.axisLineDashLengths)
-        }
-        else
-        {
-            context.setLineDash(phase: 0.0, lengths: [])
-        }
         
         if yAxis.axisDependency == .left
         {
@@ -170,16 +162,6 @@ open class YAxisRenderer: AxisRendererBase
             context.setStrokeColor(yAxis.gridColor.cgColor)
             context.setLineWidth(yAxis.gridLineWidth)
             context.setLineCap(yAxis.gridLineCap)
-            
-            if yAxis.gridLineDashLengths != nil
-            {
-                context.setLineDash(phase: yAxis.gridLineDashPhase, lengths: yAxis.gridLineDashLengths)
-                
-            }
-            else
-            {
-                context.setLineDash(phase: 0.0, lengths: [])
-            }
             
             // draw the grid
             for i in 0 ..< positions.count
@@ -257,15 +239,6 @@ open class YAxisRenderer: AxisRendererBase
         context.setLineWidth(yAxis.zeroLineWidth)
         
         let pos = transformer.pixelForValues(x: 0.0, y: 0.0)
-    
-        if yAxis.zeroLineDashLengths != nil
-        {
-            context.setLineDash(phase: yAxis.zeroLineDashPhase, lengths: yAxis.zeroLineDashLengths!)
-        }
-        else
-        {
-            context.setLineDash(phase: 0.0, lengths: [])
-        }
         
         context.move(to: CGPoint(x: viewPortHandler.contentLeft, y: pos.y))
         context.addLine(to: CGPoint(x: viewPortHandler.contentRight, y: pos.y))

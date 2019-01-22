@@ -29,13 +29,9 @@ open class AxisBase: ComponentBase
     
     open var axisLineColor = UIColor.gray
     open var axisLineWidth = CGFloat(0.5)
-    open var axisLineDashPhase = CGFloat(0.0)
-    open var axisLineDashLengths: [CGFloat]!
     
     open var gridColor = UIColor.gray.withAlphaComponent(0.9)
     open var gridLineWidth = CGFloat(0.5)
-    open var gridLineDashPhase = CGFloat(0.0)
-    open var gridLineDashLengths: [CGFloat]!
     open var gridLineCap = CGLineCap.butt
     
     open var drawGridLinesEnabled = true
