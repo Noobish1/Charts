@@ -139,13 +139,6 @@ open class ChartViewBase: UIView, ChartDataProvider
         setNeedsDisplay()
     }
     
-    /// Removes all DataSets (and thereby Entries) from the chart. Does not set the data object to nil. Also refreshes the chart by calling setNeedsDisplay().
-    open func clearValues()
-    {
-        _data?.clearValues()
-        setNeedsDisplay()
-    }
-    
     /// Lets the chart know its underlying data has changed and should perform all necessary recalculations.
     /// It is crucial that this method is called everytime data is changed dynamically. Not calling this method can lead to crashes or unexpected behaviour.
     open func notifyDataSetChanged()

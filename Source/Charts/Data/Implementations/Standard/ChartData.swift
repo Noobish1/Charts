@@ -320,14 +320,6 @@ open class ChartData: NSObject
         return nil
     }
     
-    /// Clears this data object from all DataSets and removes all Entries.
-    /// Don't forget to invalidate the chart after this.
-    open func clearValues()
-    {
-        dataSets.removeAll(keepingCapacity: false)
-        notifyDataChanged()
-    }
-    
     /// - returns: The total entry count across all DataSet objects this data object contains.
     open var entryCount: Int
     {
