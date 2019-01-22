@@ -12,7 +12,7 @@
 import Foundation
 import CoreGraphics
 
-public enum Fill {
+public enum Fill: Equatable {
     case empty
     case color(CGColor)
     case linearGradient(CGGradient, angle: CGFloat)

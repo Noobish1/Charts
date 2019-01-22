@@ -26,22 +26,13 @@ open class LineChartDataSet: ChartDataSet, LineChartDataSetProtocol
     // MARK: - Styling functions and accessors
     
     /// The color that is used for filling the line surface area.
-    private var _fillColor = UIColor(red: 140.0/255.0, green: 234.0/255.0, blue: 255.0/255.0, alpha: 1.0)
-    
-    /// The color that is used for filling the line surface area.
-    open var fillColor: UIColor
-    {
-        get { return _fillColor }
-        set
-        {
-            _fillColor = newValue
-            fill = nil
-        }
-    }
+    open var fillColor = UIColor(
+        red: 140.0/255.0, green: 234.0/255.0, blue: 255.0/255.0, alpha: 1.0
+    )
     
     /// The object that is used for filling the area below the line.
     /// **default**: nil
-    open var fill: Fill?
+    open var fill: Fill = .empty
     
     /// The alpha value that is used for filling the line surface,
     /// **default**: 0.33

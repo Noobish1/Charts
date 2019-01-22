@@ -21,7 +21,7 @@ public protocol LineChartDataSetProtocol: ChartDataSetProtocol
     
     /// - returns: The object that is used for filling the area below the line.
     /// **default**: nil
-    var fill: Fill? { get set }
+    var fill: Fill { get set }
     
     /// The alpha value that is used for filling the line surface.
     /// **default**: 0.33

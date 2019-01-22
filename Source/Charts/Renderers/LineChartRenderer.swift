@@ -288,13 +288,20 @@ open class LineChartRenderer: BarLineScatterRenderer
         spline.addLine(to: pt2)
         spline.closeSubpath()
         
-        if dataSet.fill != nil
-        {
-            drawFilledPath(context: context, path: spline, fill: dataSet.fill!, fillAlpha: dataSet.fillAlpha)
-        }
-        else
-        {
-            drawFilledPath(context: context, path: spline, fillColor: dataSet.fillColor, fillAlpha: dataSet.fillAlpha)
+        if dataSet.fill == .empty {
+            drawFilledPath(
+                context: context,
+                path: spline,
+                fillColor: dataSet.fillColor,
+                fillAlpha: dataSet.fillAlpha
+            )
+        } else {
+            drawFilledPath(
+                context: context,
+                path: spline,
+                fill: dataSet.fill,
+                fillAlpha: dataSet.fillAlpha
+            )
         }
     }
     
@@ -456,13 +463,20 @@ open class LineChartRenderer: BarLineScatterRenderer
             bounds: bounds,
             matrix: trans.valueToPixelMatrix)
         
-        if dataSet.fill != nil
-        {
-            drawFilledPath(context: context, path: filled, fill: dataSet.fill!, fillAlpha: dataSet.fillAlpha)
-        }
-        else
-        {
-            drawFilledPath(context: context, path: filled, fillColor: dataSet.fillColor, fillAlpha: dataSet.fillAlpha)
+        if dataSet.fill == .empty {
+            drawFilledPath(
+                context: context,
+                path: filled,
+                fillColor: dataSet.fillColor,
+                fillAlpha: dataSet.fillAlpha
+            )
+        } else {
+            drawFilledPath(
+                context: context,
+                path: filled,
+                fill: dataSet.fill,
+                fillAlpha: dataSet.fillAlpha
+            )
         }
     }
     
