@@ -11,12 +11,20 @@
 
 import Foundation
 
-public struct ChartDataEntry: Equatable {
+// MARK: ChartDataEntry
+open class ChartDataEntry {
     public var x: Double
     public var y: Double
     
     public init(x: Double, y: Double) {
         self.x = x
         self.y = y
+    }
+}
+
+// MARK: Equatable
+extension ChartDataEntry: Equatable {
+    public static func == (lhs: ChartDataEntry, rhs: ChartDataEntry) -> Bool {
+        return lhs.x == rhs.x && lhs.y == rhs.y
     }
 }
