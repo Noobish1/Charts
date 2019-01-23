@@ -12,12 +12,12 @@
 import Foundation
 import CoreGraphics
 
-open class CombinedChartRenderer: DataRenderer
+open class CombinedChartRenderer: DataRendererProtocol
 {
     open weak var chart: CombinedChartView?
     public var viewPortHandler: ViewPortHandler
     
-    internal var _renderers = [DataRenderer]()
+    internal var _renderers = [DataRendererProtocol]()
     
     internal var _drawOrder: [CombinedChartView.DrawOrder] = [.line, .scatter]
     
@@ -32,7 +32,7 @@ open class CombinedChartRenderer: DataRenderer
     /// Creates the renderers needed for this combined-renderer in the required order. Also takes the DrawOrder into consideration.
     internal func createRenderers()
     {
-        _renderers = [DataRenderer]()
+        _renderers = [DataRendererProtocol]()
         
         guard let chart = chart else { return }
 
@@ -82,7 +82,7 @@ open class CombinedChartRenderer: DataRenderer
     }
 
     /// - returns: The sub-renderer object at the specified index.
-    open func getSubRenderer(index: Int) -> DataRenderer?
+    open func getSubRenderer(index: Int) -> DataRendererProtocol?
     {
         if index >= _renderers.count || index < 0
         {
@@ -95,7 +95,7 @@ open class CombinedChartRenderer: DataRenderer
     }
 
     /// - returns: All sub-renderers.
-    open var subRenderers: [DataRenderer]
+    open var subRenderers: [DataRendererProtocol]
     {
         get { return _renderers }
         set { _renderers = newValue }

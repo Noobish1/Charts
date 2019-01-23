@@ -13,7 +13,7 @@ import Foundation
 import CoreGraphics
 
 // MARK: DataRendererProtocol
-public protocol DataRenderer: RendererProtocol {
+public protocol DataRendererProtocol: RendererProtocol {
     func drawData(context: CGContext)
     func drawValues(context: CGContext)
     
@@ -23,7 +23,7 @@ public protocol DataRenderer: RendererProtocol {
 }
 
 // MARK: extensions
-public extension DataRenderer {
+public extension DataRendererProtocol {
     public func isDrawingValuesAllowed(dataProvider: ChartDataProvider?) -> Bool {
         guard let data = dataProvider?.data else {
             return false

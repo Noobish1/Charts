@@ -12,7 +12,7 @@
 import Foundation
 import CoreGraphics
 
-internal protocol BarLineScatterRendererProtocol: DataRenderer
+internal protocol BarLineScatterRendererProtocol: DataRendererProtocol
 {
     // MARK: properties
     var _xBounds: XBounds { get set } // Reusable XBounds object
