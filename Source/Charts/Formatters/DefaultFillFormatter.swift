@@ -20,7 +20,7 @@ public class DefaultFillFormatter {}
 extension DefaultFillFormatter: FillFormatterProtocol {
     public func getFillLinePosition(
         dataSet: LineChartDataSetProtocol,
-        dataProvider: LineChartDataProvider
+        dataProvider: LineChartDataProviderProtocol
     ) -> CGFloat {
         var fillMin: CGFloat = 0.0
 

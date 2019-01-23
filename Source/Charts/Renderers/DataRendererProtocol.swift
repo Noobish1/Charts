@@ -24,7 +24,7 @@ public protocol DataRendererProtocol: RendererProtocol {
 
 // MARK: extensions
 public extension DataRendererProtocol {
-    public func isDrawingValuesAllowed(dataProvider: ChartDataProvider?) -> Bool {
+    public func isDrawingValuesAllowed(dataProvider: ChartDataProviderProtocol?) -> Bool {
         guard let data = dataProvider?.data else {
             return false
         }

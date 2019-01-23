@@ -12,7 +12,7 @@
 import Foundation
 import CoreGraphics
 
-public protocol CombinedChartDataProvider: LineChartDataProvider, ScatterChartDataProvider
+public protocol CombinedChartDataProviderProtocol: LineChartDataProviderProtocol, ScatterChartDataProviderProtocol
 {
     var combinedData: CombinedChartData? { get }
 }

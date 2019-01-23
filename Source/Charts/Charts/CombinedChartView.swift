@@ -13,7 +13,7 @@ import Foundation
 import CoreGraphics
 
 /// This chart class allows the combination of lines, bars, scatter and candle data all displayed in one chart area.
-open class CombinedChartView: BarLineChartViewBase, CombinedChartDataProvider
+open class CombinedChartView: BarLineChartViewBase, CombinedChartDataProviderProtocol
 {
     /// the fill-formatter used for determining the position of the fill-line
     open var fillFormatter: FillFormatterProtocol = DefaultFillFormatter()

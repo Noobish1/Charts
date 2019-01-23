@@ -16,11 +16,11 @@ import UIKit
 open class ScatterChartRenderer: BarLineScatterRendererProtocol {
     // MARK: properties
     public var viewPortHandler: ViewPortHandler
-    open weak var dataProvider: ScatterChartDataProvider?
+    open weak var dataProvider: ScatterChartDataProviderProtocol?
     internal var _xBounds = XBounds()
     
     // MARK: init
-    public init(dataProvider: ScatterChartDataProvider, viewPortHandler: ViewPortHandler) {
+    public init(dataProvider: ScatterChartDataProviderProtocol, viewPortHandler: ViewPortHandler) {
         self.viewPortHandler = viewPortHandler
         self.dataProvider = dataProvider
     }

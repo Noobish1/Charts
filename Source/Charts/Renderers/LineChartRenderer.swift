@@ -18,10 +18,10 @@ open class LineChartRenderer: BarLineScatterRendererProtocol
     // MARK: properties
     public var viewPortHandler: ViewPortHandler
     internal var _xBounds = XBounds()
-    open weak var dataProvider: LineChartDataProvider?
+    open weak var dataProvider: LineChartDataProviderProtocol?
     
     // MARK: init
-    public init(dataProvider: LineChartDataProvider, viewPortHandler: ViewPortHandler) {
+    public init(dataProvider: LineChartDataProviderProtocol, viewPortHandler: ViewPortHandler) {
         self.viewPortHandler = viewPortHandler
         
         self.dataProvider = dataProvider

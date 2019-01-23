@@ -24,7 +24,7 @@ public struct XBounds {
         self.range = 0
     }
     
-    public init(chart: BarLineScatterChartDataProvider, dataSet: ChartDataSetProtocol) {
+    public init(chart: BarLineScatterChartDataProviderProtocol, dataSet: ChartDataSetProtocol) {
         let phaseX = Swift.max(0.0, 1.0)
         let entryFrom = dataSet.entryForXValue(
             chart.lowestVisibleX,

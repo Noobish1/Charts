@@ -14,7 +14,7 @@ import CoreGraphics
 import UIKit
 
 /// Base-class of LineChart, BarChart, ScatterChart and CandleStickChart.
-open class BarLineChartViewBase: UIView, BarLineScatterChartDataProvider
+open class BarLineChartViewBase: UIView, BarLineScatterChartDataProviderProtocol
 {
     /// - returns: The object representing all x-labels, this method can be used to
     /// acquire the XAxis object and modify it (e.g. change the position of the

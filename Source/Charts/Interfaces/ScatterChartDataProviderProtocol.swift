@@ -12,7 +12,7 @@
 import Foundation
 import CoreGraphics
 
-public protocol ScatterChartDataProvider: BarLineScatterChartDataProvider
+public protocol ScatterChartDataProviderProtocol: BarLineScatterChartDataProviderProtocol
 {
     var scatterData: ScatterChartData? { get }
 }

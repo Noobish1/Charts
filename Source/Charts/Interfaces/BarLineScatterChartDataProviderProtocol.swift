@@ -12,7 +12,7 @@
 import Foundation
 import CoreGraphics
 
-public protocol BarLineScatterChartDataProvider: ChartDataProvider
+public protocol BarLineScatterChartDataProviderProtocol: ChartDataProviderProtocol
 {
     func getTransformer(forAxis: YAxis.AxisDependency) -> Transformer
     func isInverted(axis: YAxis.AxisDependency) -> Bool

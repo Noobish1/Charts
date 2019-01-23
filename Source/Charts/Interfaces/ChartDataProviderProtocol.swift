@@ -12,7 +12,7 @@
 import Foundation
 import CoreGraphics
 
-public protocol ChartDataProvider: AnyObject
+public protocol ChartDataProviderProtocol: AnyObject
 {    
     /// - returns: The minimum y-value of the chart.
     var chartYMin: Double { get }
