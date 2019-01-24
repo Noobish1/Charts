@@ -211,28 +211,28 @@ open class BarLineChartViewBase: UIView, BarLineScatterChartDataProviderProtocol
     open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?)
     {
         // Saving current position of chart.
-        var oldPoint: CGPoint?
-        if (keepPositionOnRotation && (keyPath == "frame" || keyPath == "bounds"))
-        {
-            oldPoint = viewPortHandler.contentRect.origin
-            getTransformer(forAxis: .left).pixelToValues(&oldPoint!)
-        }
-        
-        if keyPath == "bounds" || keyPath == "frame"
-        {
-            let bounds = self.bounds
-            
-            if (_viewPortHandler !== nil &&
-                (bounds.size.width != _viewPortHandler.chartWidth ||
-                    bounds.size.height != _viewPortHandler.chartHeight))
-            {
-                _viewPortHandler.setChartDimens(width: bounds.size.width, height: bounds.size.height)
-                
-                // This may cause the chart view to mutate properties affecting the view port -- lets do this
-                // before we try to run any pending jobs on the view port itself
-                notifyDataSetChanged()
-            }
-        }
+//        var oldPoint: CGPoint?
+//        if (keepPositionOnRotation && (keyPath == "frame" || keyPath == "bounds"))
+//        {
+//            oldPoint = viewPortHandler.contentRect.origin
+//            getTransformer(forAxis: .left).pixelToValues(&oldPoint!)
+//        }
+//
+//        if keyPath == "bounds" || keyPath == "frame"
+//        {
+//            let bounds = self.bounds
+//
+//            if (_viewPortHandler !== nil &&
+//                (bounds.size.width != _viewPortHandler.chartWidth ||
+//                    bounds.size.height != _viewPortHandler.chartHeight))
+//            {
+//                _viewPortHandler.setChartDimens(width: bounds.size.width, height: bounds.size.height)
+//
+//                // This may cause the chart view to mutate properties affecting the view port -- lets do this
+//                // before we try to run any pending jobs on the view port itself
+//                notifyDataSetChanged()
+//            }
+//        }
         
         // Restoring old position of chart
 //        if var newPoint = oldPoint , keepPositionOnRotation
