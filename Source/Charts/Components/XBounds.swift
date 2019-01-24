@@ -24,7 +24,10 @@ public struct XBounds {
         self.range = 0
     }
     
-    public init(chart: BarLineScatterChartDataProviderProtocol, dataSet: ChartDataSetProtocol) {
+    public init(
+        chart: BarLineScatterChartDataProviderProtocol,
+        dataSet: ChartDataSetProtocol
+    ) {
         let entryFrom = dataSet.entryForXValue(
             chart.lowestVisibleX,
             closestToY: .nan,
