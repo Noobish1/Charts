@@ -235,15 +235,15 @@ open class BarLineChartViewBase: UIView, BarLineScatterChartDataProviderProtocol
         }
         
         // Restoring old position of chart
-        if var newPoint = oldPoint , keepPositionOnRotation
-        {
-            getTransformer(forAxis: .left).pointValueToPixel(&newPoint)
-            viewPortHandler.centerViewPort(pt: newPoint, chart: self)
-        }
-        else
-        {
-            viewPortHandler.refresh(newMatrix: viewPortHandler.touchMatrix, chart: self)
-        }
+//        if var newPoint = oldPoint , keepPositionOnRotation
+//        {
+//            getTransformer(forAxis: .left).pointValueToPixel(&newPoint)
+//            viewPortHandler.centerViewPort(pt: newPoint, chart: self)
+//        }
+//        else
+//        {
+//            viewPortHandler.refresh(newMatrix: viewPortHandler.touchMatrix, chart: self)
+//        }
     }
     
     open override func draw(_ rect: CGRect)

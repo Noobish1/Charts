@@ -44,10 +44,10 @@ open class ViewPortHandler {
 
     open func restrainViewPort(offsetLeft: CGFloat, offsetTop: CGFloat, offsetRight: CGFloat, offsetBottom: CGFloat)
     {
-//        _contentRect.origin.x = offsetLeft
-//        _contentRect.origin.y = offsetTop
-//        _contentRect.size.width = _chartWidth - offsetLeft - offsetRight
-//        _contentRect.size.height = _chartHeight - offsetBottom - offsetTop
+        _contentRect.origin.x = offsetLeft
+        _contentRect.origin.y = offsetTop
+        _contentRect.size.width = _chartWidth - offsetLeft - offsetRight
+        _contentRect.size.height = _chartHeight - offsetBottom - offsetTop
     }
     
     open var offsetLeft: CGFloat
@@ -122,22 +122,22 @@ open class ViewPortHandler {
     /// Makes most sense in combination with the setScaleMinima(...) method.
     open func centerViewPort(pt: CGPoint, chart: BarLineChartViewBase)
     {
-        let translateX = pt.x - offsetLeft
-        let translateY = pt.y - offsetTop
-        
-        let matrix = _touchMatrix.concatenating(CGAffineTransform(translationX: -translateX, y: -translateY))
-        refresh(newMatrix: matrix, chart: chart)
+//        let translateX = pt.x - offsetLeft
+//        let translateY = pt.y - offsetTop
+//
+//        let matrix = _touchMatrix.concatenating(CGAffineTransform(translationX: -translateX, y: -translateY))
+//        refresh(newMatrix: matrix, chart: chart)
     }
     
     /// call this method to refresh the graph with a given matrix
-     @discardableResult open func refresh(newMatrix: CGAffineTransform, chart: BarLineChartViewBase) -> CGAffineTransform
-    {
-        _touchMatrix = newMatrix
-        
-        chart.setNeedsDisplay()
-        
-        return _touchMatrix
-    }
+//     @discardableResult open func refresh(newMatrix: CGAffineTransform, chart: BarLineChartViewBase) -> CGAffineTransform
+//    {
+//        _touchMatrix = newMatrix
+//
+//        chart.setNeedsDisplay()
+//
+//        return _touchMatrix
+//    }
 
     open var touchMatrix: CGAffineTransform
     {
