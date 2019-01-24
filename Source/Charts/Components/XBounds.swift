@@ -25,7 +25,6 @@ public struct XBounds {
     }
     
     public init(chart: BarLineScatterChartDataProviderProtocol, dataSet: ChartDataSetProtocol) {
-        let phaseX = Swift.max(0.0, 1.0)
         let entryFrom = dataSet.entryForXValue(
             chart.lowestVisibleX,
             closestToY: .nan,
@@ -39,6 +38,6 @@ public struct XBounds {
         
         self.min = entryFrom == nil ? 0 : dataSet.entryIndex(entry: entryFrom!)
         self.max = entryTo == nil ? 0 : dataSet.entryIndex(entry: entryTo!)
-        self.range = Int(Double(self.max - self.min) * phaseX)
+        self.range = Int(Double(self.max - self.min))
     }
 }
