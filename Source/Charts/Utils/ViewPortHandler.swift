@@ -39,8 +39,6 @@ open class ViewPortHandler {
         _chartHeight = height
         _chartWidth = width
         
-        print("height: \(height), width: \(width), offsets: \(offsetTop), \(offsetLeft), \(offsetBottom), offsetRight)")
-        
         restrainViewPort(offsetLeft: offsetLeft, offsetTop: offsetTop, offsetRight: offsetRight, offsetBottom: offsetBottom)
     }
 
